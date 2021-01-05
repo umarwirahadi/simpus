@@ -20,3 +20,6 @@ Route::resource('item', 'ItemController');
 Route::post('fetchitem','ItemController@fetch')->name('fetchitem');
 
 Route::resource('poli', 'PoliController');
+
+// billing
+Route::get('billing','BillingController@index');

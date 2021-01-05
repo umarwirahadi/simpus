@@ -4,7 +4,9 @@
 
     <div class="card card-outline card-danger" >
         <div class="card-header">
-            <h3 class="card-title">Title</h3>
+            <h3 class="card-title">
+                <a href="{{route('poli.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i>Tambah</a>
+            </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
@@ -15,7 +17,6 @@
             </div>
         </div>
         <div class="card-body">
-
             <div class="table table-responsive">
                         <table id="data-poli" class="table table-bordered table-striped">
                             <thead>
@@ -35,9 +36,9 @@
                                     <td>{{$item->poli}}</td>
                                     <td>{{$item->status==1?'Aktif':'Tidak aktif'}}</td>
                                     <td>
-                                        <a href="" class="btn btn-xs btn-primary"><i class="far fa-eye"
+                                        <a href="" class="btn btn-xs btn-outline-primary"><i class="far fa-eye"
                                                 title="Detail poli"></i></a>
-                                        <a href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"
+                                        <a href="" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"
                                                 title="Hapus"></i></a>
                                     </td>
                                 </tr>
@@ -48,7 +49,7 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-            Footer
+            Data Poli
         </div>
         <!-- /.card-footer-->
     </div>
