@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $table="items";
-    protected $fillable=['item','kategori','status'];
+    protected $fillable=['kode','item','kategori','status'];
 }

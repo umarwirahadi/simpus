@@ -14,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $dataItem=Item::all();
+        $dataItem=Item::all()->sortBy('kategori');
         $data=[
             'menu'=>'Master',
             'submenu'=>'item',
@@ -33,7 +33,16 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+          $data=[
+            'menu'=>'Master',
+            'submenu'=>'item',
+            'aksi'=>'Tambah item',
+            'judul'=>'Data item',
+            'isDataTable'=>false,
+            'isJS'=>'item.js',
+            'data'=>null
+        ];
+        return view('item.add',$data);
     }
 
     /**
@@ -44,7 +53,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item=new Item;
+        $item->kode=!empty($request->get('kode'))?$request->get('kode'):'';
+        $item->item=!empty($request->get('item'))?$request->get('item'):'';
+        $item->kategori=!empty($request->get('kategori'))?$request->get('kategori'):'';
+        $item->status=!empty($request->get('status'))?$request->get('status'):'';        
+        $item->save();
+        return redirect()->route('item.index')->with('status', 'data item berhasil disimpan');
     }
 
     /**

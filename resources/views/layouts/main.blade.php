@@ -15,6 +15,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -50,7 +52,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li><a href="/pasien" class="dropdown-item">- Dokter</a></li>
                 <li><a href="/poli" class="dropdown-item">- Poli </a></li>
                 <li><a href="/rekening" class="dropdown-item">- Rekening </a></li>
-                <li><a href="/rekening" class="dropdown-item">- Item </a></li>
+                <li><a href="/item" class="dropdown-item">- Item </a></li>
                 <li><a href="/rekening" class="dropdown-item">- SDM </a></li>
                 <li class="dropdown-divider"></li>
                 <li><a href="/rekening" class="dropdown-item">- P-Care </a></li>
@@ -293,11 +295,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- jQuery -->
-<script src="{{('assets/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap 4 -->
-<script src="{{('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('assets/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{('assets/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+
 <!-- AdminLTE for demo purposes -->
 {{-- <script src="{{('assets/dist/js/demo.js')}}"></script> --}}
 
@@ -318,7 +322,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
 @if ($isJS??'')
-<script src="{{('assets/dist/js/custom/'.$isJS)}}"></script>
+<script src="{{asset('assets/dist/js/custom/'.$isJS)}}"></script>
 @endif
 </body>
 </html>
