@@ -81,7 +81,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Transaksi</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                <li><a href="/pasien" class="dropdown-item">- Pendaftaran</a></li>
+                <li><a href="/pendaftaran" class="dropdown-item">- Pendaftaran</a></li>
                 <li><a href="/poli" class="dropdown-item">- Pemeriksaan </a></li>
                 <li><a href="/billing" class="dropdown-item">- Billing </a></li>
                 <li><a href="/rekening" class="dropdown-item">- Rujukan </a></li>

@@ -28,3 +28,6 @@ Route::get('billing','BillingController@index');
 Route::get('/helper-kustom',function(){
     return KustomHelper::getItem('Jenis-Kelamin');  
 });
+
+// pendaftaran 
+Route::resource('pendaftaran', 'PendaftaranController');
