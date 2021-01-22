@@ -15,10 +15,12 @@ class CreatePasiensTable extends Migration
     {
         Schema::create('pasiens', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no_kk');
             $table->string('nik');
-            $table->string('no_rm');
+            $table->string('no_kk');
             $table->string('status_hubungan');
+            $table->string('no_bpjs');
+            $table->string('no_rm');
+            $table->string('no_rm_lama');
             $table->string('nama_lengkap');
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
@@ -39,7 +41,11 @@ class CreatePasiensTable extends Migration
             $table->string('pos');
             $table->string('status_marital');
             $table->string('pendidikan_terakhir');
+            $table->string('suku');
+            $table->string('pekerjaan');
             $table->string('penanggung_jawab');
+            $table->string('nama_ayah');
+            $table->string('nama_ibu');
             $table->string('hubungan_dengan_penanggung_jawab');
             $table->string('status_pasien');
             $table->timestamps();

@@ -4,7 +4,7 @@
 
 <div class="col-lg-12">
     <div class="callout callout-info">
-        <button class="btn btn-primary btn-xs" onclick="window.location.href='pendaftaran/create'"><i class="fa fa-plus-circle"></i> Tambah</button>
+        <button class="btn btn-primary btn-xs" onclick="window.location.href='pendaftaran/create'"><i class="fa fa-plus-circle"></i> Tambah (F2)</button>
         {{-- <h6><i class="fas fa-info"></i> Note: klik tambah untuk pendaftaran kunjungan</h6> --}}
       </div>
     <div class="card card-outline card-primary">

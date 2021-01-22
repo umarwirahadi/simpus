@@ -14,6 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
@@ -67,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a tabindex="-1" href="#" class="dropdown-item">Wilayah kerja</a>
                   </li>
                   <li>
-                    <a tabindex="-1" href="#" class="dropdown-item">Alamat</a>
+                    <a tabindex="-1" href="/wilayah" class="dropdown-item">Alamat</a>
                   </li>
 
 
@@ -305,7 +306,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE for demo purposes -->
 {{-- <script src="{{('assets/dist/js/demo.js')}}"></script> --}}
 
-
+<!-- AdminLTE for demo purposes -->
+<script src="{{asset('assets/dist/js/demo.js')}}"></script>
 
 {{-- datatables --}}
 <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>

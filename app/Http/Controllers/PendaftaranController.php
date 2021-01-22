@@ -34,7 +34,7 @@ class PendaftaranController extends Controller
     {
         $data=[
             'menu'=>'Transaksi',
-            'submenu'=>'Tambah',
+            'submenu'=>'Pendaftaran',
             'aksi'=>'Tambah data pasien',
             'judul'=>'Pendaftaran Pasien',
             'isDataTable'=>true,

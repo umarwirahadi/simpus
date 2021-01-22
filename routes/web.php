@@ -11,6 +11,12 @@
 |
 */
 
+Route::resource('pasien', 'PasienController');
+Route::resource('wilayah', 'WilayahController');
+
+Route::get('wilayah-fetch', 'WilayahController@fetch');
+
+
 Route::get('/', function () {
     return view('layouts.main');
 });

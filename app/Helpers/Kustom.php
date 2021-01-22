@@ -35,5 +35,25 @@ class Kustom{
         }        
         return $dataItem;
     }
+
+    public static function getPoli($default=''){
+        $item=DB::table('polis')->where('status',1)->get();
+        $dataItem="";
+        if(!empty($default)){
+            foreach ($item as $key) {
+                if($key->kode===$default){
+                    $dataItem .="<option value='".$key->kode."' selected>".$key->poli."</option>";
+                }else{
+                    $dataItem .="<option value='".$key->kode."'>".$key->poli."</option>";
+                }                
+            }  
+        }else{
+            foreach($item as $key){
+                $dataItem .="<option value='".$key->kode."'>".$key->poli."</option>";            
+            }
+        }
+              
+        return $dataItem;
+    }
 }
 ?>

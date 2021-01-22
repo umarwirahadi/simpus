@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Pasien;
+use App\wilayah;
 use Illuminate\Http\Request;
+use DataTables;
 
-class PasienController extends Controller
+class WilayahController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +17,13 @@ class PasienController extends Controller
     {
         $data=[
             'menu'=>'Data',
-            'submenu'=>'pasien',
-            'judul'=>'Data pasien',
+            'submenu'=>'Alamat',
+            'judul'=>'Data Alamat',
             'isDataTable'=>true,
-            'isJS'=>'pasien.js',
+            'isJS'=>'wilayah.js',
             'dataItem'=>null
         ];
-        return view('pasien.index',$data);
+        return view('wilayah.index',$data);
     }
 
     /**
@@ -32,16 +33,7 @@ class PasienController extends Controller
      */
     public function create()
     {
-        $data=[
-            'menu'=>'Data',
-            'submenu'=>'pasien',
-            'aksi'=>'Tambah Pasien',
-            'judul'=>'Data item',
-            'isDataTable'=>false,
-            'isJS'=>'item.js',
-            'data'=>null
-        ];
-        return view('pasien.add',$data);
+        //
     }
 
     /**
@@ -58,10 +50,10 @@ class PasienController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Pasien  $pasien
+     * @param  \App\wilayah  $wilayah
      * @return \Illuminate\Http\Response
      */
-    public function show(Pasien $pasien)
+    public function show(wilayah $wilayah)
     {
         //
     }
@@ -69,10 +61,10 @@ class PasienController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Pasien  $pasien
+     * @param  \App\wilayah  $wilayah
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pasien $pasien)
+    public function edit(wilayah $wilayah)
     {
         //
     }
@@ -81,10 +73,10 @@ class PasienController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pasien  $pasien
+     * @param  \App\wilayah  $wilayah
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pasien $pasien)
+    public function update(Request $request, wilayah $wilayah)
     {
         //
     }
@@ -92,11 +84,22 @@ class PasienController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Pasien  $pasien
+     * @param  \App\wilayah  $wilayah
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pasien $pasien)
+    public function destroy(wilayah $wilayah)
     {
         //
+    }
+
+
+    public function fetch()
+    {
+        // $wilayah=DB::table('wilayahs')->select('*');
+        $wilayah=Wilayah::all();
+        // $wilayah=Wilayah::select('id','kel','kec','kotakab','prov','pos');
+
+        // return Datatables()->of($wilayah)->make(true);
+        return Datatables()->of($wilayah)->toJson();
     }
 }
