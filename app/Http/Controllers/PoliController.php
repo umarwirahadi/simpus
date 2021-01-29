@@ -59,7 +59,7 @@ class PoliController extends Controller
         $poli->status=$request->get('status');
         $poli->tanggal_aktif=$request->get('tanggal_aktif');
         $poli->deskripsi=$request->get('deskripsi');
-        $poli->save();
+        $poli->save();        
         return redirect()->route('poli.index')->with('status', 'data Poli berhasil disimpan');
     }
 
@@ -116,15 +116,21 @@ class PoliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $poli=Poli::find($id);
-        $poli->kode             =$request->kode?$request->kode:$poli->kode;
-        $poli->poli             =$request->poli?$request->poli:$poli->poli;
-        $poli->tanggal_aktif    =$request->tanggal_aktif?$request->tanggal_aktif:$poli->tanggal_aktif;
-        $poli->status           =$request->status?$request->status:$poli->status;
-        $poli->deskripsi        =$request->deskripsi?$request->deskripsi:$poli->deskripsi;
-        $poli->save;
-        return response()->json(['data'=>$poli,'message'=>'data poli berhasil diupadte']);
-        }
+        $poli= Poli::find($id);
+        if($poli){
+            $poli->kode             =$request->post('kode');
+            $poli->poli             =$request->post('poli');
+            $poli->tanggal_aktif    =$request->post('tanggal_aktif');
+            $poli->status           =$request->post('status');
+            $poli->deskripsi        =$request->post('deskripsi');
+            $poli->save;
+            return redirect()->route('poli.index')->with('status', 'data Poli berhasil diupdate');
+            
+        }else{
+            return redirect()->route('poli.index')->with('status', 'data Poli gagal diupdate');
+        }       
+        
+    }
 
     /**
      * Remove the specified resource from storage.
