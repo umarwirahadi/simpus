@@ -262,6 +262,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               @if($submenu??'')
                 <li class="breadcrumb-item"><a href="javascript:void(0)">{{$submenu??''}}</a></li>
               @endif
+              @if($submenu2??'')
+                <li class="breadcrumb-item"><a href="javascript:void(0)">{{$submenu2??''}}</a></li>
+              @endif
+
               {{-- <li class="breadcrumb-item"><a href="javascript:void(0)">{{$aksi??''}}</a></li> --}}
             </ol>
           </div>

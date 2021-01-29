@@ -35,6 +35,7 @@ class PoliController extends Controller
           $data=[
             'menu'=>'Master',
             'submenu'=>'poli',
+            'submenu2'=>'tambah poli',
             'aksi'=>'Tambah poli',
             'judul'=>'Data Poli',
             'isDataTable'=>true,
@@ -70,7 +71,18 @@ class PoliController extends Controller
      */
     public function show($id)
     {
-        //
+        $dataPoli=Poli::find($id);        
+        $data=[
+            'menu'=>'Master',
+            'submenu'=>'poli',
+            'submenu2'=>'edit poli',
+            'aksi'=>'Data Poli',
+            'judul'=>'Data Poli',
+            'isDataTable'=>true,
+            'isJS'=>'poli.js',
+            'data'=>$dataPoli
+        ];
+        return view('poli.show',$data);
     }
 
     /**
@@ -81,7 +93,18 @@ class PoliController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $dataPoli=Poli::find($id);        
+        // $data=[
+        //     'menu'=>'Master',
+        //     'submenu'=>'poli',
+        //     'submenu2'=>'edit poli',
+        //     'aksi'=>'Data Poli',
+        //     'judul'=>'Data Poli',
+        //     'isDataTable'=>true,
+        //     'isJS'=>'poli.js',
+        //     'data'=>$dataPoli
+        // ];
+        // return view('poli.show',$data);
     }
 
     /**
@@ -93,8 +116,15 @@ class PoliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $poli=Poli::find($id);
+        $poli->kode             =$request->kode?$request->kode:$poli->kode;
+        $poli->poli             =$request->poli?$request->poli:$poli->poli;
+        $poli->tanggal_aktif    =$request->tanggal_aktif?$request->tanggal_aktif:$poli->tanggal_aktif;
+        $poli->status           =$request->status?$request->status:$poli->status;
+        $poli->deskripsi        =$request->deskripsi?$request->deskripsi:$poli->deskripsi;
+        $poli->save;
+        return response()->json(['data'=>$poli,'message'=>'data poli berhasil diupadte']);
+        }
 
     /**
      * Remove the specified resource from storage.

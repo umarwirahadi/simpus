@@ -29,14 +29,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($datapoli as $item)
+                                @foreach ($datapoli as $poli)
                                 <tr>
-                                    <td>{{$item->id}}</td>
-                                    <td>{{$item->kode}}</td>
-                                    <td>{{$item->poli}}</td>
-                                    <td>{{$item->status==1?'Aktif':'Tidak aktif'}}</td>
+                                    <td>{{$poli->id}}</td>
+                                    <td>{{$poli->kode}}</td>
+                                    <td>{{$poli->poli}}</td>
+                                    <td>{{$poli->status==1?'Aktif':'Tidak aktif'}}</td>
                                     <td>
-                                        <a href="" class="btn btn-xs btn-outline-primary"><i class="far fa-eye"
+                                        <a href="{{URL::to('poli/'.$poli->id  )}}" class="btn btn-xs btn-outline-primary"><i class="far fa-edit"
                                                 title="Detail poli"></i></a>
                                         <a href="" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"
                                                 title="Hapus"></i></a>

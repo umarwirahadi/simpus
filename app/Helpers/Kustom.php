@@ -6,24 +6,28 @@ class Kustom{
     {
         if(!empty($categories)){
             $item=DB::table('items')->where('status',1)->where('kategori',$categories)->get();
-            $dataItem="";
-            foreach ($item as $key) {
-                if(!empty($default)){
-                    if($key->kode==$default){
-                        $dataItem .="<option value='".$key->kode."' selected>".$key->item."</option>";    
-                    }
-                    $dataItem .="<option value='".$key->kode."'>".$key->item."</option>";    
-                }else{
-                    $dataItem .="<option value='".$key->kode."'>".$key->item."</option>";    
+            $dataItem="";            
+            if(isset($default)){
+                foreach ($item as $key) {                        
+                    if($default==$key->kode){
+                        $dataItem .="<option value='".$key->kode."' selected='selected'>".$key->item."</option>";    
+                    }else{
+                        $dataItem .="<option value='".$key->kode."'>".$key->item."</option>";                            
+                    }                    
+                }        
+                return $dataItem;
+            }else{
+                foreach ($item as $key) {                                            
+                    $dataItem .="<option value='".$key->kode."'>".$key->item."</option>";                        
                 }
-            }        
-            return $dataItem;
+                return $dataItem;
+            }
         }else{
             $dataItem="";
             $dataItem .="<option selected>Pilih</option>";
             return $dataItem;
         }
-        
+                
     }
 
     public static function getAllCategories()
