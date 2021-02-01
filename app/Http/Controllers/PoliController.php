@@ -53,12 +53,12 @@ class PoliController extends Controller
      */
     public function store(Request $request)
     {
-        $poli=new Poli;
-        $poli->kode=$request->get('kode');
-        $poli->poli=$request->get('poli');
-        $poli->status=$request->get('status');
-        $poli->tanggal_aktif=$request->get('tanggal_aktif');
-        $poli->deskripsi=$request->get('deskripsi');
+        $poli=new Poli;        
+        $poli->kode             =$request->get('kode')?$request->get('kode'):'';
+        $poli->poli             =$request->get('poli')?$request->get('poli'):'';
+        $poli->tanggal_aktif    =$request->get('tanggal_aktif')?$request->get('tanggal_aktif'):NULL;
+        $poli->status           =$request->get('status')?$request->get('status'):NULL;
+        $poli->deskripsi        =$request->get('deskripsi')?$request->get('deskripsi'):'';            
         $poli->save();        
         return redirect()->route('poli.index')->with('status', 'data Poli berhasil disimpan');
     }
@@ -75,7 +75,7 @@ class PoliController extends Controller
         $data=[
             'menu'=>'Master',
             'submenu'=>'poli',
-            'submenu2'=>'edit poli',
+            'submenu2'=>'detail poli',
             'aksi'=>'Data Poli',
             'judul'=>'Data Poli',
             'isDataTable'=>true,
@@ -93,18 +93,18 @@ class PoliController extends Controller
      */
     public function edit($id)
     {
-        // $dataPoli=Poli::find($id);        
-        // $data=[
-        //     'menu'=>'Master',
-        //     'submenu'=>'poli',
-        //     'submenu2'=>'edit poli',
-        //     'aksi'=>'Data Poli',
-        //     'judul'=>'Data Poli',
-        //     'isDataTable'=>true,
-        //     'isJS'=>'poli.js',
-        //     'data'=>$dataPoli
-        // ];
-        // return view('poli.show',$data);
+        $dataPoli=Poli::find($id);        
+        $data=[
+            'menu'=>'Master',
+            'submenu'=>'poli',
+            'submenu2'=>'edit poli',
+            'aksi'=>'Data Poli',
+            'judul'=>'Data Poli',
+            'isDataTable'=>true,
+            'isJS'=>'poli.js',
+            'data'=>$dataPoli
+        ];
+        return view('poli.edit',$data);
     }
 
     /**
@@ -116,16 +116,20 @@ class PoliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $poli= Poli::find($id);
+        $poli= Poli::findOrFail($id);
         if($poli){
-            $poli->kode             =$request->post('kode');
-            $poli->poli             =$request->post('poli');
-            $poli->tanggal_aktif    =$request->post('tanggal_aktif');
-            $poli->status           =$request->post('status');
-            $poli->deskripsi        =$request->post('deskripsi');
-            $poli->save;
-            return redirect()->route('poli.index')->with('status', 'data Poli berhasil diupdate');
-            
+            $poli->kode             =!empty($request->get('kode'))?$request->get('kode'):'';
+            $poli->poli             =!empty($request->get('poli'))?$request->get('poli'):'';
+            $poli->tanggal_aktif    =!empty($request->get('tanggal_aktif'))?$request->get('tanggal_aktif'):date('Y-m-d');
+            $poli->status           =!empty($request->get('status'))?$request->get('status'):'';
+            $poli->deskripsi        =!empty($request->get('deskripsi'))?$request->get('deskripsi'):'';
+            // $poli->kode             =$request->get('kode')?$request->get('kode'):$poli->kode;
+            // $poli->poli             =$request->get('poli')?$request->get('poli'):$poli->poli;
+            // $poli->tanggal_aktif    =$request->get('tanggal_aktif')?$request->get('tanggal_aktif'):$poli->tanggal_aktif;
+            // $poli->status           =$request->get('status')?$request->get('status'):$poli->status;
+            // $poli->deskripsi        =$request->get('deskripsi')?$request->get('deskripsi'):$poli->deskripsi;
+            $poli->update();
+            return response()->json(['status'=>1,'message'=>'data poli berhasil diupdate','data'=>$poli],200);
         }else{
             return redirect()->route('poli.index')->with('status', 'data Poli gagal diupdate');
         }       
@@ -140,6 +144,12 @@ class PoliController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $poli= Poli::findOrFail($id);
+        if($poli){
+            $poli->delete();
+            return response()->json(['status'=>1,'message'=>'data poli berhasil dihapus','data'=>null],200);
+        }else{
+            return redirect()->route('poli.index')->with('status', 'data Poli gagal dihapus');
+        }
     }
 }

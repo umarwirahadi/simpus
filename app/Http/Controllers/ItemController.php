@@ -81,7 +81,18 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $dataItem=Item::find($id);        
+        $data=[
+            'menu'=>'Master',
+            'submenu'=>'item',
+            'submenu2'=>'edit item',
+            'aksi'=>'Data Item',
+            'judul'=>'Data item',
+            'isDataTable'=>true,
+            'isJS'=>'item.js',
+            'data'=>$dataItem
+        ];
+        return view('item.edit',$data);
     }
 
     /**

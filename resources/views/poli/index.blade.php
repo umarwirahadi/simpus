@@ -5,7 +5,7 @@
     <div class="card card-outline card-danger" >
         <div class="card-header">
             <h3 class="card-title">
-                <a href="{{route('poli.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a>
+                <a href="{{route('poli.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
             </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -36,20 +36,24 @@
                                     <td>{{$poli->poli}}</td>
                                     <td>{{$poli->status==1?'Aktif':'Tidak aktif'}}</td>
                                     <td>
-                                        <a href="{{URL::to('poli/'.$poli->id  )}}" class="btn btn-xs btn-outline-primary"><i class="far fa-edit"
-                                                title="Detail poli"></i></a>
-                                        <a href="" class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"
+                                        <div class="btn-group">
+                                            <a href="{{route('poli.edit',[$poli->id])}}" class="btn btn-success btn-sm"><i class="fas fa-pen"
+                                                title="edit poli"></i></a>  
+                                            <a href="{{route('poli.show',[$poli->id])}}" class="btn btn-primary btn-sm detail" id="{{$poli->id}}">
+                                                <i class="fas fa-search"
+                                                title="detail data"></i></a>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-sm delete-data" id="{{$poli->id}}">
+                                                <i class="fas fa-trash-alt"
                                                 title="Hapus"></i></a>
+                                          </div>
+                                        
+                                        
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
             </div>
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-            Data Poli
         </div>
         <!-- /.card-footer-->
     </div>

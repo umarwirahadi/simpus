@@ -6,7 +6,8 @@
   <div class="card card-outline card-danger" >
       <div class="card-header">
           <h3 class="card-title">
-              <a href="{{route('item.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a>
+              {{-- <a href="{{route('item.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a> --}}
+              <a href="{{route('item.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
           </h3>
           <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -39,9 +40,17 @@
                                 <td>{{$item->item}}</td>
                                 <td>{{$item->kategori}}</td>
                                 <td>{{$item->status==1?'Aktif':'Tidak aktif'}}</td>
-                                <td>
-                                    <a href="/item/{{$item->id}}" class="btn btn-sm btn-primary" title="edit"><span class="fa fa-check-square-o"></span></a>
-                                    <a href="" class="btn btn-sm btn-danger" title="hapus"><span class="fa fa-trash-o"></span></a>
+                                <td>                                    
+                                    <div class="btn-group">
+                                        <a href="{{route('item.edit',[$item->id])}}" class="btn btn-success btn-sm"><i class="fas fa-pen"
+                                            title="edit item"></i></a>  
+                                        <a href="{{route('item.show',[$item->id])}}" class="btn btn-primary btn-sm detail" id="{{$item->id}}">
+                                            <i class="fas fa-search"
+                                            title="detail data"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-danger btn-sm delete-data" id="{{$item->id}}">
+                                            <i class="fas fa-trash-alt"
+                                            title="Hapus"></i></a>
+                                      </div>
                                 </td>
                             </tr>
                             @endforeach                            

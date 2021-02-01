@@ -7,6 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Simpus</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -18,12 +19,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert2/dist/sweetalert2.min.css')}}">
 
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 </head>
-<body class="hold-transition sidebar-collapse layout-top-nav">
+<body class="hold-transition sidebar-collapse layout-top-nav" data-site="{{url()->current()}}">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -304,6 +306,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Bootstrap 4 -->
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="{{asset('assets/plugins/sweetalert2/dist/sweetalert2.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
 
