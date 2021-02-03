@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::resource('poli', 'PoliController');
 Route::resource('item', 'ItemController');
+Route::resource('rekening', 'RekeningController');
 Route::post('fetchitem','ItemController@fetch')->name('fetchitem');
 
 Route::resource('poli', 'PoliController');

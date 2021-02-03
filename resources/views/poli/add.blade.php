@@ -11,11 +11,11 @@
                 @csrf
                 <div class="form-group">
                     <label class="col-form-label" for="inputSuccess">Kode</label>
-                    <input type="text" class="form-control" id="inputSuccess" name="kode" id="kode">
+                    <input type="text" class="form-control" id="inputSuccess" name="kode" id="kode" required>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label" for="inputSuccess">Nama Poli</label>
-                    <input type="text" class="form-control" placeholder="masukan nama poli" name="poli" id="poli">
+                    <input type="text" class="form-control" placeholder="masukan nama poli" name="poli" id="poli" required>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label" for="inputSuccess">Tanggal aktif</label>

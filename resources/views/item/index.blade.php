@@ -6,7 +6,6 @@
   <div class="card card-outline card-danger" >
       <div class="card-header">
           <h3 class="card-title">
-              {{-- <a href="{{route('item.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a> --}}
               <a href="{{route('item.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
           </h3>
           <div class="card-tools">
@@ -19,7 +18,7 @@
           </div>
       </div>
       <div class="card-body">
-          <div class="table table-responsive">
+        <div class="table table-responsive">
                       <table id="data-item" class="table table-bordered table-striped">
                         <thead>
                         <tr>
@@ -47,9 +46,9 @@
                                         <a href="{{route('item.show',[$item->id])}}" class="btn btn-primary btn-sm detail" id="{{$item->id}}">
                                             <i class="fas fa-search"
                                             title="detail data"></i></a>
-                                        <a href="javascript:void(0)" class="btn btn-danger btn-sm delete-data" id="{{$item->id}}">
+                                        <button class="btn btn-danger btn-sm delete-data" id="{{$item->id}}">
                                             <i class="fas fa-trash-alt"
-                                            title="Hapus"></i></a>
+                                            title="Hapus"></i></button>
                                       </div>
                                 </td>
                             </tr>

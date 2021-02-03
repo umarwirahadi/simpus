@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+  
     $("#example1").DataTable({
         "responsive": true, "lengthChange": true, "autoWidth": true,
         "buttons": ["excel", "colvis"]
@@ -15,17 +17,17 @@ $(document).ready(function(){
   });
 
 
-  $("#data-pasien").DataTable({
-    "responsive": true, "lengthChange": true, "autoWidth": true,"searching":false,"filter":false,"info":false,
-    "language": {
-      "lengthMenu": " _MENU_ data",
-      "zeroRecords": "Data pasien tidak ada, silahkan lakukan pencarian",
-      "info": "Showing page _PAGE_ of _PAGES_",
-      "infoEmpty": "Data pasien tidak ditemukan",
-      "infoFiltered": "(filtered from _MAX_ total records)"
-  },
+  // $("#data-pasien").DataTable({
+  //   "responsive": true, "lengthChange": true, "autoWidth": true,"searching":false,"filter":false,"info":false,
+  //   "language": {
+  //     "lengthMenu": " _MENU_ data",
+  //     "zeroRecords": "Data pasien tidak ada, silahkan lakukan pencarian",
+  //     "info": "Showing page _PAGE_ of _PAGES_",
+  //     "infoEmpty": "Data pasien tidak ditemukan",
+  //     "infoFiltered": "(filtered from _MAX_ total records)"
+  // },
     
-  }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   
 
 })

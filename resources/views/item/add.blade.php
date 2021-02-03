@@ -11,7 +11,7 @@
                 @csrf
                 <div class="form-group">
                     <label>Kategori</label>
-                    <select class="custom-select" name="kategori" id="kategori">
+                    <select class="custom-select" name="kategori" id="kategori" required>
                       {!!KustomHelper::getAllCategories()!!}
                     </select>
                 </div>

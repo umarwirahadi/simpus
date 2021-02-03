@@ -30,13 +30,23 @@ class Kustom{
                 
     }
 
-    public static function getAllCategories()
+    public static function getAllCategories($default='')
     {
         $kat=DB::table('items')->select('kategori')->distinct()->get();
         $dataItem="";
-        foreach ($kat as $key) {
-            $dataItem .="<option value='".$key->kategori."'>".$key->kategori."</option>";
-        }        
+
+        if(isset($default)){
+            foreach ($kat as $key) {
+                if($default==$key->kategori){
+                    $dataItem .="<option value='".$key->kategori."' selected>".$key->kategori."</option>";
+                }else{
+                    $dataItem .="<option value='".$key->kategori."'>".$key->kategori."</option>";
+
+                }
+            }
+        }
+
+                
         return $dataItem;
     }
 

@@ -25,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
 </head>
-<body class="hold-transition sidebar-collapse layout-top-nav" data-site="{{url()->current()}}">
+<body class="hold-transition sidebar-collapse layout-top-nav" data-site="{{url('/')}}">
 <div class="wrapper">
 
   <!-- Navbar -->

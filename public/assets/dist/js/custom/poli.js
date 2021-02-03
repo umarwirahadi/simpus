@@ -10,6 +10,7 @@ var datasite=$('body').attr('data-site');
     "autoWidth": false,
     "responsive": true  
   });
+  
   $("#form-poli-update").on("submit",function(e){
     e.preventDefault();
     var url=$(this).attr('data-url');

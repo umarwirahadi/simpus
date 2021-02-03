@@ -118,10 +118,10 @@ class PoliController extends Controller
     {
         $poli= Poli::findOrFail($id);
         if($poli){
-            $poli->kode             =!empty($request->get('kode'))?$request->get('kode'):'';
-            $poli->poli             =!empty($request->get('poli'))?$request->get('poli'):'';
-            $poli->tanggal_aktif    =!empty($request->get('tanggal_aktif'))?$request->get('tanggal_aktif'):date('Y-m-d');
-            $poli->status           =!empty($request->get('status'))?$request->get('status'):'';
+            $poli->kode             =$request->get('kode');
+            $poli->poli             =$request->get('poli');
+            $poli->tanggal_aktif    =$request->get('tanggal_aktif');
+            $poli->status           =$request->get('status');
             $poli->deskripsi        =!empty($request->get('deskripsi'))?$request->get('deskripsi'):'';
             // $poli->kode             =$request->get('kode')?$request->get('kode'):$poli->kode;
             // $poli->poli             =$request->get('poli')?$request->get('poli'):$poli->poli;

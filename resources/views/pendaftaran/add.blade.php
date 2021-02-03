@@ -29,13 +29,17 @@
                 <div class="form-group">
                     <label class="col-form-label" for="inputSuccess">Data pasien</label>
                     <div class="input-group">
-                        <input type="search" class="form-control" placeholder="cari data pasien" name="poli" id="poli">
+                        <input type="search" class="form-control" placeholder="cari data pasien by [Nama,NIK,No RM] " name="poli" id="poli">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
                                 <i class="fa fa-search"></i> Cari
                             </button>
                         </div>
-
+                        <div class="input-group-append">
+                            <a href="/pasien/create" class="btn btn-success">
+                                <i class="fa fa-user-plus"></i> Pasien baru
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -64,6 +68,7 @@
                                         <th>No. RM</th>
                                         <th>Nama Lengkap</th>
                                         <th>Jenis Kel</th>
+                                        <th>Tgl. Lahir</th>
                                         <th>Alamat</th>
                                         <th>No. HP</th>
                                         <th>Aksi</th>
@@ -97,6 +102,10 @@
                 </div>
             </form>
         </div>
+        <div class="card-footer">
+          Catatan : form pendaftaran kunjungan pasien, jika data pasien baru silahkan klik tombol, pasien baru
+      </div>
+  
     </div>
 </div>
 

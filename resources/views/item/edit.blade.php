@@ -1,4 +1,4 @@
-@extends('layouts.main')
+{{-- @extends('layouts.main')
 @section('content')
 <div class="col-lg-12">
     <div class="card card-warning">
@@ -34,6 +34,51 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary" name="submit">Update</button>
+                    <button type="button" class="btn btn-warning" name="kembali"
+                        onclick="window.location.href='/item'">Kembali</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection --}}
+
+
+@extends('layouts.main')
+@section('content')
+<div class="col-lg-12">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{$aksi??''}}</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <form action="{{route('item.update',[$data->id])}}" method="POST" id="form-item-update" data-url="{{route('item.update',[$data->id])}}">
+                @csrf
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select class="custom-select" name="kategori" id="kategori" required>
+                      {!!KustomHelper::getAllCategories($data->kategori)!!}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="kode">Kode</label>
+                    <input type="text" class="form-control" placeholder="masukan kode item" name="kode" id="kode" required value="{{$data->kode}}">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="item">Nama item</label>
+                    <input type="text" class="form-control" placeholder="masukan nama item" name="item" id="item" required value="{{$data->item}}">
+                </div>          
+                <div class="form-group">
+                        <label>Status</label>
+                        <select class="custom-select" name="status" id="status">
+                            {!!KustomHelper::getItem('Status-aktif',$data->status)!!}
+                        </select>
+                </div>
+            
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success" name="submit">Update</button>
                     <button type="button" class="btn btn-warning" name="kembali"
                         onclick="window.location.href='/item'">Kembali</button>
                 </div>

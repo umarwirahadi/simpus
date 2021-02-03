@@ -36,8 +36,8 @@ class ItemController extends Controller
           $data=[
             'menu'=>'Master',
             'submenu'=>'item',
-            'aksi'=>'Tambah item',
-            'judul'=>'Data item',
+            'submenu2'=>'tambah item',
+            'aksi'=>'Data item',
             'isDataTable'=>false,
             'isJS'=>'item.js',
             'data'=>null
@@ -70,7 +70,18 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        return 'test '.$id;
+        $dataItem=Item::find($id);        
+        $data=[
+            'menu'=>'Master',
+            'submenu'=>'item',
+            'submenu2'=>'show item',
+            'aksi'=>'Data Item',
+            'judul'=>'Data item',
+            'isDataTable'=>true,
+            'isJS'=>'item.js',
+            'data'=>$dataItem
+        ];
+        return view('item.show',$data);
     }
 
     /**
@@ -102,9 +113,20 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
-        //
+        $item= Item::findOrFail($id);
+        if($item){
+            $item->kategori         =$request->get('kategori');
+            $item->kode             =$request->get('kode');
+            $item->item             =$request->get('item');
+            $item->status           =$request->get('status');
+            $item->update();
+            return response()->json(['status'=>1,'message'=>'data item berhasil diupdate','data'=>$item],200);
+        }else{
+            return redirect()->route('item.index')->with('status', 'data Poli gagal diupdate');
+        }     
     }
 
     /**
@@ -115,12 +137,14 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item= Item::findOrFail($id);
+        if($item){
+            $item->delete();
+            return response()->json(['status'=>1,'message'=>'data item berhasil dihapus','data'=>null],200);
+        }else{
+            return redirect()->route('item.index')->with('status', 'data item gagal dihapus');
+        }
     }
 
-    public function fatch()
-    {
-        $item=Item::get();
-        return response()->json($item);
-    }
+ 
 }

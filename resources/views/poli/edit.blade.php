@@ -15,11 +15,11 @@
                 <input type="hidden" value="PUT" name="_method">
                 <div class="form-group">
                     <label class="col-form-label" for="kode">Kode</label>
-                    <input type="text" class="form-control" name="kode" id="kode" value="{{$data->kode}}">
+                    <input type="text" class="form-control" name="kode" id="kode" value="{{$data->kode}}" required>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label" for="poli">Nama Poli</label>
-                    <input type="text" class="form-control" placeholder="masukan nama poli" name="poli" id="poli" value="{{$data->poli}}">
+                    <input type="text" class="form-control" placeholder="masukan nama poli" name="poli" id="poli" value="{{$data->poli}}" required>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label" for="tanggal_aktif">Tanggal aktif</label>
