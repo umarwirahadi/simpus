@@ -35,10 +35,11 @@ class PasienController extends Controller
         $data=[
             'menu'=>'Data',
             'submenu'=>'pasien',
+            'submenu2'=>'tambah pasien',
             'aksi'=>'Tambah Pasien',
             'judul'=>'Data item',
             'isDataTable'=>false,
-            'isJS'=>'item.js',
+            'isJS'=>'pasien.js',
             'data'=>null
         ];
         return view('pasien.add',$data);
@@ -52,7 +53,22 @@ class PasienController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cekpasien=Pasien::where(['nama_lengkap'=>$request->kode_rekening,'tanggal_lahir'=>$request->tanggal_lahir])->get();
+        
+    
+        if($cekpasien){            
+            $pasienBaru=new Pasien;
+            // $pasienBaru->kode_rekening    =$request->kode_rekening;
+            // $pasienBaru->nama_rekening    =$request->nama_rekening;
+            // $pasienBaru->jenis            =$request->jenis;
+            // $pasienBaru->biaya            =$request->biaya;        
+            // $pasienBaru->status           =$request->status;        
+            // $pasienBaru->deskripsi        =$request->deskripsi;        
+            $pasienBaru->save();
+            return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$pasienBaru],200);
+        }else{
+            return response()->json(['status'=>0,'message'=>'data pasien sudah ada, silahkan ganti dengan kode yang lain','data'=>null],200);
+        }
     }
 
     /**

@@ -12,7 +12,7 @@
                 <input type="hidden" name="_method" value="POST">
                 <div class="form-group">
                     <label class="col-form-label" for="kode_rekening">Kode rekening</label>
-                    <input type="text" class="form-control" name="kode_rekening" id="kode_rekening" placeholder="masukan kode rekening" required>
+                    <input type="text" class="form-control" name="kode_rekening" id="kode_rekening" placeholder="masukan kode rekening" required value="">
                 </div>
                 <div class="form-group">
                     <label class="col-form-label" for="nama_rekening">Nama rekening</label>

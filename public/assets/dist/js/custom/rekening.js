@@ -47,6 +47,8 @@ $(document).ready(function () {
               title:'Error..!',
               text:data.message,
               icon:'error'
+            }).then(()=>{
+              $("#kode_rekening").focus();
             })
           }
         }
@@ -92,12 +94,6 @@ $(document).ready(function () {
             }
           }
         })
-
-        Swal.fire(
-          'terhapus',
-          'data berhasil dihapus',
-          'success'
-        )
       }
     })
   });
