@@ -58,6 +58,45 @@ class PasienController extends Controller
     
         if($cekpasien){            
             $pasienBaru=new Pasien;
+            $pasienBaru->id         =$request->id;
+            $pasienBaru->nik        =$request->nik;
+            $pasienBaru->no_kk      =$request->no_kk;
+            $pasienBaru->status_hubungan=$request->status_hubungan;
+            $pasienBaru->no_bpjs=$request->no_bpjs;
+            $pasienBaru->no_rm=$request->no_rm;
+            $pasienBaru->no_rm_lama=$request->no_rm_lama;
+            $pasienBaru->nama_lengkap=$request->nama_lengkap;
+            $pasienBaru->jenis_kelamin=$request->jenis_kelamin;
+            $pasienBaru->tempat_lahir=$request->tempat_lahir;
+            $pasienBaru->tanggal_lahir=$request->tanggal_lahir;
+            $pasienBaru->agama=$request->agama;
+            $pasienBaru->gol_darah=$request->gol_darah;
+            $pasienBaru->hp=$request->hp;
+            $pasienBaru->telp=$request->telp;
+            $pasienBaru->email=$request->email;
+            $pasienBaru->warganegara=$request->warganegara;
+            $pasienBaru->alamat=$request->alamat;
+            $pasienBaru->rt=$request->rt;
+            $pasienBaru->rw=$request->rw;
+            $pasienBaru->kelurahan=$request->kelurahan;
+            $pasienBaru->kecamatan=$request->kecamatan;
+            $pasienBaru->kab_kota=$request->kab_kota;
+            $pasienBaru->provinsi=$request->provinsi;
+            $pasienBaru->pos=$request->pos;
+            $pasienBaru->status_marital=$request->status_marital;
+            $pasienBaru->pendidikan_terakhir=$request->pendidikan_terakhir;
+            $pasienBaru->suku=$request->suku;
+            $pasienBaru->pekerjaan=$request->pekerjaan;
+            $pasienBaru->nama_ayah=$request->nama_ayah;
+            $pasienBaru->nama_ibu=$request->nama_ibu;
+            $pasienBaru->penanggung_jawab=$request->penanggung_jawab;
+            $pasienBaru->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
+            $pasienBaru->no_contact_darurat=$request->no_contact_darurat;
+            $pasienBaru->status_pasien=$request->status_pasien;
+            $pasienBaru->wilayah_kerja=$request->wilayah_kerja;
+            $pasienBaru->created_at=$request->created_at;
+            $pasienBaru->updated_at=$request->updated_at;
+
             // $pasienBaru->kode_rekening    =$request->kode_rekening;
             // $pasienBaru->nama_rekening    =$request->nama_rekening;
             // $pasienBaru->jenis            =$request->jenis;
