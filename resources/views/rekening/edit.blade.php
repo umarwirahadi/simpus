@@ -27,7 +27,19 @@
                 <div class="form-group">
                     <label class="col-form-label" for="biaya">biaya</label>
                     <input type="text" class="form-control" placeholder="biaya" name="biaya" id="biaya" required value="{{$data->biaya}}">
-                </div>              
+                </div>
+                <div class="form-group">
+                    <label for="jenis_biaya">Jenis biaya</label>
+                    <select class="custom-select" name="jenis_biaya" id="jenis_biaya">
+                        {!!KustomHelper::getItem('jenis-biaya',$data->jenis_biaya)!!}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="satuan">Satuan</label>
+                    <select class="custom-select" name="satuan" id="satuan">
+                        {!!KustomHelper::getItem('satuan-biaya',$data->satuan_biaya)!!}
+                    </select>
+                </div>
                 <div class="form-group">
                         <label class="col-form-label" for="status">Status</label>
                         <select class="custom-select" name="status" id="status" required>

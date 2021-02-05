@@ -16,7 +16,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('pasien.store') }}" method="POST">
+                <form action="{{ route('pasien.store') }}" method="POST" id="form-pasien">
                     @csrf
 
                     <div class="row">
@@ -33,8 +33,8 @@
                         </div>                     
                         <div class="col-md-3">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="nik">No. KK</label>
-                                <input type="text" class="form-control" placeholder="No. KK" name="no_kk" id="no_kk" required>
+                                <label class="col-form-label" for="no_kk">No. KK</label>
+                                <input type="text" class="form-control" placeholder="No. KK" name="no_kk" id="no_kk" >
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          
@@ -48,8 +48,8 @@
                         </div>                       
                         <div class="col-md-4">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="nik">Nama lengkap</label>
-                                <input type="text" class="form-control" placeholder="Nama lengkap" name="nama_lengkap" id="nama_lengkap" required>
+                                <label class="col-form-label" for="nama_lengkap">Nama lengkap</label>
+                                <input type="text" class="form-control" placeholder="Nama lengkap" name="nama_lengkap" id="nama_lengkap" >
                             </div>                                                    
                         </div>                       
                     </div>
@@ -66,13 +66,13 @@
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="tempat_lahir">Tempat lahir</label>
-                                <input type="text" class="form-control" placeholder="tempat lahir" name="tempat_lahir" id="tempat_lahir" required>
+                                <input type="text" class="form-control" placeholder="tempat lahir" name="tempat_lahir" id="tempat_lahir" >
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="nik">Tanggal lahir</label>
-                                <input type="date" class="form-control"  name="tanggal_lahir" id="tanggal_lahir" required>
+                                <label class="col-form-label" for="tanggal_lahir">Tanggal lahir</label>
+                                <input type="date" class="form-control"  name="tanggal_lahir" id="tanggal_lahir" >
                             </div>                                                    
                         </div>                       
                         <div class="col-md-4">                          
@@ -97,19 +97,19 @@
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="hp">No. Handphone</label>
-                                <input type="text" class="form-control" placeholder="exp: 0812xxx" name="hp" id="hp" required>
+                                <input type="text" class="form-control" placeholder="exp: 0812xxx" name="hp" id="hp" >
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="telp">No. Telp</label>
-                                <input type="text" class="form-control"  name="telp" id="telp" required placeholder="022-70xxxxx">
+                                <input type="text" class="form-control"  name="telp" id="telp"  placeholder="022-70xxxxx">
                             </div>                                                    
                         </div>                       
                         <div class="col-md-4">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="email">email</label>
-                                <input type="email" class="form-control"  name="email" id="email" required placeholder="contoh: u.wirahadi10@gmail.com">                                
+                                <input type="email" class="form-control"  name="email" id="email"  placeholder="contoh: u.wirahadi10@gmail.com">                                
                             </div>                                                    
                         </div>                       
                     </div>
@@ -117,13 +117,13 @@
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="warganegara">Kewarganegaraan</label>
-                                <input type="text" class="form-control" placeholder="contoh: indonesia" name="warganegara" id="warganegara" required value="indonesia">                                  
+                                <input type="text" class="form-control" placeholder="contoh: indonesia" name="warganegara" id="warganegara" value="indonesia">                                  
                             </div>                                                    
                         </div>                       
                         <div class="col-md-9">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="alamat">Alamat/Jalan</label>
-                                <input type="text" class="form-control" placeholder="contoh : Jl. Melong asih Gg Nusa indah 7 no 35 (RT/RW/Kel/Kec/Kota/Prov) input terpisah" name="alamat" id="alamat" required>                                  
+                                <input type="text" class="form-control" placeholder="contoh : Jl. Melong asih Gg Nusa indah 7 no 35 (RT/RW/Kel/Kec/Kota/Prov) input terpisah" name="alamat" id="alamat" >                                  
                             </div>                                                    
                         </div>      
                     </div>
@@ -131,13 +131,13 @@
                         <div class="col-md-1">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="rt">RT</label>
-                                <input type="text" class="form-control" name="rt" id="rt" required>                                
+                                <input type="text" class="form-control" name="rt" id="rt" >                                
                             </div>
                         </div>                       
                         <div class="col-md-1">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="rw">RW</label>
-                                <input type="text" class="form-control" name="rw" id="rw" required>                                
+                                <input type="text" class="form-control" name="rw" id="rw" >                                
                             </div>
                         </div>                       
                         <div class="col-md-10">                          
@@ -156,7 +156,7 @@
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="kelurahan">Kelurahan</label>
-                                <input type="text" class="form-control" name="kelurahan" id="kelurahan" required>
+                                <input type="text" class="form-control" name="kelurahan" id="kelurahan">
                             </div>                                                    
                         </div>                       
                         <div class="col-md-3">                          
@@ -235,7 +235,7 @@
                         <div class="col-md-2">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="penanggung_jawab">Penanggung jawab</label>
-                                <input type="text" class="form-control" name="penanggung_jawab" id="penanggung_jawab" required>
+                                <input type="text" class="form-control" name="penanggung_jawab" id="penanggung_jawab">
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          

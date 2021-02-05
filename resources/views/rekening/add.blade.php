@@ -29,6 +29,18 @@
                     <input type="text" class="form-control" placeholder="biaya" name="biaya" id="biaya" required value="0">
                 </div>              
                 <div class="form-group">
+                    <label for="jenis_biaya">Jenis biaya</label>
+                    <select class="custom-select" name="jenis_biaya" id="jenis_biaya">
+                        {!!KustomHelper::getItem('jenis-biaya')!!}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="satuan">Satuan</label>
+                    <select class="custom-select" name="satuan" id="satuan">
+                        {!!KustomHelper::getItem('satuan-biaya')!!}
+                    </select>
+                </div>
+                <div class="form-group">
                         <label class="col-form-label" for="status">Status</label>
                         <select class="custom-select" name="status" id="status">
                             {!!KustomHelper::getItem('Status-aktif')!!}

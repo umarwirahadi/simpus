@@ -54,14 +54,15 @@ class RekeningController extends Controller
     public function store(Request $request)
     {
         $cekRekening=Rekening::where('kode_rekening',$request->kode_rekening)->count();
-        
-    
+           
         if($cekRekening==0){            
             $rekening=new Rekening;
             $rekening->kode_rekening    =$request->kode_rekening;
             $rekening->nama_rekening    =$request->nama_rekening;
             $rekening->jenis            =$request->jenis;
             $rekening->biaya            =$request->biaya;        
+            $rekening->jenis_biaya      =$request->jenis_biaya;
+            $rekening->satuan           =$request->satuan;
             $rekening->status           =$request->status;        
             $rekening->deskripsi        =$request->deskripsi;        
             $rekening->save();
@@ -120,6 +121,8 @@ class RekeningController extends Controller
             $rek->nama_rekening         =$request->nama_rekening;
             $rek->jenis                 =$request->jenis;
             $rek->biaya                 =$request->biaya;
+            $cek->jenis_biaya           =$request->jenis_biaya;
+            $cek->satuan                =$request->satuan;
             $rek->status                =$request->status;
             $rek->deskripsi             =$request->deskripsi;
             $rek->update();

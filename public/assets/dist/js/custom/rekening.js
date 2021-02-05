@@ -1,6 +1,21 @@
 $(document).ready(function () {
   var datasite=$('body').attr('data-site');
-    
+  
+  $('#jenis_biaya').select2({
+    theme: 'bootstrap4'
+  });
+  $('#satuan').select2({
+    theme: 'bootstrap4'
+  });
+  $('#status').select2({
+    theme: 'bootstrap4'
+  });
+  $('#jenis').select2({
+    theme: 'bootstrap4'
+  });
+
+
+
     $('#data-rekening').DataTable({
       "paging": true,
       "lengthChange": true,
