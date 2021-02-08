@@ -62,31 +62,31 @@ $(document).ready(function () {
               icon:'error'
             })
           }
-        },error:function(a){
-          // console.log(a.responseJSON);
-          $.each(a.responseJSON.errors,function(i,v){
-            console.log(v[i])
+        },
+        error:function(a){
+          
+          let temp=[];
+          $.each(a.responseJSON.errors,function(i,v){            
+            temp.push(v)
           })
-          // const b=Object.values(a.responseJSON.errors);
-          // console.log(b);
-          // b.forEach
-          
-          if(a.status==422){
-              
-            Toast.fire({
-              icon: 'error',
-              title: pesannya.message
-            })
 
-            // alert('error euy')
-          }
-          // 422:function(data){
-          //   const pesannya=data.responseJSON;            
-          //   alert(pesannya.message)
+          var bc=temp.toString();
+          var cb=bc.split(',')
           
-          // }
+
+          
+          if(a.status==422){              
+              $.each(cb,function(a,b){
+                new PNotify({
+                  text: b,
+                  type: 'success',
+                  styling: 'bootstrap3'
+                });
+            })
+          }
         }
-      })
-    })
+
+      });
+    });
   })
   
