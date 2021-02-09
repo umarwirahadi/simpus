@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Pasien;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use DataTables;
+
 
 class PasienController extends Controller
 {
@@ -40,6 +43,7 @@ class PasienController extends Controller
             'judul'=>'Data item',
             'isDataTable'=>false,
             'isJS'=>'pasien.js',
+            'iscss'=>'pasien.css',
             'data'=>null
         ];
         return view('pasien.add',$data);
@@ -58,7 +62,7 @@ class PasienController extends Controller
             'digits'=>':attribute apanjang karakter harus sesuai'
             ];
         $cekvalidasi=$request->validate([
-                                'nik'=>'required|digits:16',
+                                'nik'=>['required','digits:16'],
                                 'nama_lengkap'=>['required'],
                                 'tanggal_lahir'=>['required','date'],
                                 'nik'=>['required'],
@@ -67,7 +71,45 @@ class PasienController extends Controller
         if($cekvalidasi){
             $cekpasien=Pasien::where(['nama_lengkap'=>$request->nama_lengkap,'nik'=>$request->nik]);
             if($cekpasien->count()<1){
-                return response()->json(['status'=>1,'message'=>'proses berlanjut','data'=>$cekpasien->get()],200);
+                $simpanPasien=new Pasien;
+                $simpanPasien->nik=$request->nik;
+                $simpanPasien->no_kk=$request->no_kk;
+                $simpanPasien->status_hubungan=$request->status_hubungan;
+                $simpanPasien->no_bpjs=$request->no_bpjs;
+                $simpanPasien->no_rm=$request->no_rm;
+                $simpanPasien->no_rm_lama=$request->no_rm_lama;
+                $simpanPasien->nama_lengkap=$request->nama_lengkap;
+                $simpanPasien->jenis_kelamin=$request->jenis_kelamin;
+                $simpanPasien->tempat_lahir=$request->tempat_lahir;
+                $simpanPasien->tanggal_lahir=$request->tanggal_lahir;
+                $simpanPasien->agama=$request->agama;
+                $simpanPasien->gol_darah=$request->gol_darah;
+                $simpanPasien->hp=$request->hp;
+                $simpanPasien->telp=$request->telp;
+                $simpanPasien->email=$request->email;
+                $simpanPasien->warganegara=$request->warganegara;
+                $simpanPasien->alamat=$request->alamat;
+                $simpanPasien->rt=$request->rt;
+                $simpanPasien->rw=$request->rw;
+                $simpanPasien->kelurahan=$request->kelurahan;
+                $simpanPasien->kecamatan=$request->kecamatan;
+                $simpanPasien->kab_kota=$request->kab_kota;
+                $simpanPasien->provinsi=$request->provinsi;
+                $simpanPasien->pos=$request->pos;
+                $simpanPasien->status_marital=$request->status_marital;
+                $simpanPasien->pendidikan_terakhir=$request->pendidikan_terakhir;
+                $simpanPasien->suku=$request->suku;
+                $simpanPasien->pekerjaan=$request->pekerjaan;
+                $simpanPasien->nama_ayah=$request->nama_ayah;
+                $simpanPasien->nama_ibu=$request->nama_ibu;
+                $simpanPasien->penanggung_jawab=$request->penanggung_jawab;
+                $simpanPasien->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
+                $simpanPasien->no_contact_darurat=$request->no_contact_darurat;
+                $simpanPasien->status_pasien=$request->status_pasien;
+                $simpanPasien->wilayah_kerja=$request->wilayah_kerja;                
+                $simpanPasien->save();
+
+                return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$simpanPasien],200);
             }else{
                 
                 return response()->json(['status'=>0,'message'=>'Data pasien sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
@@ -179,4 +221,12 @@ class PasienController extends Controller
     {
         //
     }
+
+    public function fetch()
+    {
+        $pasien=DB::table('pasiens')->get();       
+
+        return Datatables::of($pasien)->make(true);
+    }
+    
 }

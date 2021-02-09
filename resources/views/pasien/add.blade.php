@@ -77,8 +77,8 @@
                         </div>                       
                         <div class="col-md-4">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="telp">Agama</label>
-                                <select class="custom-select" name="telp" id="telp">
+                                <label class="col-form-label" for="agama">Agama</label>
+                                <select class="custom-select" name="agama" id="agama">
                                     {!! KustomHelper::getItem('agama') !!}
                                 </select>
                             </div>                                                    
@@ -145,9 +145,9 @@
                                 <label class="col-form-label" for="cari_wilayah">Pencarian wilayah</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="ketik nama kelurahan untuk mencari dan mengisi wilayah otomatis" id="cari_wilayah" name="cari_wilayah">
-                                    <span class="input-group-append">
+                                    {{-- <span class="input-group-append">
                                       <button type="button" class="btn btn-info btn-flat"><i class="fa fa-search"></i> Cari</button>
-                                    </span>
+                                    </span> --}}
                                   </div>
                             </div>         
                         </div>                                                                     
@@ -167,8 +167,8 @@
                         </div>                       
                         <div class="col-md-3">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="kota">Kota</label>
-                                <input type="text" class="form-control"  name="kota" id="kota" >
+                                <label class="col-form-label" for="kab_kota">Kota</label>
+                                <input type="text" class="form-control"  name="kab_kota" id="kab_kota" >
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          
@@ -188,8 +188,8 @@
                     <div class="row">                                          
                         <div class="col-md-3">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="kelurahan">Status pernikahan</label>
-                                <select class="custom-select" name="gol_darah" id="gol_darah">
+                                <label class="col-form-label" for="status_marital">Status pernikahan</label>
+                                <select class="custom-select" name="status_marital" id="status_marital">
                                     {!! KustomHelper::getItem('marital-status') !!}
                                 </select>
                             </div>                                                    
@@ -252,8 +252,8 @@
                         </div>                       
                         <div class="col-md-2">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="pos">Status</label>
-                                <select class="custom-select" name="suku" id="suku">
+                                <label class="col-form-label" for="status_pasien">Status</label>
+                                <select class="custom-select" name="status_pasien" id="status_pasien">
                                     {!! KustomHelper::getItem('status-aktif') !!}
                                 </select>
                             </div>                                                    

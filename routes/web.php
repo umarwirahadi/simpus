@@ -12,9 +12,19 @@
 */
 
 Route::resource('pasien', 'PasienController');
-Route::resource('wilayah', 'WilayahController');
+Route::get('pasien_server_side','PasienController@fetch')->name('data.pasien');
 
-Route::get('wilayah-fetch', 'WilayahController@fetch');
+Route::resource('wilayah', 'WilayahController');
+Route::get('wilayah_server_side','WilayahController@fetch')->name('data.wilayah');
+Route::get('cari_wilayah','WilayahController@finddata')->name('cari.wilayah');
+
+
+// Route::get('wilayah-fetch', 'WilayahController@fetch');
+
+
+
+
+// Route::post('wilayah/datatable','WilayahController@fetch')->name('wilayah.datatable');
 
 
 Route::get('/', function () {

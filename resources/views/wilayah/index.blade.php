@@ -6,7 +6,7 @@
   <div class="card card-outline card-danger" >
       <div class="card-header">
           <h3 class="card-title">
-              <a href="{{route('pasien.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a>
+              <a href="{{route('wilayah.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a>
           </h3>
           <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -30,11 +30,9 @@
                           <th>Provinsi</th>
                           <th>POS</th>                          
                           <th>Opsi</th>                          
+                          <th>Opsi</th>                          
                         </tr>
                         </thead>
-                        <tbody>
-                                                 
-                        </tbody>
               
                       </table>
           </div>

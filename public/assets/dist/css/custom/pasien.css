@@ -1,0 +1,9 @@
+.box-pencarian{
+    background-color: red;
+    position: absolute;
+    border: 5px;
+    height: 300px;
+    z-index: 1;
+    border-radius: 5px;
+    
+}

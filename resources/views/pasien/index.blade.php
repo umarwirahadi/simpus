@@ -27,10 +27,10 @@
                         <thead>
                         <tr>
                           <th>No</th>
-                          <th>Kode</th>
-                          <th>Nama Item</th>
-                          <th>Kategori</th>
-                          <th>Status</th>
+                          <th>NIK</th>
+                          <th>No. RM</th>
+                          <th>Nama Pasien</th>
+                          <th>Alamat</th>
                           <th>Aksi</th>
                         </tr>
                         </thead>

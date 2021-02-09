@@ -14,6 +14,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
   
+  {{-- jquery-ui --}}
+    <link rel="stylesheet" href="{{asset('assets/plugins/jquery-ui/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/plugins/jquery-ui/jquery-ui.theme.min.css')}}">
+
+  {{-- pNotify --}}
+  <link rel="stylesheet" href="{{asset('assets/plugins/pnotify2/dist/PNotifyBrightTheme.css')}}">
+  
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
@@ -26,6 +33,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
+  
+  @if ($iscss??'')
+  <link rel="stylesheet" href="{{asset('assets/dist/css/custom/'.$iscss)}}">
+{{-- <script src="{{asset('assets/dist/js/custom/'.$isJS)}}"></script> --}}
+@endif
+
   
 </head>
 <body class="hold-transition sidebar-collapse layout-top-nav" data-site="{{url('/')}}">
@@ -148,7 +161,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- jQuery -->
 <script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Bootstrap 4 -->
+
+{{-- pnotify --}}
+{{-- <script src="{{asset('assets/plugins/pnotify/pnotify.js')}}"></script>
+<script src="{{asset('assets/plugins/pnotify/pnotify.buttons.js')}}"></script>
+<script src="{{asset('assets/plugins/pnotify/pnotify.nonblock.js')}}"></script> --}}
+
+<script src="{{asset('assets/plugins/pnotify2/dist/iife/PNotify.js')}}"></script>
+<script src="{{asset('assets/plugins/pnotify2/dist/iife/PNotifyButtons.js')}}"></script>
+<script>
+  // PNotify.defaultModules.set(PNotifyMobile, {});
+  PNotify.defaults.styling = 'bootstrap4'; // Bootstrap version 4
+</script>
+
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/plugins/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('assets/plugins/sweetalert2/dist/sweetalert2.min.js')}}"></script>
@@ -162,12 +189,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('assets/dist/js/demo.js')}}"></script>
-
-
-{{-- pnotify --}}
-<script src="{{asset('assets/plugins/pnotify/pnotify.js')}}"></script>
-<script src="{{asset('assets/plugins/pnotify/pnotify.js')}}"></script>
-<script src="{{asset('assets/plugins/pnotify/pnotify.buttons.js')}}"></script>
 
 
 {{-- datatables --}}

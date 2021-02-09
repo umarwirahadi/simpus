@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\wilayah;
+use App\Wilayah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use DataTables;
 
 class WilayahController extends Controller
@@ -33,7 +34,10 @@ class WilayahController extends Controller
      */
     public function create()
     {
-        //
+        $wilayah=Wilayah::where('kotakab','CIMAHI')->get();
+            // $wilayah=DB::table('wilayahs')->where('kotakab','CIMAHI')->get();
+            return response()->json($wilayah);
+    
     }
 
     /**
@@ -95,11 +99,31 @@ class WilayahController extends Controller
 
     public function fetch()
     {
-        // $wilayah=DB::table('wilayahs')->select('*');
-        $wilayah=Wilayah::all();
-        // $wilayah=Wilayah::select('id','kel','kec','kotakab','prov','pos');
+            // $wilayah=DB::table('wilayahs')->where('kotakab','CIMAHI')->get();       
+        $wilayah=DB::table('wilayahs')->where('kotakab','CIMAHI')->get();       
 
-        // return Datatables()->of($wilayah)->make(true);
-        return Datatables()->of($wilayah)->toJson();
+        return Datatables::of($wilayah)->make(true);
     }
+
+    public function finddata(Request $request)    
+    {
+        if($request->search){
+            $wilayah=DB::table('wilayahs')
+                        ->select('kel','kec','kotakab','prov','pos')
+                        ->where('kel','like','%'.$request->search.'%')
+                        ->orWhere('kec','like','%'.$request->search.'%')
+                        ->orWhere('kotakab','like','%'.$request->search.'%')
+                        ->limit(10)
+                        ->get();
+            $temp=array();
+            foreach ($wilayah as $value) {
+                $temp[]=array('label'=>$value->kel.' - '.$value->kec.' - '.$value->kotakab.'- '.$value->prov.' - '.$value->pos,'value'=>$value->kel,'kel'=>$value->kel,
+                                'kec'=>$value->kec,'kotakab'=>$value->kotakab,'prov'=>$value->prov,'pos'=>$value->pos);
+            }
+            
+            return response()->json($temp);
+        }
+
+    }
+
 }
