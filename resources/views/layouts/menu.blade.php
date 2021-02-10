@@ -10,6 +10,7 @@
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Master</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                <li><a href="/profile" class="dropdown-item">- Profile Puskesmas</a></li>
                 <li><a href="/pasien" class="dropdown-item">- Dokter</a></li>
                 <li><a href="/poli" class="dropdown-item">- Poli </a></li>
                 <li><a href="/rekening" class="dropdown-item">- Rekening </a></li>
@@ -45,11 +46,9 @@
                 <li><a href="/pendaftaran" class="dropdown-item">- Pendaftaran</a></li>
                 <li><a href="/poli" class="dropdown-item">- Pemeriksaan </a></li>
                 <li><a href="/billing" class="dropdown-item">- Billing </a></li>
-                <li><a href="/rekening" class="dropdown-item">- Rujukan </a></li>
-                <li><a href="/rekening" class="dropdown-item">- Surat </a></li>
                 <li class="dropdown-divider"></li>
-                <li><a href="/rekening" class="dropdown-item">- P-Care </a></li>
-                <li><a href="/rekening" class="dropdown-item">- Disduk </a></li>
+                <li><a href="" class="dropdown-item">- P-Care </a></li>
+                <li><a href="" class="dropdown-item">- Disduk </a></li>
                 <li class="dropdown-divider"></li>
 
               <!-- Level two dropdown-->

@@ -11,6 +11,8 @@
 |
 */
 
+
+Route::resource('profile', 'ProfileController');
 Route::resource('pasien', 'PasienController');
 Route::get('pasien_server_side','PasienController@fetch')->name('data.pasien');
 

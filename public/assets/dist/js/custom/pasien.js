@@ -75,7 +75,7 @@ $("#cari_wilayah").autocomplete({
                           input.val('');
                           $searchButton.click(); 
                        }) 
-        $('.dataTables_filter').append($searchButton, $clearButton);
+        $('.dataTables_filter').append($searchButton, $clearButton);        
     },  
     "responsive": true, "lengthChange": true, "autoWidth": true,"searching":true,"filter":true,"info":true,
     "language": {
@@ -90,27 +90,12 @@ $("#cari_wilayah").autocomplete({
       loadingIndicator:true
   }
   });
-
-
-    
-  $( "#birds" ).autocomplete({
-    source: function( request, response ) {
-      $.ajax( {
-        url: "search.php",
-        dataType: "jsonp",
-        data: {
-          term: request.term
-        },
-        success: function( data ) {
-          response( data );
-        }
-      } );
-    },
-    minLength: 2,
-    select: function( event, ui ) {
-      log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+  $("#data-pasien input").keyup(function(e){
+    if(e.keyCode==13){
+      console.log(e);
     }
-  } );
+  })
+
 
     $('#status').select2({
         theme: 'bootstrap4'
@@ -120,12 +105,12 @@ $("#cari_wilayah").autocomplete({
         theme: 'bootstrap4'
     });
 
-    $("#form-pasien").on("submit",function(e){
+    $("#form-profile").on("submit",function(e){
       e.preventDefault();
       var dataPasien=$(this).serialize();
+
       $.ajax({
-        url:datasite+'/pasien',
-        // method:'POST',
+        url:datasite+'/profile',
         type:'POST',
         data:dataPasien,
         dataType:'json',

@@ -13,9 +13,9 @@ class AddDeskripsiToRekeningsTable extends Migration
      */
     public function up()
     {
-        Schema::table('rekenings', function (Blueprint $table) {
-            $table->string('deskripsi')->nullable();
-        });
+        // Schema::table('rekenings', function (Blueprint $table) {
+        //     $table->string('deskripsi')->nullable();
+        // });
     }
 
     /**
@@ -25,8 +25,8 @@ class AddDeskripsiToRekeningsTable extends Migration
      */
     public function down()
     {
-        Schema::table('rekenings', function (Blueprint $table) {
-            //
-        });
+        // Schema::table('rekenings', function (Blueprint $table) {
+        //     //
+        // });
     }
 }
