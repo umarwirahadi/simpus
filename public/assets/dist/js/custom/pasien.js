@@ -38,10 +38,11 @@ $("#cari_wilayah").autocomplete({
   },
   minLength:3,
   select:function(event,ui){
-    $("#kelurahan").val(ui.item.label);
-    $("#kecamatan").val(ui.item.label);
-    $("#kab_kota").val(ui.item.label);
-    $("#provinsi").val(ui.item.label);
+    $("#kelurahan").val(ui.item.kel);
+    $("#kecamatan").val(ui.item.kec);
+    $("#kab_kota").val(ui.item.kotakab);
+    $("#provinsi").val(ui.item.prov);
+    $("#pos").val(ui.item.pos);
     return false
   }
 });
@@ -161,14 +162,6 @@ $("#cari_wilayah").autocomplete({
               text: value,
             })
         })
-          // if(a.status==422){              
-          //     $.each(cb,function(a,b){
-          //       PNotify.error({
-          //         title: 'isian data error',
-          //         text: b,                  
-          //       })
-          //   })
-          // }
         }
 
       });

@@ -65,7 +65,7 @@ class PasienController extends Controller
                                 'nik'=>['required','digits:16'],
                                 'nama_lengkap'=>['required'],
                                 'tanggal_lahir'=>['required','date'],
-                                'nik'=>['required'],
+                                'alamat'=>['required'],
         ],$pesan);
 
         if($cekvalidasi){
@@ -87,7 +87,7 @@ class PasienController extends Controller
                 $simpanPasien->hp=$request->hp;
                 $simpanPasien->telp=$request->telp;
                 $simpanPasien->email=$request->email;
-                $simpanPasien->warganegara=$request->warganegara;
+                $simpanPasien->warganegara='Indonesia';
                 $simpanPasien->alamat=$request->alamat;
                 $simpanPasien->rt=$request->rt;
                 $simpanPasien->rw=$request->rw;

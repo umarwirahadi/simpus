@@ -16,9 +16,8 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <form action="{{ route('pasien.store') }}" method="POST" id="form-pasien">
+                <form action="" method="POST" id="form-pasien">
                     @csrf
-
                     <div class="row">
                         <div class="col-md-3">                          
                             <div class="form-group">
@@ -26,7 +25,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="No. KTP" id="nik" name="nik">
                                     <span class="input-group-append">
-                                      <button type="button" class="btn btn-info btn-flat">Cek</button>
+                                      <button type="button" class="btn btn-info btn-flat"><i class="fa fa-search"></i></button>
                                     </span>
                                   </div>
                             </div>         
@@ -56,13 +55,16 @@
                     <div class="row">
                         <div class="col-md-3">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="jenis_kelamin">Jenis kelamin</label>
-                                <select class="custom-select" name="jenis_kelamin" id="jenis_kelamin">
-                                    {!! KustomHelper::getItem('jenis-kelamin') !!}
-                                </select>
-                              
+                                <label class="col-form-label" for="no_bpjs">No. BPJS</label>
+                                <input type="text" class="form-control" placeholder="No BPJS" name="no_bpjs" id="no_bpjs" >
                             </div>                                                    
-                        </div>                       
+                        </div>                                                
+                        <div class="col-md-2">                          
+                            <div class="form-group">
+                                <label class="col-form-label" for="no_rm_lama">No. RM lama</label>
+                                <input type="text" class="form-control" placeholder="No RM lama" name="no_rm_lama" id="no_rm_lama" >
+                            </div>                                                    
+                        </div>                                                
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="tempat_lahir">Tempat lahir</label>
@@ -75,7 +77,7 @@
                                 <input type="date" class="form-control"  name="tanggal_lahir" id="tanggal_lahir" >
                             </div>                                                    
                         </div>                       
-                        <div class="col-md-4">                          
+                        <div class="col-md-2">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="agama">Agama</label>
                                 <select class="custom-select" name="agama" id="agama">
@@ -85,9 +87,17 @@
                         </div>                       
                     </div>
                     <div class="row">
-                        <div class="col-md-3">                          
+                        <div class="col-md-2">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="gol_darah">Golongan darah</label>
+                                <label class="col-form-label" for="jenis_kelamin">Jenis kelamin</label>
+                                <select class="custom-select" name="jenis_kelamin" id="jenis_kelamin">
+                                    {!! KustomHelper::getItem('jenis-kelamin') !!}
+                                </select>                              
+                            </div>                                                    
+                        </div>
+                        <div class="col-md-2">                          
+                            <div class="form-group">
+                                <label class="col-form-label" for="gol_darah">Gol. darah</label>
                                 <select class="custom-select" name="gol_darah" id="gol_darah">
                                     {!! KustomHelper::getItem('golongan-darah') !!}
                                 </select>
@@ -106,7 +116,7 @@
                                 <input type="text" class="form-control"  name="telp" id="telp"  placeholder="022-70xxxxx">
                             </div>                                                    
                         </div>                       
-                        <div class="col-md-4">                          
+                        <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="email">email</label>
                                 <input type="email" class="form-control"  name="email" id="email"  placeholder="contoh: u.wirahadi10@gmail.com">                                
@@ -114,20 +124,18 @@
                         </div>                       
                     </div>
                     <div class="row">
-                        <div class="col-md-3">                          
+                        {{-- <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="warganegara">Kewarganegaraan</label>
                                 <input type="text" class="form-control" placeholder="contoh: indonesia" name="warganegara" id="warganegara" value="indonesia">                                  
                             </div>                                                    
-                        </div>                       
-                        <div class="col-md-9">                          
+                        </div>                        --}}
+                        <div class="col-md-10">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="alamat">Alamat/Jalan</label>
-                                <input type="text" class="form-control" placeholder="contoh : Jl. Melong asih Gg Nusa indah 7 no 35 (RT/RW/Kel/Kec/Kota/Prov) input terpisah" name="alamat" id="alamat" >                                  
+                                <input type="text" class="form-control" placeholder="contoh : Jl. Melong asih Gg Nusa indah 7 no 35 (RT/RW/Kel/Kec/Kota/Prov) input terpisah" name="alamat" id="alamat" >
                             </div>                                                    
-                        </div>      
-                    </div>
-                    <div class="row">
+                        </div>  
                         <div class="col-md-1">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="rt">RT</label>
@@ -139,26 +147,26 @@
                                 <label class="col-form-label" for="rw">RW</label>
                                 <input type="text" class="form-control" name="rw" id="rw" >                                
                             </div>
-                        </div>                       
-                        <div class="col-md-10">                          
+                        </div>     
+                    </div>
+                    <div class="row">
+                                             
+                        <div class="col-md-9">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="cari_wilayah">Pencarian wilayah</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="ketik nama kelurahan untuk mencari dan mengisi wilayah otomatis" id="cari_wilayah" name="cari_wilayah">
-                                    {{-- <span class="input-group-append">
-                                      <button type="button" class="btn btn-info btn-flat"><i class="fa fa-search"></i> Cari</button>
-                                    </span> --}}
                                   </div>
                             </div>         
                         </div>                                                                     
-                    </div>
-                    <div class="row">                                          
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="kelurahan">Kelurahan</label>
                                 <input type="text" class="form-control" name="kelurahan" id="kelurahan">
                             </div>                                                    
-                        </div>                       
+                        </div>
+                    </div>
+                    <div class="row">                                                                                         
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="kecamatan">Kecamatan</label>
@@ -171,13 +179,13 @@
                                 <input type="text" class="form-control"  name="kab_kota" id="kab_kota" >
                             </div>                                                    
                         </div>                       
-                        <div class="col-md-2">                          
+                        <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="provinsi">Provinsi</label>
                                 <input type="text" class="form-control"  name="provinsi" id="provinsi" >
                             </div>                                                    
                         </div>                       
-                        <div class="col-md-1">                          
+                        <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="pos">POS</label>
                                 <input type="text" class="form-control"  name="pos" id="pos" >
@@ -240,14 +248,14 @@
                         </div>                       
                         <div class="col-md-2">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="provinsi">Hubungan</label>
-                                <input type="text" class="form-control"  name="provinsi" id="provinsi" >
+                                <label class="col-form-label" for="hubungan_dengan_penanggung_jawab">Hubungan</label>
+                                <input type="text" class="form-control"  name="hubungan_dengan_penanggung_jawab" id="hubungan_dengan_penanggung_jawab" >
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="pos">Contact/hp</label>
-                                <input type="text" class="form-control"  name="pos" id="pos" >
+                                <label class="col-form-label" for="no_contact_darurat">Contact/hp</label>
+                                <input type="text" class="form-control"  name="no_contact_darurat" id="no_contact_darurat" >
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          
