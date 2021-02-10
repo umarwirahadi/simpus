@@ -13,14 +13,15 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $puskesmas=Profile::get()->first();
         $data=[
             'menu'=>'Data',
             'submenu'=>'profile',
             'judul'=>'Profile Puskesmas',
             'isDataTable'=>false,
             'isJS'=>'profile.js',
-            'dataItem'=>null
+            'dataItem'=>$puskesmas
         ];
         return view('profile.index',$data);
     }
@@ -65,8 +66,9 @@ class ProfileController extends Controller
 
         if($cekvalidasi){
             $cekpkm=Profile::where(['kode_puskesmas'=>$request->kode_puskesmas]);
-            if($cekpasien->count()<1){
+            if($cekpkm->count()<1){
                 $simpanpkm=new Profile;
+                $simpanpkm->id_puskesmas='88888';
                 $simpanpkm->kode_puskesmas=$request->kode_puskesmas;
                 $simpanpkm->nama_puskesmas=$request->nama_puskesmas;
                 $simpanpkm->alamat=$request->alamat;
@@ -82,7 +84,7 @@ class ProfileController extends Controller
                 $simpanpkm->no_ijin=$request->no_ijin;
                 $simpanpkm->tanggal=$request->tanggal;
                 $simpanpkm->no_register=$request->no_register;
-                $simpanpkm->nip_kapus=nip_kapus;
+                $simpanpkm->nip_kapus=$request->nip_kapus;
                 $simpanpkm->nip_katu=$request->nip_katu;
 
                                 

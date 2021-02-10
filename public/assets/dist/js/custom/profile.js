@@ -108,7 +108,6 @@ $(document).ready(function () {
       $("#form-profile").on("submit",function(e){
         e.preventDefault();
         var dataPasien=$(this).serialize();
-        console.log(dataPasien);
         $.ajax({
           url:datasite+'/profile',
           type:'POST',
@@ -124,7 +123,7 @@ $(document).ready(function () {
                 icon: 'success',
                 confirmButtonText: 'Ok'
               }).then(()=>{
-                window.location.href=datasite+'/pasien';
+                window.location.href=datasite+'/profile';
               })
             }else{
               Swal.fire({
