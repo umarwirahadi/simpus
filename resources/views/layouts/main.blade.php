@@ -155,6 +155,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
   <!-- /.content-wrapper -->
 
+
+
+  
+
+
   <footer class="main-footer">
     <strong>Copyright &copy; 2021 <a href="https://adminlte.io">Dinas Kesehatan Kota Cimahi</a>.</strong> All rights reserved.
   </footer>

@@ -1,6 +1,5 @@
 @extends('layouts.main')
 @section('content')
-{{$dataItem}}
     <div class="col-md-8">
         <div class="card card-outline card-info shadow">
             <form action="" method="POST" id="form-profile">                
@@ -182,6 +181,12 @@
                         <!-- /.description-block -->
                     </div>
                     <!-- /.col -->
+                </div>
+                <div class="row" id="actions">
+                    <div class="col-md-12">
+                              
+                            
+                    </div>
                 </div>
                 <!-- /.row -->
             </div>

@@ -73,8 +73,7 @@ $(document).ready(function () {
     
   $(".delete-data").on("click",function(){
     var dataID=$(this).attr('id');
-    const token= $("meta[name='csrf-token']").attr("content");
-  
+    const token= $("meta[name='csrf-token']").attr("content");  
     Swal.fire({
       title: 'Yakin data rekening akan dihapus ?',
       text: "pastikan anda benar ingin menghapus data ini",

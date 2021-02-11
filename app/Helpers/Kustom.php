@@ -2,6 +2,12 @@
 namespace App\Helpers;
 use Illuminate\support\Facades\DB;
 class Kustom{
+
+    public static function setKodePkm(){
+        $namapuskesmas=DB::table('profiles')->select('kode_puskesmas')->first();
+        return $namapuskesmas->kode_puskesmas;
+    }
+
     public static function getItem($categories='',$default='')
     {
         if(!empty($categories)){

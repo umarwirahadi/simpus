@@ -7,7 +7,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body">
-            <form action="" method="POST" id="form-rekening-update" data-url="{{route('rekening.update',[$data->id])}}">
+            <form action="{{route('rekening.update',[$data->id])}}" method="POST" id="form-rekening-update" data-url="{{route('rekening.update',[$data->id])}}">
                 @csrf
                 <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">

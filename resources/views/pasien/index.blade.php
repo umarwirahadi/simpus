@@ -8,6 +8,7 @@
         <h3 class="card-title">
             <a href="{{route('pasien.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
         </h3>
+        
           {{-- <h3 class="card-title">
               <a href="{{route('pasien.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a>
               
@@ -31,6 +32,7 @@
                           <th>No. RM</th>
                           <th>Nama Pasien</th>
                           <th>Alamat</th>
+                          <th>HP</th>
                           <th>Aksi</th>
                         </tr>
                         </thead>
@@ -48,6 +50,12 @@
       <!-- /.card-footer-->
   </div>
 </div>
+
+{{-- load modal --}}
+
+
+@include('pasien.show')
 @endsection
+
 
 
