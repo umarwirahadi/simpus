@@ -6,6 +6,7 @@ use App\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DataTables;
+use KustomHelper;
 
 
 class PasienController extends Controller
@@ -63,9 +64,8 @@ class PasienController extends Controller
             'digits'=>':attribute apanjang karakter harus 16 digit'
             ];
         $cekvalidasi=$request->validate([
-                                // 'nik'=>['required','digits:16'],
                                 'nama_lengkap'=>['required'],
-                                'tanggal_lahir'=>['required','date'],
+                                'tanggal_lahir'=>['required'],
                                 'alamat'=>['required'],
                                 'rt'=>['required'],
                                 'rw'=>['required'],
@@ -78,30 +78,50 @@ class PasienController extends Controller
                 // set_kode_puskesmas
                 $kode_pkm=KustomHelper::setKodePkm();
 
-                $kode="855321";
-                    $kode2=intval($kode);
-                    switch (strlen($kode2)){
-                    case 1:
-                    echo "digitnya ".strlen($kode2);
-                    break;
-                    case 2:
-                    echo "digitnya ".strlen($kode2);
-                    break;
-                    case 3:
-                    echo "digitnya ".strlen($kode2);
-                    break;
-                    case 4:
-                    echo "digitnya ".strlen($kode2);
-                    break;
-                    case 5:
-                    echo "digitnya ".strlen($kode2);
-                    break;
-                    case 6:
-                    echo "digitnya ".strlen($kode2);
-                    break;
-                    default:
-                    echo "0";
-                    }
+                // $kode=DB::select('SELECT max(RIGHT(no_rm,6)) as no_rm from pasiens limit 1');
+                // foreach ($kode as $kd) {
+
+                //     echo($kd->no_rm);
+                //     // $kode2=intval($kd);
+
+                // }
+
+                $kode=DB::select('SELECT max(RIGHT(no_rm,6)) as no_rm from pasiens limit 1');
+                $temp_norm="";
+                $temp_norm_fix="";
+                foreach ($kode as $kd) {
+                    $temp_norm=($kd->no_rm);
+                }        
+                $jml_digit=intval($temp_norm);                
+
+                switch (strlen($jml_digit)){
+                case 1:
+                    ++$jml_digit;
+                    $temp_norm_fix=$kode_pkm."00000".$jml_digit;
+                break;
+                case 2:
+                    ++$jml_digit;
+                    $temp_norm_fix=$kode_pkm."0000".$jml_digit;                
+                break;
+                case 3:
+                    ++$jml_digit;
+                    $temp_norm_fix=$kode_pkm."000".$jml_digit;                
+                break;
+                case 4:
+                    ++$jml_digit;
+                    $temp_norm_fix=$kode_pkm."00".$jml_digit;                
+                break;
+                case 5:
+                    ++$jml_digit;
+                    $temp_norm_fix=$kode_pkm."0".$jml_digit;
+                break;
+                case 6:
+                    ++$jml_digit;
+                    $temp_norm_fix=$kode_pkm.$jml_digit;                
+                break;
+                default:
+                    $temp_norm_fix=$kode_pkm."000001";
+                }
 
 
 
@@ -110,7 +130,7 @@ class PasienController extends Controller
                 $simpanPasien->no_kk=$request->no_kk;
                 $simpanPasien->status_hubungan=$request->status_hubungan;
                 $simpanPasien->no_bpjs=$request->no_bpjs;
-                $simpanPasien->no_rm=$request->no_rm;
+                $simpanPasien->no_rm=$temp_norm_fix;
                 $simpanPasien->no_rm_lama=$request->no_rm_lama;
                 $simpanPasien->nama_lengkap=$request->nama_lengkap;
                 $simpanPasien->jenis_kelamin=$request->jenis_kelamin;
@@ -162,9 +182,19 @@ class PasienController extends Controller
      * @param  \App\Pasien  $pasien
      * @return \Illuminate\Http\Response
      */
-    public function show(Pasien $pasien)    
+    public function show($id)    
     {
-        return $pasien;
+        $pasien=pasien::findOrFail($id);
+        $data=[
+            'menu'=>'data',
+            'submenu'=>'pasien',
+            'submenu2'=>'lihat pasien',
+            'aksi'=>'Data pasien',
+            'isDataTable'=>false,
+            'isJS'=>'pasien.js',
+            'data'=>$pasien
+        ];
+        return view('pasien.show',$data);
     }
 
     /**
@@ -266,7 +296,7 @@ class PasienController extends Controller
                         ->addIndexColumn()
                         ->addColumn('aksi', function($pasien){
                             $btn='<div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-view" id="brobro"   >View</button>
+                            <a href="pasien/'.$pasien->id.'" class="btn btn-xs btn-primary">View</a>
                             <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-success">Edit</a>
                             <div class="btn-group">
                             <button type="button" class="btn btn-xs btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
@@ -282,6 +312,28 @@ class PasienController extends Controller
                         })
                         ->rawColumns(['aksi'])
                         ->toJson();
+    }
+
+
+    public function finddata(Request $request)    
+    {
+        if($request->search){
+            $wilayah=DB::table('pasiens')
+                        ->select('nik','kec','kotakab','prov','pos')
+                        ->where('kel','like','%'.$request->search.'%')
+                        ->orWhere('kec','like','%'.$request->search.'%')
+                        ->orWhere('kotakab','like','%'.$request->search.'%')
+                        ->limit(10)
+                        ->get();
+            $temp=array();
+            foreach ($wilayah as $value) {
+                $temp[]=array('label'=>$value->kel.' - '.$value->kec.' - '.$value->kotakab.'- '.$value->prov.' - '.$value->pos,'value'=>$value->kel,'kel'=>$value->kel,
+                                'kec'=>$value->kec,'kotakab'=>$value->kotakab,'prov'=>$value->prov,'pos'=>$value->pos);
+            }
+            
+            return response()->json($temp);
+        }
+
     }
     
 }

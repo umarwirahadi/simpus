@@ -53,8 +53,6 @@
 
 {{-- load modal --}}
 
-
-@include('pasien.show')
 @endsection
 
 
