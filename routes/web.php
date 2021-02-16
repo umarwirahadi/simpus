@@ -15,6 +15,8 @@
 Route::resource('profile', 'ProfileController');
 Route::resource('pasien', 'PasienController');
 Route::get('pasien_server_side','PasienController@fetch')->name('data.pasien');
+Route::get('cari_pasien','PasienController@finddata')->name('cari.pasien');
+
 
 Route::resource('wilayah', 'WilayahController');
 Route::get('wilayah_server_side','WilayahController@fetch')->name('data.wilayah');

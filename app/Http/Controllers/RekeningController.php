@@ -79,9 +79,20 @@ class RekeningController extends Controller
      * @param  \App\Rekening  $rekening
      * @return \Illuminate\Http\Response
      */
-    public function show(Rekening $rekening)
+    public function show($id)
     {
-        //
+        $showrekening=Rekening::findOrFail($id);
+        $data=[
+            'menu'=>'Master',
+            'submenu'=>'rekening',
+            'submenu2'=>'Show rekening',
+            'aksi'=>'data rekening',
+            'isDataTable'=>false,
+            'isJS'=>'rekening.js',
+            'data'=>$showrekening
+        ];
+
+        return response()->json($data,200);
     }
 
     /**
@@ -115,14 +126,14 @@ class RekeningController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rek= Rekening::findOrFail($id);
+        $rek= Rekening::find($id);
         if($rek){
             $rek->kode_rekening         =$request->kode_rekening;
             $rek->nama_rekening         =$request->nama_rekening;
             $rek->jenis                 =$request->jenis;
             $rek->biaya                 =$request->biaya;
-            $cek->jenis_biaya           =$request->jenis_biaya;
-            $cek->satuan                =$request->satuan;
+            $rek->jenis_biaya           =$request->jenis_biaya;
+            $rek->satuan                =$request->satuan;
             $rek->status                =$request->status;
             $rek->deskripsi             =$request->deskripsi;
             $rek->update();

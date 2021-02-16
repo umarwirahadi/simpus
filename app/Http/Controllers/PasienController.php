@@ -77,15 +77,7 @@ class PasienController extends Controller
                 // proses pembuatan no_rm otomatis
                 // set_kode_puskesmas
                 $kode_pkm=KustomHelper::setKodePkm();
-
-                // $kode=DB::select('SELECT max(RIGHT(no_rm,6)) as no_rm from pasiens limit 1');
-                // foreach ($kode as $kd) {
-
-                //     echo($kd->no_rm);
-                //     // $kode2=intval($kd);
-
-                // }
-
+                
                 $kode=DB::select('SELECT max(RIGHT(no_rm,6)) as no_rm from pasiens limit 1');
                 $temp_norm="";
                 $temp_norm_fix="";
@@ -229,41 +221,41 @@ class PasienController extends Controller
         $updatePasien= Pasien::findOrFail($id);
         if($updatePasien){
             $updatePasien->nik=$request->nik;
-                $updatePasien->no_kk=$request->no_kk;
-                $updatePasien->status_hubungan=$request->status_hubungan;
-                $updatePasien->no_bpjs=$request->no_bpjs;
-                $updatePasien->no_rm=$request->no_rm;
-                $updatePasien->no_rm_lama=$request->no_rm_lama;
-                $updatePasien->nama_lengkap=$request->nama_lengkap;
-                $updatePasien->jenis_kelamin=$request->jenis_kelamin;
-                $updatePasien->tempat_lahir=$request->tempat_lahir;
-                $updatePasien->tanggal_lahir=$request->tanggal_lahir;
-                $updatePasien->agama=$request->agama;
-                $updatePasien->gol_darah=$request->gol_darah;
-                $updatePasien->hp=$request->hp;
-                $updatePasien->telp=$request->telp;
-                $updatePasien->email=$request->email;
-                $updatePasien->warganegara='Indonesia';
-                $updatePasien->alamat=$request->alamat;
-                $updatePasien->rt=$request->rt;
-                $updatePasien->rw=$request->rw;
-                $updatePasien->kelurahan=$request->kelurahan;
-                $updatePasien->kecamatan=$request->kecamatan;
-                $updatePasien->kab_kota=$request->kab_kota;
-                $updatePasien->provinsi=$request->provinsi;
-                $updatePasien->pos=$request->pos;
-                $updatePasien->status_marital=$request->status_marital;
-                $updatePasien->pendidikan_terakhir=$request->pendidikan_terakhir;
-                $updatePasien->suku=$request->suku;
-                $updatePasien->pekerjaan=$request->pekerjaan;
-                $updatePasien->nama_ayah=$request->nama_ayah;
-                $updatePasien->nama_ibu=$request->nama_ibu;
-                $updatePasien->penanggung_jawab=$request->penanggung_jawab;
-                $updatePasien->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
-                $updatePasien->no_contact_darurat=$request->no_contact_darurat;
-                $updatePasien->status_pasien=$request->status_pasien;
-                $updatePasien->wilayah_kerja=$request->wilayah_kerja;                
-                $updatePasien->update();
+            $updatePasien->no_kk=$request->no_kk;
+            $updatePasien->status_hubungan=$request->status_hubungan;
+            $updatePasien->no_bpjs=$request->no_bpjs;
+            $updatePasien->no_rm=$request->no_rm;
+            $updatePasien->no_rm_lama=$request->no_rm_lama;
+            $updatePasien->nama_lengkap=$request->nama_lengkap;
+            $updatePasien->jenis_kelamin=$request->jenis_kelamin;
+            $updatePasien->tempat_lahir=$request->tempat_lahir;
+            $updatePasien->tanggal_lahir=$request->tanggal_lahir;
+            $updatePasien->agama=$request->agama;
+            $updatePasien->gol_darah=$request->gol_darah;
+            $updatePasien->hp=$request->hp;
+            $updatePasien->telp=$request->telp;
+            $updatePasien->email=$request->email;
+            $updatePasien->warganegara='Indonesia';
+            $updatePasien->alamat=$request->alamat;
+            $updatePasien->rt=$request->rt;
+            $updatePasien->rw=$request->rw;
+            $updatePasien->kelurahan=$request->kelurahan;
+            $updatePasien->kecamatan=$request->kecamatan;
+            $updatePasien->kab_kota=$request->kab_kota;
+            $updatePasien->provinsi=$request->provinsi;
+            $updatePasien->pos=$request->pos;
+            $updatePasien->status_marital=$request->status_marital;
+            $updatePasien->pendidikan_terakhir=$request->pendidikan_terakhir;
+            $updatePasien->suku=$request->suku;
+            $updatePasien->pekerjaan=$request->pekerjaan;
+            $updatePasien->nama_ayah=$request->nama_ayah;
+            $updatePasien->nama_ibu=$request->nama_ibu;
+            $updatePasien->penanggung_jawab=$request->penanggung_jawab;
+            $updatePasien->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
+            $updatePasien->no_contact_darurat=$request->no_contact_darurat;
+            $updatePasien->status_pasien=$request->status_pasien;
+            $updatePasien->wilayah_kerja=$request->wilayah_kerja;                
+            $updatePasien->update();
 
             return response()->json(['status'=>1,'message'=>'data pasien berhasil diupdate','data'=>$updatePasien],200);
         }else{
@@ -318,19 +310,19 @@ class PasienController extends Controller
     public function finddata(Request $request)    
     {
         if($request->search){
-            $wilayah=DB::table('pasiens')
-                        ->select('nik','kec','kotakab','prov','pos')
-                        ->where('kel','like','%'.$request->search.'%')
-                        ->orWhere('kec','like','%'.$request->search.'%')
-                        ->orWhere('kotakab','like','%'.$request->search.'%')
-                        ->limit(10)
+            $vpasien=DB::table('vpasiens')
+                        ->where('nama_lengkap','like','%'.$request->search.'%')
+                        ->orWhere('no_rm','like','%'.$request->search.'%')
+                        ->orWhere('nik','like','%'.$request->search.'%')
+                        ->limit(15)
                         ->get();
             $temp=array();
-            foreach ($wilayah as $value) {
-                $temp[]=array('label'=>$value->kel.' - '.$value->kec.' - '.$value->kotakab.'- '.$value->prov.' - '.$value->pos,'value'=>$value->kel,'kel'=>$value->kel,
-                                'kec'=>$value->kec,'kotakab'=>$value->kotakab,'prov'=>$value->prov,'pos'=>$value->pos);
-            }
-            
+            foreach ($vpasien as $value) {
+                $temp[]=array('label'=>$value->no_rm.' / '.$value->nama_lengkap.' ('.$value->nik.') / Alamat : '.$value->alamat,'value'=>$value->id,'nik'=>$value->nik,
+                              'no_rm'=>$value->no_rm,'no_rm_lama'=>$value->no_rm_lama,'nama_lengkap'=>$value->nama_lengkap,'jenis_kelamin'=>$value->jenis_kelamin,'tanggal_lahir'=>$value->tanggal_lahir,
+                              'tahun'=>$value->tahun,'bulan'=>$value->bulan,'hari'=>$value->hari,'gol_darah'=>$value->gol_darah,'hp'=>$value->hp,'telp'=>$value->telp,'alamat'=>$value->alamat,
+                              'rt'=>$value->rt,'rw'=>$value->rw,'kelurahan'=>$value->kelurahan,'kecamatan'=>$value->kecamatan,'kab_kota'=>$value->kab_kota);
+                            }            
             return response()->json($temp);
         }
 

@@ -112,6 +112,24 @@ $(document).ready(function () {
     })
   });
 
+$("body").on("click",".choose-data",function(){
+  var data_id=$(this).data('id');
+  $.ajax({
+    url:datasite+'/rekening/'+data_id,
+    type:'GET',
+    dataType:'json',
+    success:function(data){
+      $(".modal-title").html(data.submenu2);
+      $("#a1").html(data.data.kode_rekening);
+      $("#a2").html(data.data.nama_rekening);
+      $("#a3").html('Rp. '+data.data.biaya);
+      $("#a4").html(data.data.status===1?'Aktif':'Tidak aktif');
+      $("#a5").html(data.data.deskripsi);
+      $("#modal-rekening").modal(); 
+    }
+  })
+})
+
   $("#form-rekening-update").on("submit",function(e){
     e.preventDefault();
     var url=$(this).attr('data-url');

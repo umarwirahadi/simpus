@@ -1,4 +1,4 @@
-@extends('layouts.main')
+{{-- @extends('layouts.main')
 @section('content')
 <div class="col-lg-12">
     <div class="card card-warning">
@@ -48,4 +48,52 @@
     </div>
 </div>
 
-@endsection
+@endsection --}}
+
+
+<div class="modal fade" id="modal-rekening">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+                <tr>
+                    <td style="width: 30%">Kode</td>
+                    <td style="width: 3%">:</td>
+                    <td id="a1">-</td>
+                </tr>
+                <tr>
+                    <td>Nama Rekening</td>
+                    <td>:</td>
+                    <td id="a2">-</td>                    
+                </tr>
+                <tr>
+                    <td>Biaya</td>
+                    <td>:</td>
+                    <td id="a3">-</td>                    
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>:</td>
+                    <td id="a4">-</td>                    
+                </tr>
+                <tr>
+                    <td>Deskripsi</td>
+                    <td>:</td>
+                    <td id="a5">-</td>                    
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
