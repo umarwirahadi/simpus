@@ -63,7 +63,7 @@
                                                 <label for="nik">NIK</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="nik" value="" value="" disabled />
+                                                    id="nik" value="" value="" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -73,9 +73,8 @@
                                                 <input type="hidden" name="usia_tahun" id="usia_tahun" value="">
                                                 <input type="hidden" name="usia_bulan" id="usia_bulan" value="">
                                                 <input type="hidden" name="usia_hari" id="usia_hari" value="">
-                                                <input type="text"
-                                                    class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="no_rm" value="" disabled />
+                                                <input type="text" class="form-control form-control-border border-width-2 form-control-sm" name="no_rm"
+                                                    id="no_rm" value="" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -83,7 +82,7 @@
                                                 <label for="nama_lengkap">Nama pasien</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="nama_lengkap" value="" disabled />
+                                                    id="nama_lengkap" value="" readonly />
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +92,7 @@
                                                 <label for="tanggal_lahir">Tgl. lahir</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="tanggal_lahir" value="" disabled />
+                                                    id="tanggal_lahir" value="" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -101,7 +100,7 @@
                                                 <label for="usia">Usia sekarang</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="usia" value="" disabled />
+                                                    id="usia" value="" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -109,7 +108,7 @@
                                                 <label for="jk">Jenis kelamin</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="jk" value="" disabled />
+                                                    id="jk" value="" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -117,7 +116,7 @@
                                                 <label for="hp">No. HP</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="hp" value="" disabled />
+                                                    id="hp" value="" readonly />
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +126,7 @@
                                                 <label for="alamat">Alamat</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="alamat" value="" disabled />
+                                                    id="alamat" value="" readonly />
                                             </div>
                                         </div>
 

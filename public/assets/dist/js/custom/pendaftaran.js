@@ -48,6 +48,7 @@ $(document).ready(function(){
       $("#usia_hari").val(ui.item.hari);
       $("#hp").val(ui.item.hp);
       $("#alamat").val(ui.item.alamat);
+      $("#id_pasien").val(ui.item.value);
       // $("#pos").val(ui.item.pos);
       return false
     }
@@ -56,7 +57,7 @@ $(document).ready(function(){
   $("#form-pendaftaran-pasien").on("submit", function (e) {
     e.preventDefault();
     var datapendaftaran = $(this).serialize();
-    console.log(datapendaftaran);
+    // console.log(datapendaftaran);
 
     $.ajax({
       url: datasite + '/pendaftaran',
@@ -83,21 +84,17 @@ $(document).ready(function(){
       },
       error: function (a) {
         if(a.status==422){
-          let temp = [];
-          $.each(a.responseJSON.errors, function (i, v) {
-            temp.push(v)
-          })
-          var bc = temp.toString();
-          var cb = bc.split(',')
-          $.each(cb, function (index, value) {
+          $.each(a.responseJSON.data, function (i, v) {
             PNotify.error({
               title: 'error',
-              text: value,
+              text: v,
             })
+          })          
+        }else{
+          PNotify.error({
+            title: 'error',
+            text: 'proses simpan data error',
           })
-        }else{          
-            // window.location.href = datasite + '/pasien';
-            console.log(a);
           }      
       }
     });

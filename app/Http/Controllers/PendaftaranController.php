@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Pendaftaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class PendaftaranController extends Controller
 {
@@ -54,95 +57,65 @@ class PendaftaranController extends Controller
      */
     public function store(Request $request)
     {
-        $pesan=[
-            'required'=>':attribute wajib diisi',
-            'digits'=>':attribute apanjang karakter harus 16 digit'
-            ];
-        $cekvalidasi=$request->validate([
-                                'id_pasien'=>['required'],
-                                'poli'=>['required']],$pesan);
-
-        if($cekvalidasi){
+        $cekvalidasi=Validator::make($request->all(),
+            ['id_pasien'=>['required']]
+        );
+        if($cekvalidasi->fails()){           
+            return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
+        }else{
             $cekpendaftaran=Pendaftaran::where(['tanggal'=>date('Y-m-d')]);
             if($cekpendaftaran->count()==0){
                 $no_pendaftaran=1;
-                // proses pembuatan no_rm otomatis
-                // set_kode_puskesmas
-                // $kode_pkm=KustomHelper::setKodePkm();
                 
                 $kode=DB::select('SELECT max(noantrian) as noantrian from pendaftarans where tanggal=now() and poli=:poli limit 1',['poli'=>$request->poli]);
                 $temp_norm="";
                 $temp_norm_fix="";
                 foreach ($kode as $kd) {
-                    $temp_norm=($kd->no_rm);
+                    $temp_norm=($kd->noantrian);
                 }        
                 $jml_digit=intval($temp_norm);                
 
-                switch (strlen($jml_digit)){
-                case 1:
-                    ++$jml_digit;
-                    $temp_norm_fix=$kode_pkm."00000".$jml_digit;
-                break;
-                case 2:
-                    ++$jml_digit;
-                    $temp_norm_fix=$kode_pkm."0000".$jml_digit;                
-                break;
-                case 3:
-                    ++$jml_digit;
-                    $temp_norm_fix=$kode_pkm."000".$jml_digit;                
-                break;
-                case 4:
-                    ++$jml_digit;
-                    $temp_norm_fix=$kode_pkm."00".$jml_digit;                
-                break;
-                case 5:
-                    ++$jml_digit;
-                    $temp_norm_fix=$kode_pkm."0".$jml_digit;
-                break;
-                case 6:
-                    ++$jml_digit;
-                    $temp_norm_fix=$kode_pkm.$jml_digit;                
-                break;
-                default:
-                    $temp_norm_fix=$kode_pkm."000001";
-                }
+                // switch (strlen($jml_digit)){
+                // case 1:
+                //     ++$jml_digit;
+                //     $temp_norm_fix=$kode_pkm."00000".$jml_digit;
+                // break;
+                // case 2:
+                //     ++$jml_digit;
+                //     $temp_norm_fix=$kode_pkm."0000".$jml_digit;                
+                // break;
+                // case 3:
+                //     ++$jml_digit;
+                //     $temp_norm_fix=$kode_pkm."000".$jml_digit;                
+                // break;
+                // case 4:
+                //     ++$jml_digit;
+                //     $temp_norm_fix=$kode_pkm."00".$jml_digit;                
+                // break;
+                // case 5:
+                //     ++$jml_digit;
+                //     $temp_norm_fix=$kode_pkm."0".$jml_digit;
+                // break;
+                // case 6:
+                //     ++$jml_digit;
+                //     $temp_norm_fix=$kode_pkm.$jml_digit;                
+                // break;
+                // default:
+                //     $temp_norm_fix=$kode_pkm."000001";
+                // }
 
                 $simpanPendaftaran=new Pendaftaran;
-                $simpanPendaftaran->no_pendaftaran=$no_pendaftaran;
-                $simpanPendaftaran->tanggal=date('Y-m-d');
-                $simpanPendaftaran->waktu=$date('h:m:s');
-                $simpanPendaftaran->no_rm=$request->no_rm;
-                $simpanPendaftaran->poli=$request->poli;
-                $simpanPendaftaran->cara_daftar='LANGSUNG';
-                $simpanPendaftaran->status=1;
-                $simpanPendaftaran->jenis_kelamin=$request->jenis_kelamin;
-                $simpanPendaftaran->tempat_lahir=$request->tempat_lahir;
-                $simpanPendaftaran->tanggal_lahir=$request->tanggal_lahir;
-                $simpanPendaftaran->agama=$request->agama;
-                $simpanPendaftaran->gol_darah=$request->gol_darah;
-                $simpanPendaftaran->hp=$request->hp;
-                $simpanPendaftaran->telp=$request->telp;
-                $simpanPendaftaran->email=$request->email;
-                $simpanPendaftaran->warganegara='Indonesia';
-                $simpanPendaftaran->alamat=$request->alamat;
-                $simpanPendaftaran->rt=$request->rt;
-                $simpanPendaftaran->rw=$request->rw;
-                $simpanPendaftaran->kelurahan=$request->kelurahan;
-                $simpanPendaftaran->kecamatan=$request->kecamatan;
-                $simpanPendaftaran->kab_kota=$request->kab_kota;
-                $simpanPendaftaran->provinsi=$request->provinsi;
-                $simpanPendaftaran->pos=$request->pos;
-                $simpanPendaftaran->status_marital=$request->status_marital;
-                $simpanPendaftaran->pendidikan_terakhir=$request->pendidikan_terakhir;
-                $simpanPendaftaran->suku=$request->suku;
-                $simpanPendaftaran->pekerjaan=$request->pekerjaan;
-                $simpanPendaftaran->nama_ayah=$request->nama_ayah;
-                $simpanPendaftaran->nama_ibu=$request->nama_ibu;
-                $simpanPendaftaran->penanggung_jawab=$request->penanggung_jawab;
-                $simpanPendaftaran->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
-                $simpanPendaftaran->no_contact_darurat=$request->no_contact_darurat;
-                $simpanPendaftaran->status_pasien=$request->status_pasien;
-                $simpanPendaftaran->wilayah_kerja=$request->wilayah_kerja;                
+                $simpanPendaftaran->no_pendaftaran      =$no_pendaftaran;
+                $simpanPendaftaran->tanggal             =date('Y-m-d');
+                $simpanPendaftaran->waktu               =time('h:m:s');
+                $simpanPendaftaran->idpasien            =$request->id_pasien;
+                $simpanPendaftaran->no_rm               =$request->no_rm;
+                $simpanPendaftaran->usia_tahun          =$request->usia_tahun;
+                $simpanPendaftaran->usia_bulan          =$request->usia_bulan;
+                $simpanPendaftaran->usia_hari           =$request->usia_hari;
+                $simpanPendaftaran->poli                =$request->poli;
+                $simpanPendaftaran->cara_daftar         ='LANGSUNG';
+                $simpanPendaftaran->status              =1;                              
                 $simpanPendaftaran->save();
 
                 return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$simpanPendaftaran],200);
@@ -150,10 +123,7 @@ class PendaftaranController extends Controller
                 
                 return response()->json(['status'=>0,'message'=>'Data pasien sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
             }
-
-    
-        }else{
-            return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>null],200);
+            
         }
     }
 
@@ -200,5 +170,33 @@ class PendaftaranController extends Controller
     public function destroy(Pendaftaran $pendaftaran)
     {
         //
+    }
+
+
+
+    public function fetch()
+    {
+        $pasien=DB::table('pendaftarans')->select('id','nik','no_rm','nama_lengkap','alamat','hp')->get();       
+
+        return Datatables::of($pasien)
+                        ->addIndexColumn()
+                        ->addColumn('aksi', function($pasien){
+                            $btn='<div class="btn-group">
+                            <a href="pasien/'.$pasien->id.'" class="btn btn-xs btn-primary">View</a>
+                            <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-success">Edit</a>
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-xs btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                            </button>
+                            <div class="dropdown-menu" style="">
+                                <a href="javascript:void(0)" class="dropdown-item print-kib" href="#">cetak KIB</a>
+                                <a href="javascript:void(0)" class="dropdown-item hapuspasien" data-id="'.$pasien->id.'">Delete</a>
+                            </div>
+                            </div>
+                        </div>';
+
+                            return $btn;
+                        })
+                        ->rawColumns(['aksi'])
+                        ->toJson();
     }
 }
