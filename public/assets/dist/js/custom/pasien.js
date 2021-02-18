@@ -39,7 +39,8 @@ $(document).ready(function () {
 
 $("#riwayat-kunjungan").DataTable();
 $("#family-folder").DataTable();
-  $("#data-pasien").DataTable({
+
+$("#data-pasien").DataTable({
     processing: true,
     serverSide: true,
     ajax: datasite + "/pasien_server_side",

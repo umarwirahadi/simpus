@@ -2,6 +2,51 @@ $(document).ready(function(){
   var datasite=$('body').attr('data-site');
   const token = $("meta[name='csrf-token']").attr("content");
  
+  $("#pendaftaran").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: datasite + "/fetchpendaftaranbydate",
+    columns: [
+      { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+      { data: 'no_rm', name: 'no_rm' },
+      { data: 'nama_lengkap', name: 'nama_lengkap' },
+      { data: 'no_pendaftaran', name: 'no_pendaftaran' },
+      { data: 'noantrian2', name: 'noantrian2' },
+      { data: 'alamat', name: 'alamat' },
+      { data: 'nama_poli', name: 'nama_poli' },
+      { data: 'aksi', name: 'aksi',searchable:false,orderable:false}
+    ],
+    "buttons": ["excel", "colvis"],
+    initComplete: function () {
+      var input = $('.dataTables_filter input').unbind(),
+        self = this.api(),
+        $searchButton = $('<button class="btn btn-primary btn-sm m-2">')
+          .text('Cari')
+          .click(function () {
+            self.search(input.val()).draw();
+          }),
+        $clearButton = $('<button class="btn btn-warning btn-sm">')
+          .text('Ulang')
+          .click(function () {
+            input.val('');
+            $searchButton.click();
+          })
+      $('.dataTables_filter').append($searchButton, $clearButton);
+    },
+    "responsive": true, "lengthChange": true, "autoWidth": true, "searching": true, "filter": true, "info": true,
+    "language": {
+      "lengthMenu": " _MENU_ data",
+      "zeroRecords": "Data Pendaftaran kosong",
+      "info": "Showing page _PAGE_ of _PAGES_",
+      "infoEmpty": "Data Pendaftaran tidak ditemukan",
+      "infoFiltered": "(filtered from _MAX_ total records)"
+    },
+    scrollY: 300,
+    scroller: {
+      loadingIndicator: true
+    }
+  });
+
 
   
     $("#example1").DataTable({
@@ -71,8 +116,10 @@ $(document).ready(function(){
             text: data.message,
             icon: 'success',
             confirmButtonText: 'Ok'
-          }).then(() => {
-            window.location.href = datasite + '/pasien';
+          }).then((data2) => {
+            // window.location.href = datasite + '/pendaftaran';
+            console.log(data2);
+            $("#cetak-retribusi").modal();
           })
         } else {
           Swal.fire({
@@ -100,5 +147,61 @@ $(document).ready(function(){
     });
 
   });
+
+
+  $("body").on("click",".data-pendaftaran",function(){
+    var data_id=$(this).data('id');
+    $.ajax({
+      url:datasite+'/pendaftaran/'+data_id,
+      type:'GET',
+      dataType:'json',
+      success:function(data){
+        console.log(data);
+        $("#a1").html(data.data.no_pendaftaran);
+        $("#a3").html(data.data.noantrian);
+        $("#a3").html(data.data.no_rm);
+        $("#a4").html(data.data.nama_lengkap);
+        // $("#a2").html(data.data.nama_rekening);
+        // $("#a3").html('Rp. '+data.data.biaya);
+        // $("#a4").html(data.data.status===1?'Aktif':'Tidak aktif');
+        // $("#a5").html(data.data.deskripsi);
+        $("#form-pendaftaran").modal(); 
+      }
+    })
+  })
+
+
+
+  someJSONdata = [
+    {
+       name: 'John Doe',
+       email: 'john@doe.com',
+       phone: '111-111-1111'
+    },
+    {
+       name: 'Barry Allen',
+       email: 'barry@flash.com',
+       phone: '222-222-2222'
+    },
+    {
+       name: 'Cool Dude',
+       email: 'cool@dude.com',
+       phone: '333-333-3333'
+    }
+ ]
+
+
+ $("#print-data").on("click",function(){
+  printJS({
+		printable: someJSONdata,
+		type: 'json',
+		properties: ['name', 'email', 'phone'],
+		header: '<h2 class="custom-h3">KWITANSI</h2><h1>DINAS KESEHATAN KOTA CIMAHI</h1><h2 class="custom-h3">PUSKESMAS CIMAHI TENGAH</h2>',
+		style: '.custom-h3 { text-align:center; } .box',
+    // gridHeaderStyle: 'color: red;  border: 0px solid #3971A5;',
+	  // gridStyle: 'border: 0px solid #3971A5;',
+    maxWidth:800,	  })
+ })
+ 
 
 })

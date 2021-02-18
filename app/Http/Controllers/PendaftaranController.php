@@ -6,6 +6,7 @@ use App\Pendaftaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use DataTables;
 
 
 class PendaftaranController extends Controller
@@ -43,6 +44,7 @@ class PendaftaranController extends Controller
             'judul'=>'Pendaftaran Pasien',
             'isDataTable'=>true,
             'isJS'=>'pendaftaran.js',
+            'printJS'=>true,
             'dataItem'=>null
         ];
         return view('pendaftaran.add',$data);
@@ -66,65 +68,44 @@ class PendaftaranController extends Controller
             $cekpendaftaran=Pendaftaran::where(['tanggal'=>date('Y-m-d')]);
             if($cekpendaftaran->count()==0){
                 $no_pendaftaran=1;
-                
-                $kode=DB::select('SELECT max(noantrian) as noantrian from pendaftarans where tanggal=now() and poli=:poli limit 1',['poli'=>$request->poli]);
-                $temp_norm="";
-                $temp_norm_fix="";
-                foreach ($kode as $kd) {
-                    $temp_norm=($kd->noantrian);
-                }        
-                $jml_digit=intval($temp_norm);                
+            }
+            else{
+                $no_pendaftaran=$cekpendaftaran->count();
+                ++$no_pendaftaran;
+            }                
+                $lastQueues=Pendaftaran::where(['poli'=>$request->poli])->max('noantrian');                
+                if($lastQueues==0){
+                    $tempLasQueueFix=1;   
+                }else{                          
+                    $tempLasQueueFix=intval($lastQueues);                
+                    ++$tempLasQueueFix;
+                }
 
-                // switch (strlen($jml_digit)){
-                // case 1:
-                //     ++$jml_digit;
-                //     $temp_norm_fix=$kode_pkm."00000".$jml_digit;
-                // break;
-                // case 2:
-                //     ++$jml_digit;
-                //     $temp_norm_fix=$kode_pkm."0000".$jml_digit;                
-                // break;
-                // case 3:
-                //     ++$jml_digit;
-                //     $temp_norm_fix=$kode_pkm."000".$jml_digit;                
-                // break;
-                // case 4:
-                //     ++$jml_digit;
-                //     $temp_norm_fix=$kode_pkm."00".$jml_digit;                
-                // break;
-                // case 5:
-                //     ++$jml_digit;
-                //     $temp_norm_fix=$kode_pkm."0".$jml_digit;
-                // break;
-                // case 6:
-                //     ++$jml_digit;
-                //     $temp_norm_fix=$kode_pkm.$jml_digit;                
-                // break;
-                // default:
-                //     $temp_norm_fix=$kode_pkm."000001";
-                // }
+                
 
                 $simpanPendaftaran=new Pendaftaran;
                 $simpanPendaftaran->no_pendaftaran      =$no_pendaftaran;
+                $simpanPendaftaran->noantrian           =$tempLasQueueFix;
                 $simpanPendaftaran->tanggal             =date('Y-m-d');
-                $simpanPendaftaran->waktu               =time('h:m:s');
+                $simpanPendaftaran->waktu               =date("H:i:s");
                 $simpanPendaftaran->idpasien            =$request->id_pasien;
                 $simpanPendaftaran->no_rm               =$request->no_rm;
                 $simpanPendaftaran->usia_tahun          =$request->usia_tahun;
                 $simpanPendaftaran->usia_bulan          =$request->usia_bulan;
                 $simpanPendaftaran->usia_hari           =$request->usia_hari;
                 $simpanPendaftaran->poli                =$request->poli;
-                $simpanPendaftaran->cara_daftar         ='LANGSUNG';
-                $simpanPendaftaran->status              =1;                              
+                $simpanPendaftaran->cara_daftar         =$request->cara_daftar;
+                $simpanPendaftaran->status              =1;
+                $simpanPendaftaran->deskripsi           =$request->deskripsi;
                 $simpanPendaftaran->save();
 
                 return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$simpanPendaftaran],200);
-            }else{
-                
-                return response()->json(['status'=>0,'message'=>'Data pasien sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
             }
-            
-        }
+            // else{
+                
+            //     return response()->json(['status'=>0,'message'=>'Data pasien sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
+            // }            
+        
     }
 
     /**
@@ -135,7 +116,13 @@ class PendaftaranController extends Controller
      */
     public function show(Pendaftaran $pendaftaran)
     {
-        //
+        if($pendaftaran){
+            $vpendaftaran=DB::table('vpendaftaran')->where(['id'=>$pendaftaran->id])->first();
+            // return response()->json($vpendaftaran, 200);
+            return response()->json(['status'=>1,'message'=>'data pendaftaran berhasil diambil','data'=>$vpendaftaran],200);
+        }else{            
+            return response()->json(['status'=>0,'message'=>'data pendaftaran gagal diambil','data'=>null],200);
+        }
     }
 
     /**
@@ -174,15 +161,14 @@ class PendaftaranController extends Controller
 
 
 
-    public function fetch()
+    public function fetchToday()
     {
-        $pasien=DB::table('pendaftarans')->select('id','nik','no_rm','nama_lengkap','alamat','hp')->get();       
-
+        $pasien=DB::table('vpendaftaran')->select('id','no_rm','nama_lengkap','no_pendaftaran','noantrian2','alamat','nama_poli')->where(['tanggal'=>date('Y-m-d')])->get();
         return Datatables::of($pasien)
                         ->addIndexColumn()
                         ->addColumn('aksi', function($pasien){
                             $btn='<div class="btn-group">
-                            <a href="pasien/'.$pasien->id.'" class="btn btn-xs btn-primary">View</a>
+                            <a href="javascript:void(0)" data-id="'.$pasien->id.'" class="btn btn-xs btn-primary data-pendaftaran">View</a>
                             <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-success">Edit</a>
                             <div class="btn-group">
                             <button type="button" class="btn btn-xs btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">

@@ -37,6 +37,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @if ($iscss??'')
   <link rel="stylesheet" href="{{asset('assets/dist/css/custom/'.$iscss)}}">
 {{-- <script src="{{asset('assets/dist/js/custom/'.$isJS)}}"></script> --}}
+  @endif
+
+@if($printJS??false)
+  <link rel="stylesheet" href="{{asset('assets/plugins/print/print.min.css')}}">  
 @endif
 
   
@@ -213,6 +217,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('assets/dist/js/custom/'.$isJS)}}"></script>
 @endif
 
+@if ($printJS??false)
+<script src="{{asset('assets/plugins/print/print.min.js')}}"></script>
+@endif
 {{-- <script src="{{asset('assets/plugins/toastr/toastr.min.js')}}" type="text/javascript"></script> --}}
 
 </body>

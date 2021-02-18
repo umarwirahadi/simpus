@@ -73,6 +73,7 @@
                                                 <input type="hidden" name="usia_tahun" id="usia_tahun" value="">
                                                 <input type="hidden" name="usia_bulan" id="usia_bulan" value="">
                                                 <input type="hidden" name="usia_hari" id="usia_hari" value="">
+                                                <input type="hidden" name="cara_daftar" id="cara_daftar" value="LANGSUNG">
                                                 <input type="text" class="form-control form-control-border border-width-2 form-control-sm" name="no_rm"
                                                     id="no_rm" value="" readonly />
                                             </div>
@@ -163,7 +164,7 @@
                     <div class="card-footer">
                         <button type="submit" class="btn btn-app bg-success"><i class="fa fa-user-nurse"></i> Daftar</button>
                         <button type="reset" class="btn btn-app bg-warning" name="ulang"><i class="fa fa-sync"></i> Ulang</button>
-                        <button type="button" class="btn btn-app bg-blue" name="print"><i class="fa fa-print"></i> Print</button>
+                        <button type="button" class="btn btn-app bg-blue" name="print" data-toggle="modal" data-target="#cetak-retribusi"><i class="fa fa-print"></i> Print</button>
                         <button type="button" class="btn btn-app bg-danger" name="kembali" onclick="window.location.href='/pendaftaran'"><i class="fa fa-undo"></i> Kembali</button>
                     </div>
                 </form>
@@ -175,4 +176,6 @@
         </div>
     </div>
 
+
+@include('pendaftaran.print')
 @endsection
