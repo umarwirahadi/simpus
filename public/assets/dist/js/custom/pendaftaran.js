@@ -1,6 +1,14 @@
 $(document).ready(function(){
   var datasite=$('body').attr('data-site');
   const token = $("meta[name='csrf-token']").attr("content");
+
+  $('#status_hubungan').select2({ theme: 'bootstrap4' }); $('#jenis_kelamin').select2({ theme: 'bootstrap4' }); $('#agama').select2({
+    theme: 'bootstrap4'
+  }); $('#gol_darah').select2({ theme: 'bootstrap4' }); $('#status_marital').select2({ theme: 'bootstrap4' }); $('#pendidikan_terakhir').select2({
+    theme: 'bootstrap4'
+  }); $('#suku').select2({ theme: 'bootstrap4' }); $('#pekerjaan').select2({ theme: 'bootstrap4' }); $('#status_pasien').select2({
+    theme: 'bootstrap4'
+  }); $('#status').select2({ theme: 'bootstrap4' }); $('#kategori').select2({ theme: 'bootstrap4' });
  
   $("#pendaftaran").DataTable({
     processing: true,
@@ -61,6 +69,9 @@ $(document).ready(function(){
   });
 
   $('#poli').select2({
+    theme: 'bootstrap4'
+  });
+  $('#cara_bayar').select2({
     theme: 'bootstrap4'
   });
 
@@ -160,9 +171,12 @@ $(document).ready(function(){
         $("#a1").html(data.data.no_pendaftaran);
         $("#a3").html(data.data.noantrian);
         $("#a3").html(data.data.no_rm);
-        $("#a4").html(data.data.nama_lengkap);
-        // $("#a2").html(data.data.nama_rekening);
-        // $("#a3").html('Rp. '+data.data.biaya);
+        $("#a4").html(data.data.no_rm);
+        $("#a5").html(data.data.nama_lengkap+' / '+data.data.jenis_kelamin+' / '+data.data.usia_tahun+' tahun '+data.data.usia_bulan+' bulan '+data.data.usia_hari+' hari');
+        $("#a5a").html(data.data.alamat+' RT. '+data.data.rt+' RW. '+data.data.rw);
+        $("#a6").html(data.data.nokwitansi==null?'belum':'sudah');
+        $("#a7").html('Rp. '+data.data.nama_poli);
+        $("#a8").html(data.data.deskripsi);
         // $("#a4").html(data.data.status===1?'Aktif':'Tidak aktif');
         // $("#a5").html(data.data.deskripsi);
         $("#form-pendaftaran").modal(); 

@@ -80,9 +80,6 @@ class PendaftaranController extends Controller
                     $tempLasQueueFix=intval($lastQueues);                
                     ++$tempLasQueueFix;
                 }
-
-                
-
                 $simpanPendaftaran=new Pendaftaran;
                 $simpanPendaftaran->no_pendaftaran      =$no_pendaftaran;
                 $simpanPendaftaran->noantrian           =$tempLasQueueFix;
@@ -98,14 +95,8 @@ class PendaftaranController extends Controller
                 $simpanPendaftaran->status              =1;
                 $simpanPendaftaran->deskripsi           =$request->deskripsi;
                 $simpanPendaftaran->save();
-
                 return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$simpanPendaftaran],200);
-            }
-            // else{
-                
-            //     return response()->json(['status'=>0,'message'=>'Data pasien sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
-            // }            
-        
+            }               
     }
 
     /**
@@ -163,7 +154,7 @@ class PendaftaranController extends Controller
 
     public function fetchToday()
     {
-        $pasien=DB::table('vpendaftaran')->select('id','no_rm','nama_lengkap','no_pendaftaran','noantrian2','alamat','nama_poli')->where(['tanggal'=>date('Y-m-d')])->get();
+        $pasien=DB::table('vpendaftaran')->select('id','no_rm','nama_lengkap','no_pendaftaran','noantrian2','alamat','nama_poli')->where(['vpendaftaran.tanggal'=>date('Y-m-d')])->get();
         return Datatables::of($pasien)
                         ->addIndexColumn()
                         ->addColumn('aksi', function($pasien){

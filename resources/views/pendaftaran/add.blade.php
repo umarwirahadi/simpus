@@ -10,7 +10,7 @@
                 <form action="{{ route('pendaftaran.store') }}" method="POST" id="form-pendaftaran-pasien">
                     @csrf
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <!-- text input -->
                             <div class="form-group">
                                 <label class="col-form-label" for="tanggal">Hari, tanggal</label>
@@ -18,11 +18,19 @@
                                     value="{{ Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y') }}" readonly>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="col-form-label" for="poli">Poli</label>
-                                <select class="custom-select form-control-border border-width-2 form-control-sm" name="poli" id="poli">
+                                <select class="custom-select form-control" name="poli" id="poli">
                                     {!! KustomHelper::getPoli() !!}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="col-form-label" for="cara_bayar">Cara bayar</label>
+                                <select class="custom-select form-control" name="cara_bayar" id="cara_bayar">
+                                    {!! KustomHelper::getItem('cara-bayar') !!}
                                 </select>
                             </div>
                         </div>
@@ -33,9 +41,9 @@
                             <input type="search" class="form-control form-control-sm" placeholder="cari data pasien by [Nama,NIK,No RM] "
                                 name="cari_pasien" id="cari_pasien" />
                             <div class="input-group-append">
-                                <a href="/pasien/create" class="btn btn-success btn-sm">
+                                <button  class="btn btn-success btn-sm" data-toggle="modal" data-target="#addnewpasien">
                                     <i class="fa fa-user-plus"></i> Pasien baru
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -132,17 +140,8 @@
                                         </div>
 
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="col-form-label" for="status_pasien">Cara bayar</label>
-                                                <select class="custom-select form-control-border border-width-2"
-                                                    name="status_pasien" id="status_pasien">
-                                                    {!! KustomHelper::getItem('cara-bayar') !!}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8">
+                                    <div class="row">                                   
+                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="col-form-label" for="inputSuccess">Catatan</label>
                                                 <textarea name="deskripsi" id="deskripsi" cols="30" rows="3"
@@ -178,4 +177,5 @@
 
 
 @include('pendaftaran.print')
+@include('pendaftaran.addnew')
 @endsection

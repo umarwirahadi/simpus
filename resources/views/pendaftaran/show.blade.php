@@ -1,8 +1,8 @@
 <div class="modal fade" id="form-pendaftaran">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Pendaftaran pasien</h4>
+        <div class="modal-header bg-green">
+          <h4 class="modal-title">Data pendaftaran pasien</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -27,12 +27,17 @@
                 <tr>
                     <td>No. Rekam Medis</td>
                     <td>:</td>
-                    <td id="a4">01000001</td>                    
+                    <td id="a4"></td>                    
                 </tr>
                 <tr>
                     <td>Nama pasien</td>
                     <td>:</td>
-                    <td id="a5">Umar Wirahadi / L / (32 tahun 3 bulan 13 hari)</td>                    
+                    <td id="a5"></td>                    
+                </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>:</td>
+                    <td id="a5a"></td>                    
                 </tr>
                 <tr>
                     <td>Status Pembayaran</td>
@@ -42,16 +47,16 @@
                 <tr>
                     <td>Poli</td>
                     <td>:</td>
-                    <td id="a7">UMUM</td>                    
+                    <td id="a7"></td>                    
                 </tr>
                 <tr>
-                    <td>Status Pembayaran</td>
+                    <td>Keterangan</td>
                     <td>:</td>
                     <td id="a8">-</td>                    
                 </tr>
             </table>
         </div>
-        <div class="modal-footer justify-content-between">
+        <div class="modal-footer justify-content-right">
           <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
         </div>
       </div>

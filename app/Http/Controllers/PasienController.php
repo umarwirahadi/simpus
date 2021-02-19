@@ -311,6 +311,7 @@ class PasienController extends Controller
     {
         if($request->search){
             $vpasien=DB::table('vpasiens')
+                        ->where('status_pasien','=',1)
                         ->where('nama_lengkap','like','%'.$request->search.'%')
                         ->orWhere('no_rm','like','%'.$request->search.'%')
                         ->orWhere('nik','like','%'.$request->search.'%')
