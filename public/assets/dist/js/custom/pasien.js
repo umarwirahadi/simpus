@@ -95,22 +95,15 @@ $("#data-pasien").DataTable({
       data: dataPasien,
       dataType: 'json',
       success: function (data) {
-        if (data.status === 1) {
+        console.log(data);
           Swal.fire({
-            title: 'Success',
+            title: data.status===1?'Success':'error',
             text: data.message,
-            icon: 'success',
+            icon: data.status===1?'success':'error',
             confirmButtonText: 'Ok'
           }).then(() => {
-            window.location.href = datasite + '/pasien';
-          })
-        } else {
-          Swal.fire({
-            title: 'error',
-            text: data.message,
-            icon: 'error'
-          })
-        }
+            // window.location.href = datasite + '/pasien';
+          })         
       },
       error: function (a) {
         if(a.status==422){

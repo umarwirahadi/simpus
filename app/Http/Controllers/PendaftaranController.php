@@ -73,7 +73,7 @@ class PendaftaranController extends Controller
                 $no_pendaftaran=$cekpendaftaran->count();
                 ++$no_pendaftaran;
             }                
-                $lastQueues=Pendaftaran::where(['poli'=>$request->poli])->max('noantrian');                
+                $lastQueues=Pendaftaran::where(['poli'=>$request->poli,'tanggal'=>date('Y-m-d')])->max('noantrian');                
                 if($lastQueues==0){
                     $tempLasQueueFix=1;   
                 }else{                          
@@ -159,7 +159,7 @@ class PendaftaranController extends Controller
                         ->addIndexColumn()
                         ->addColumn('aksi', function($pasien){
                             $btn='<div class="btn-group">
-                            <a href="javascript:void(0)" data-id="'.$pasien->id.'" class="btn btn-xs btn-primary data-pendaftaran">View</a>
+                            <a href="javascript:void(0)" data-id="'.$pasien->id.'" class="btn btn-xs btn-primary data-pendaftaran">Show</a>
                             <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-success">Edit</a>
                             <div class="btn-group">
                             <button type="button" class="btn btn-xs btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">

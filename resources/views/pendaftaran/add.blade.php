@@ -41,7 +41,7 @@
                             <input type="search" class="form-control form-control-sm" placeholder="cari data pasien by [Nama,NIK,No RM] "
                                 name="cari_pasien" id="cari_pasien" />
                             <div class="input-group-append">
-                                <button  class="btn btn-success btn-sm" data-toggle="modal" data-target="#addnewpasien">
+                                <button  type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addnewpasien">
                                     <i class="fa fa-user-plus"></i> Pasien baru
                                 </button>
                             </div>
@@ -68,16 +68,16 @@
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label for="nik">NIK</label>
+                                                <label for="nik2">NIK</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="nik" value="" value="" readonly />
+                                                    id="nik2" value="" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="no_rm">No. RM</label>
-                                                <input type="hidden" name="id_pasien" id="id_pasien" value="">
+                                                <input type="hidden" name="id_pasien2" id="id_pasien2" value="">
                                                 <input type="hidden" name="usia_tahun" id="usia_tahun" value="">
                                                 <input type="hidden" name="usia_bulan" id="usia_bulan" value="">
                                                 <input type="hidden" name="usia_hari" id="usia_hari" value="">
@@ -88,10 +88,10 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nama_lengkap">Nama pasien</label>
+                                                <label for="nama_lengkap2">Nama pasien</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="nama_lengkap" value="" readonly />
+                                                    id="nama_lengkap2" value="" readonly />
                                             </div>
                                         </div>
                                     </div>
@@ -122,20 +122,20 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="hp">No. HP</label>
+                                                <label for="hp2">No. HP</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="hp" value="" readonly />
+                                                    id="hp2" value="" readonly />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="alamat">Alamat</label>
+                                                <label for="alamat2">Alamat</label>
                                                 <input type="text"
                                                     class="form-control form-control-border border-width-2 form-control-sm"
-                                                    id="alamat" value="" readonly />
+                                                    id="alamat2" value="" readonly />
                                             </div>
                                         </div>
 

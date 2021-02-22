@@ -18,8 +18,7 @@
             <div class="card-body">
                 <form action="{{route('pasien.update',[$data->id])}}" method="POST" id="form-update-pasien" data-url="{{route('pasien.update',[$data->id])}}">
                     @csrf
-                    <input type="hidden" name="_method" value="PUT">
-                
+                    <input type="hidden" name="_method" value="PUT">                    
                     <div class="row">
                         <div class="col-md-3">                          
                             <div class="form-group">

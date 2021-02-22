@@ -77,6 +77,9 @@ class PasienController extends Controller
                 // proses pembuatan no_rm otomatis
                 // set_kode_puskesmas
                 $kode_pkm=KustomHelper::setKodePkm();
+                if(!$kode_pkm){
+                    return response()->json(['status'=>0,'message'=>'data profile tidak ada, proses penyipanan dibatalkan','data'=>null],200);
+                }
                 
                 $kode=DB::select('SELECT max(RIGHT(no_rm,6)) as no_rm from pasiens limit 1');
                 $temp_norm="";
@@ -115,8 +118,6 @@ class PasienController extends Controller
                     $temp_norm_fix=$kode_pkm."000001";
                 }
 
-
-
                 $simpanPasien=new Pasien;
                 $simpanPasien->nik=$request->nik;
                 $simpanPasien->no_kk=$request->no_kk;
@@ -151,11 +152,15 @@ class PasienController extends Controller
                 $simpanPasien->penanggung_jawab=$request->penanggung_jawab;
                 $simpanPasien->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
                 $simpanPasien->no_contact_darurat=$request->no_contact_darurat;
-                $simpanPasien->status_pasien=$request->status_pasien;
+                $simpanPasien->status_pasien='1'; //default status pasien is 1,if not pasiens not be shown 
                 $simpanPasien->wilayah_kerja=$request->wilayah_kerja;                
                 $simpanPasien->save();
+                $vpasien=DB::table('vpasiens')
+                        ->where('id','=',$simpanPasien->id)
+                        ->limit(1)
+                        ->get();
 
-                return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$simpanPasien],200);
+                return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$vpasien],200);
             }else{
                 
                 return response()->json(['status'=>0,'message'=>'Data pasien sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
@@ -224,7 +229,6 @@ class PasienController extends Controller
             $updatePasien->no_kk=$request->no_kk;
             $updatePasien->status_hubungan=$request->status_hubungan;
             $updatePasien->no_bpjs=$request->no_bpjs;
-            $updatePasien->no_rm=$request->no_rm;
             $updatePasien->no_rm_lama=$request->no_rm_lama;
             $updatePasien->nama_lengkap=$request->nama_lengkap;
             $updatePasien->jenis_kelamin=$request->jenis_kelamin;
@@ -312,9 +316,11 @@ class PasienController extends Controller
         if($request->search){
             $vpasien=DB::table('vpasiens')
                         ->where('status_pasien','=',1)
-                        ->where('nama_lengkap','like','%'.$request->search.'%')
-                        ->orWhere('no_rm','like','%'.$request->search.'%')
-                        ->orWhere('nik','like','%'.$request->search.'%')
+                        ->where(function($query) use($request){
+                            $query->where('nama_lengkap','like','%'.$request->search.'%')
+                            ->orWhere('no_rm','like','%'.$request->search.'%')
+                            ->orWhere('nik','like','%'.$request->search.'%');
+                        })
                         ->limit(15)
                         ->get();
             $temp=array();
@@ -323,6 +329,32 @@ class PasienController extends Controller
                               'no_rm'=>$value->no_rm,'no_rm_lama'=>$value->no_rm_lama,'nama_lengkap'=>$value->nama_lengkap,'jenis_kelamin'=>$value->jenis_kelamin,'tanggal_lahir'=>$value->tanggal_lahir,
                               'tahun'=>$value->tahun,'bulan'=>$value->bulan,'hari'=>$value->hari,'gol_darah'=>$value->gol_darah,'hp'=>$value->hp,'telp'=>$value->telp,'alamat'=>$value->alamat,
                               'rt'=>$value->rt,'rw'=>$value->rw,'kelurahan'=>$value->kelurahan,'kecamatan'=>$value->kecamatan,'kab_kota'=>$value->kab_kota);
+                            }            
+            return response()->json($temp);
+        }
+    }
+
+
+    public function finddatanik(Request $request)    
+    {
+        if($request->search){
+            $vpasien=DB::table('pasiens')
+                        ->where('status_pasien','=',0)
+                        ->where(function($query) use ($request){
+                            $query->Where('nik','like','%'.$request->search.'%')
+                                  ->orWhere('nama_lengkap','like','%'.$request->search.'%');
+                        })
+                        ->limit(10)
+                        ->get();
+            $temp=array();
+
+            foreach ($vpasien as $value) {
+                $temp[]=array('label'=>$value->nik.' / '.$value->nama_lengkap,'value'=>$value->id,'nik'=>$value->nik,
+                              'no_rm'=>$value->no_rm,'no_rm_lama'=>$value->no_rm_lama,'nama_lengkap'=>$value->nama_lengkap,'jenis_kelamin'=>$value->jenis_kelamin,'tempat_lahir'=>$value->tempat_lahir,'tanggal_lahir'=>$value->tanggal_lahir,
+                              'agama'=>$value->agama,'gol_darah'=>$value->gol_darah,'hp'=>$value->hp,'telp'=>$value->telp,'email'=>$value->email,'warganegara'=>$value->warganegara,'alamat'=>$value->alamat,
+                              'rt'=>$value->rt,'rw'=>$value->rw,'kelurahan'=>$value->kelurahan,'kecamatan'=>$value->kecamatan,'kab_kota'=>$value->kab_kota,'provinsi'=>$value->provinsi,'pos'=>$value->pos,'status_marital'=>$value->status_marital,'pendidikan_terakhir'=>$value->pendidikan_terakhir,
+                            'suku'=>$value->suku,'pekerjaan'=>$value->pekerjaan,'nama_ayah'=>$value->nama_ayah,'nama_ibu'=>$value->nama_ibu,'penanggung_jawab'=>$value->penanggung_jawab,'hubungan_dengan_penanggung_jawab'=>$value->hubungan_dengan_penanggung_jawab,
+                            'no_contact_darurat'=>$value->no_contact_darurat,'status_pasien'=>$value->status_pasien,'wilayah_kerja'=>$value->wilayah_kerja,'status_pasien'=>$value->status_pasien);
                             }            
             return response()->json($temp);
         }

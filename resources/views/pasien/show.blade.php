@@ -277,12 +277,7 @@
             <div class="card-body">
                 <div class="tab-content" id="custom-tabs-one-tabContent">
                     <div class="tab-pane fade active show" id="custom-tabs-one-pasien" role="tabpanel"
-                        aria-labelledby="custom-tabs-one-home-tab">
-                        <form action="{{ route('pasien.update', [$data->id]) }}" method="POST" id="form-update-pasien"
-                            data-url="{{ route('pasien.update', [$data->id]) }}">
-                            @csrf
-                            <input type="hidden" name="_method" value="PUT">
-
+                        aria-labelledby="custom-tabs-one-home-tab">                        
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -348,7 +343,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label class="col-form-label" for="jenis_kelamin">Jenis kelamin</label>
-                                        <input type="text" class="form-control" name="jenis_kelamin" value="{{ $data->jenis_kelamin }}" disabled />
+                                        <input type="text" class="form-control" name="jenis_kelamin" value="{{ $data->jenis_kelamin=='L'?'Laki-laki':'Perempuan' }}" disabled />
                                         
                                     </div>
                                 </div>
@@ -381,7 +376,7 @@
                                 <div class="col-md-7">
                                     <div class="form-group">
                                         <label class="col-form-label" for="alamat">Alamat/Jalan</label>
-                                        <input type="text" class="form-control" name="alamat" id="alamat" value="{{ $data->alamat }}" disabled />
+                                        <input type="text" class="form-control" name="alamat" id="alamat" value="{{ $data->alamat }}" disabled />                                                                                    
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -419,7 +414,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="col-form-label" for="provinsi">Provinsi</label>
-                                        <input type="text" class="form-control" name="provinsi" id="provinsi" value="{{ $data->provinsi }}" />
+                                        <input type="text" class="form-control" name="provinsi" id="provinsi" value="{{ $data->provinsi }}" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -434,28 +429,28 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="col-form-label" for="status_marital">Status pernikahan</label>
-                                        <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{ $data->status_marital }}" disabled />
+                                        <input type="text" class="form-control" name="status_marital" id="status_marital" value="{{ $data->status_marital }}" disabled />
                                         
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="col-form-label" for="pendidikan_terakhir">Pendidikan terakhir</label>
-                                        <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" disabled
+                                        <input type="text" class="form-control" name="pendidikan_terakhir" id="pendidikan_terakhir" disabled
                                             value="{{ $data->pendidikan_terakhir }}" />                                        
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="col-form-label" for="suku">Suku/ras</label>
-                                        <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" disabled
+                                        <input type="text" class="form-control" name="suku" id="suku" disabled
                                             value="{{ $data->suku }}" />                                        
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="col-form-label" for="pekerjaan">Pekerjaan</label>
-                                        <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" disabled
+                                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" disabled
                                             value="{{ $data->pekerjaan }}" />                                        
                                     </div>
                                 </div>
@@ -500,17 +495,17 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <label class="col-form-label" for="status_pasien">Status</label>
-                                        <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" disabled
-                                            value="{{ $data->status_pasien }}" />
+                                        <label class="col-form-label" for="status_pasienaktif">Status</label>
+                                        <input type="text" class="form-control" name="status_pasienaktif" id="status_pasienaktif" disabled
+                                            value="{{ $data->status_pasien==1?'Aktif':'tidak aktif' }}" />
                                         
                                     </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="button" class="btn btn-warning" name="kembali" onclick="window.location.href='/pasien'">Kembali</button>
+                                <a href="{{route('pasien.edit',[$data->id])}}" class="btn btn-sm btn-success">Edit</a>                            
+                                <button type="button" class="btn btn-sm btn-warning" name="kembali" onclick="window.location.href='/pasien'">Kembali</button>
                             </div>
-                        </form>
                     </div>
                     <div class="tab-pane fade" id="custom-tabs-one-riwayat" role="tabpanel"
                         aria-labelledby="custom-tabs-one-profile-tab">

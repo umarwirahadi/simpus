@@ -5,7 +5,11 @@ class Kustom{
 
     public static function setKodePkm(){
         $namapuskesmas=DB::table('profiles')->select('kode_puskesmas')->first();
-        return $namapuskesmas->kode_puskesmas;
+        if($namapuskesmas){
+            return $namapuskesmas->kode_puskesmas;
+        }else{
+            
+        }
     }
 
     public static function getItem($categories='',$default='')
