@@ -131,6 +131,7 @@ $("#data-pasien").DataTable({
     e.preventDefault();
     var dataPasien = $(this).serialize();
     var url = $(this).attr('data-url');
+    console.log(url);
 
     $.ajax({
       url: url,

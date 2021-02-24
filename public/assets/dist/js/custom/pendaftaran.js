@@ -87,18 +87,18 @@ $(document).ready(function(){
     },
     minLength: 3,
     select: function (event, ui) {
-      $("#nik").val(ui.item.nik);
+      $("#nik2").val(ui.item.nik);
       $("#no_rm").val(ui.item.no_rm);
-      $("#nama_lengkap").val(ui.item.nama_lengkap);
+      $("#nama_lengkap2").val(ui.item.nama_lengkap);
       $("#tanggal_lahir").val(ui.item.tanggal_lahir);
       $("#usia").val(ui.item.tahun+' tahun '+ui.item.bulan+' bulan '+ui.item.hari+' Hari');
-      $("#jk").val(ui.item.jenis_kelamin);
+      $("#jk").val(ui.item.jenis_kelamin==='L'?'Laki-laki':'Perempuan');
       $("#usia_tahun").val(ui.item.tahun);
       $("#usia_bulan").val(ui.item.bulan);
       $("#usia_hari").val(ui.item.hari);
-      $("#hp").val(ui.item.hp);
-      $("#alamat").val(ui.item.alamat);
-      $("#id_pasien").val(ui.item.value);
+      $("#hp2").val(ui.item.hp);
+      $("#alamat2").val(ui.item.alamat);
+      $("#id_pasien2").val(ui.item.value);
       return false
     }
   });
@@ -146,7 +146,7 @@ $(document).ready(function(){
             title: 'error',
             text: 'proses simpan data error',
           })
-          }      
+        }      
       }
     });
 
@@ -155,56 +155,117 @@ $(document).ready(function(){
   $("#form-pasien-baru-modal").on("submit", function (e) {
     e.preventDefault();
     var dataPasien = $(this).serialize();
-    $.ajax({
-      url: datasite + '/pasien',
-      type: 'POST',
-      data: dataPasien,
-      dataType: 'json',
-      success: function (data) {
-        console.log(data);
-        $("#nik").val(data.data[0].nik);
-        $("#no_rm").val(data.data[0].no_rm);
-        $("#nama_lengkap").val(data.data[0].nama_lengkap);
-        $("#tanggal_lahir").val(data.data[0].tanggal_lahir);
-        $("#usia").val(data.data[0].tahun+' tahun '+data.data[0].bulan+' bulan '+data.data[0].hari+' Hari');
-        $("#jk").val(data.data[0].jenis_kelamin);
-        $("#usia_tahun").val(data.data[0].tahun);
-        $("#usia_bulan").val(data.data[0].bulan);
-        $("#usia_hari").val(data.data[0].hari);
-        $("#hp").val(data.data[0].hp);
-        $("#alamat").val(data.data[0].alamat);
-        $("#id_pasien").val(data.data[0].id);
-          Swal.fire({
-            title: data.status===1?'Success':'error',
-            text: data.message,
-            icon: data.status===1?'success':'error',
-            confirmButtonText: 'Ok'
-          }).then(() => {
-            $("#addnewpasien").modal('hide');
-
-            // window.location.href = datasite + '/pasien';
-          })         
-      },
-      error: function (a) {
-        if(a.status==422){
-          let temp = [];
-          $.each(a.responseJSON.errors, function (i, v) {
-            temp.push(v)
-          })
-          var bc = temp.toString();
-          var cb = bc.split(',')
-          $.each(cb, function (index, value) {
+    const idpas=$("#id_pasien").val();
+    if(idpas==null){
+      $.ajax({
+        url: datasite + '/pasien',
+        type: 'POST',
+        data: dataPasien,
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+          $("#nik2").val(data.data[0].nik);
+          $("#no_rm").val(data.data[0].no_rm);
+          $("#nama_lengkap2").val(data.data[0].nama_lengkap);
+          $("#tanggal_lahir").val(data.data[0].tanggal_lahir);
+          $("#usia").val(data.data[0].tahun+' tahun '+data.data[0].bulan+' bulan '+data.data[0].hari+' Hari');
+          $("#jk").val(data.data[0].jenis_kelamin);
+          $("#usia_tahun").val(data.data[0].tahun);
+          $("#usia_bulan").val(data.data[0].bulan);
+          $("#usia_hari").val(data.data[0].hari);
+          $("#hp2").val(data.data[0].hp);
+          $("#alamat2").val(data.data[0].alamat);
+          $("#id_pasien2").val(data.data[0].id);
+            Swal.fire({
+              title: data.status===1?'Success':'error',
+              text: data.message,
+              icon: data.status===1?'success':'error',
+              confirmButtonText: 'Ok'
+            }).then(() => {
+              $("#addnewpasien").modal('hide');
+            })         
+        },
+        error: function (a) {
+          if(a.status==422){
+            $.each(a.responseJSON.data, function (i, v) {
+              PNotify.error({
+                title: 'error',
+                text: v,
+              })
+            })          
+          }else{
             PNotify.error({
               title: 'error',
-              text: value,
+              text: 'proses simpan data error',
             })
-          })
-        }else{          
-            // window.location.href = datasite + '/pasien';
-            console.log(a);
+          } 
+          // if(a.status==422){
+          //   let temp = [];
+          //   $.each(a.responseJSON.errors, function (i, v) {
+          //     temp.push(v)
+          //   })
+          //   var bc = temp.toString();
+          //   var cb = bc.split(',')
+          //   $.each(cb, function (index, value) {
+          //     PNotify.error({
+          //       title: 'error',
+          //       text: value,
+          //     })
+          //   })
+          // }else{          
+          //     // window.location.href = datasite + '/pasien';
+          //     console.log(a);
+          //   }      
+        }
+      });
+
+    }else{
+      $.ajax({
+        url: datasite + '/pasien/'+idpas,
+        type: 'PUT',
+        data: dataPasien,
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+          $("#nik2").val(data.data[0].nik);
+          $("#no_rm").val(data.data[0].no_rm);
+          $("#nama_lengkap2").val(data.data[0].nama_lengkap);
+          $("#tanggal_lahir").val(data.data[0].tanggal_lahir);
+          $("#usia").val(data.data[0].tahun+' tahun '+data.data[0].bulan+' bulan '+data.data[0].hari+' Hari');
+          $("#jk").val(data.data[0].jenis_kelamin);
+          $("#usia_tahun").val(data.data[0].tahun);
+          $("#usia_bulan").val(data.data[0].bulan);
+          $("#usia_hari").val(data.data[0].hari);
+          $("#hp2").val(data.data[0].hp);
+          $("#alamat2").val(data.data[0].alamat);
+          $("#id_pasien2").val(data.data[0].id);
+            Swal.fire({
+              title: data.status===1?'Success':'error',
+              text: data.message,
+              icon: data.status===1?'success':'error',
+              confirmButtonText: 'Ok'
+            }).then(() => {
+              $("#addnewpasien").modal('hide');
+            })         
+        },
+        error: function (a) {
+          if(a.status==422){
+            $.each(a.responseJSON.data, function (i, v) {
+              PNotify.error({
+                title: 'error',
+                text: v,
+              })
+            })          
+          }else{
+            PNotify.error({
+              title: 'error',
+              text: 'proses simpan data error',
+            })
           }      
-      }
-    });
+        }
+      });
+    }
+   
   });
 
   $("body").on("click",".data-pendaftaran",function(){
@@ -214,7 +275,6 @@ $(document).ready(function(){
       type:'GET',
       dataType:'json',
       success:function(data){
-        console.log(data);
         $("#a1").html(data.data.no_pendaftaran);
         $("#a3").html(data.data.noantrian2);
         $("#a4").html(data.data.no_rm);
@@ -274,7 +334,8 @@ $(document).ready(function(){
     },
     minLength: 5,
     select: function (event, ui) {      
-      console.log(ui);
+      // console.log(ui);
+    $("#id_pasien").val(ui.item.value);
     $("#nik").val(ui.item.nik);
     $("#no_kk").val(ui.item.no_kk);
     $("#status_hubungan").val(ui.item.status_hubungan);

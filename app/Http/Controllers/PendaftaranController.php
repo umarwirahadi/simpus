@@ -60,7 +60,7 @@ class PendaftaranController extends Controller
     public function store(Request $request)
     {
         $cekvalidasi=Validator::make($request->all(),
-            ['id_pasien'=>['required']]
+            ['id_pasien2'=>['required']]
         );
         if($cekvalidasi->fails()){           
             return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
@@ -85,7 +85,7 @@ class PendaftaranController extends Controller
                 $simpanPendaftaran->noantrian           =$tempLasQueueFix;
                 $simpanPendaftaran->tanggal             =date('Y-m-d');
                 $simpanPendaftaran->waktu               =date("H:i:s");
-                $simpanPendaftaran->idpasien            =$request->id_pasien;
+                $simpanPendaftaran->idpasien            =$request->id_pasien2;
                 $simpanPendaftaran->no_rm               =$request->no_rm;
                 $simpanPendaftaran->usia_tahun          =$request->usia_tahun;
                 $simpanPendaftaran->usia_bulan          =$request->usia_bulan;

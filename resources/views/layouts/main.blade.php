@@ -39,9 +39,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 {{-- <script src="{{asset('assets/dist/js/custom/'.$isJS)}}"></script> --}}
   @endif
 
-@if($printJS??false)
+{{-- @if($printJS??false)
   <link rel="stylesheet" href="{{asset('assets/plugins/print/print.min.css')}}">  
-@endif
+@endif --}}
 
   
 </head>
@@ -63,7 +63,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       @include('layouts.menu')
 
       </div>
-
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
         <!-- Messages Dropdown Menu -->
@@ -120,7 +119,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="content-header">
       <div class="container">
         <div class="row mb-2">
-          <div class="col-sm-4">
+          <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="/">{{$menu??'Home'}}</a></li>
               @if($submenu??'')
@@ -133,13 +132,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
               {{-- <li class="breadcrumb-item"><a href="javascript:void(0)">{{$aksi??''}}</a></li> --}}
             </ol>
           </div>
-          <div class="col-sm-8">
-              @if(session('status'))
+          <div class="col-sm-6">
+            
+            <div class="info-box bg-success">
+              <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Likes</span>
+                <span class="info-box-number">41,410</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            
+              {{-- @if(session('status'))
               <div class="alert alert-info alert-dismissible fade show">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <strong>Info!</strong> {{session('status')}}
             </div>
-            @endif
+            @endif --}}
           </div>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -188,6 +199,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/plugins/select2/js/select2.full.min.js')}}"></script>
 <script src="{{asset('assets/plugins/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{asset('assets/plugins/moment-with-locales.min.js')}}"></script>
 
 
 <!-- AdminLTE App -->
@@ -221,6 +233,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('assets/plugins/print/print.min.js')}}"></script>
 @endif
 {{-- <script src="{{asset('assets/plugins/toastr/toastr.min.js')}}" type="text/javascript"></script> --}}
+
+<script>
+  $(document).ready(function(){
+    moment.locale('id');
+    setInterval(()=>{
+        $("#jam").html(moment().format('LLLL.ss'));
+    },1000);
+  });
+</script>
 
 </body>
 </html>

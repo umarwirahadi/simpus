@@ -39,6 +39,12 @@ Route::get('/helper-kustom',function(){
     return KustomHelper::getItem('Jenis-Kelamin');  
 });
 
+
+
 // pendaftaran 
 Route::resource('pendaftaran', 'PendaftaranController');
 Route::get('fetchpendaftaranbydate','PendaftaranController@fetchToday');
+
+
+// pemeriksaan
+Route::resource('pemeriksaan', 'PemeriksaanController');

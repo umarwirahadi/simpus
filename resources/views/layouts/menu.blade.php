@@ -2,7 +2,7 @@
         <!-- Left navbar links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">Data</a>
@@ -44,7 +44,7 @@
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Transaksi</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                 <li><a href="/pendaftaran" class="dropdown-item">- Pendaftaran</a></li>
-                <li><a href="/poli" class="dropdown-item">- Pemeriksaan </a></li>
+                <li><a href="{{route('pemeriksaan.index')}}" class="dropdown-item">- Pemeriksaan </a></li>
                 <li><a href="/billing" class="dropdown-item">- Billing </a></li>
                 <li class="dropdown-divider"></li>
                 <li><a href="" class="dropdown-item">- P-Care </a></li>

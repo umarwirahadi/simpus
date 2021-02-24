@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use DataTables;
 use KustomHelper;
 
@@ -223,48 +224,78 @@ class PasienController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $updatePasien= Pasien::findOrFail($id);
-        if($updatePasien){
-            $updatePasien->nik=$request->nik;
-            $updatePasien->no_kk=$request->no_kk;
-            $updatePasien->status_hubungan=$request->status_hubungan;
-            $updatePasien->no_bpjs=$request->no_bpjs;
-            $updatePasien->no_rm_lama=$request->no_rm_lama;
-            $updatePasien->nama_lengkap=$request->nama_lengkap;
-            $updatePasien->jenis_kelamin=$request->jenis_kelamin;
-            $updatePasien->tempat_lahir=$request->tempat_lahir;
-            $updatePasien->tanggal_lahir=$request->tanggal_lahir;
-            $updatePasien->agama=$request->agama;
-            $updatePasien->gol_darah=$request->gol_darah;
-            $updatePasien->hp=$request->hp;
-            $updatePasien->telp=$request->telp;
-            $updatePasien->email=$request->email;
-            $updatePasien->warganegara='Indonesia';
-            $updatePasien->alamat=$request->alamat;
-            $updatePasien->rt=$request->rt;
-            $updatePasien->rw=$request->rw;
-            $updatePasien->kelurahan=$request->kelurahan;
-            $updatePasien->kecamatan=$request->kecamatan;
-            $updatePasien->kab_kota=$request->kab_kota;
-            $updatePasien->provinsi=$request->provinsi;
-            $updatePasien->pos=$request->pos;
-            $updatePasien->status_marital=$request->status_marital;
-            $updatePasien->pendidikan_terakhir=$request->pendidikan_terakhir;
-            $updatePasien->suku=$request->suku;
-            $updatePasien->pekerjaan=$request->pekerjaan;
-            $updatePasien->nama_ayah=$request->nama_ayah;
-            $updatePasien->nama_ibu=$request->nama_ibu;
-            $updatePasien->penanggung_jawab=$request->penanggung_jawab;
-            $updatePasien->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
-            $updatePasien->no_contact_darurat=$request->no_contact_darurat;
-            $updatePasien->status_pasien=$request->status_pasien;
-            $updatePasien->wilayah_kerja=$request->wilayah_kerja;                
-            $updatePasien->update();
+        // $pesan=[
+        //     'required'=>':attribute wajib diisi',
+        //     'digits'=>':attribute apanjang karakter harus 16 digit'
+        //     ];
+        // $cekvalidasi=$request->validate([
+        //                         'id_pasien'=>['required'],
+        //                         'nama_lengkap'=>['required'],
+        //                         'tanggal_lahir'=>['required'],
+        //                         'alamat'=>['required'],
+        //                         'rt'=>['required'],
+        //                         'rw'=>['required'],
+        // ],$pesan);
+        $cekvalidasi=Validator::make($request->all(),
+                    ['id_pasien'=>['required'],
+                     'nama_lengkap'=>['required'],
+                     'tanggal_lahir'=>['required'],
+                     'alamat'=>['required'],
+                     'rt'=>['required'],
+                     'rw'=>['required']]);
 
-            return response()->json(['status'=>1,'message'=>'data pasien berhasil diupdate','data'=>$updatePasien],200);
+        if($cekvalidasi->fails()){           
+            return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
         }else{
-            return redirect()->route('pasien.index')->with('status', 'data pasien gagal diupdate');
-        } 
+            $updatePasien= Pasien::findOrFail($id);
+            if($updatePasien){
+                $updatePasien->nik=$request->nik;
+                $updatePasien->no_kk=$request->no_kk;
+                $updatePasien->status_hubungan=$request->status_hubungan;
+                $updatePasien->no_bpjs=$request->no_bpjs;
+                $updatePasien->no_rm_lama=$request->no_rm_lama;
+                $updatePasien->nama_lengkap=$request->nama_lengkap;
+                $updatePasien->jenis_kelamin=$request->jenis_kelamin;
+                $updatePasien->tempat_lahir=$request->tempat_lahir;
+                $updatePasien->tanggal_lahir=$request->tanggal_lahir;
+                $updatePasien->agama=$request->agama;
+                $updatePasien->gol_darah=$request->gol_darah;
+                $updatePasien->hp=$request->hp;
+                $updatePasien->telp=$request->telp;
+                $updatePasien->email=$request->email;
+                $updatePasien->warganegara='Indonesia';
+                $updatePasien->alamat=$request->alamat;
+                $updatePasien->rt=$request->rt;
+                $updatePasien->rw=$request->rw;
+                $updatePasien->kelurahan=$request->kelurahan;
+                $updatePasien->kecamatan=$request->kecamatan;
+                $updatePasien->kab_kota=$request->kab_kota;
+                $updatePasien->provinsi=$request->provinsi;
+                $updatePasien->pos=$request->pos;
+                $updatePasien->status_marital=$request->status_marital;
+                $updatePasien->pendidikan_terakhir=$request->pendidikan_terakhir;
+                $updatePasien->suku=$request->suku;
+                $updatePasien->pekerjaan=$request->pekerjaan;
+                $updatePasien->nama_ayah=$request->nama_ayah;
+                $updatePasien->nama_ibu=$request->nama_ibu;
+                $updatePasien->penanggung_jawab=$request->penanggung_jawab;
+                $updatePasien->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
+                $updatePasien->no_contact_darurat=$request->no_contact_darurat;
+                $updatePasien->status_pasien='1';
+                $updatePasien->wilayah_kerja=$request->wilayah_kerja;                
+                $updatePasien->update();
+                $vpasien=DB::table('vpasiens')
+                            ->where('id','=',$updatePasien->id)
+                            ->limit(1)
+                            ->get();
+    
+                return response()->json(['status'=>1,'message'=>'data pasien berhasil diupdate','data'=>$vpasien],200);
+            }else{
+                return redirect()->route('pasien.index')->with('status', 'data pasien gagal diupdate');
+            } 
+
+        }
+
     }
 
     /**

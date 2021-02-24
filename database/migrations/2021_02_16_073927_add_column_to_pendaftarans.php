@@ -14,13 +14,13 @@ class AddColumnToPendaftarans extends Migration
     public function up()
     {
         Schema::table('pendaftarans', function (Blueprint $table) {
-            $table->string('idpasien');
-            $table->string('noantrian')->nullable();
-            $table->string('nokwitansi')->nullable();
-            $table->string('usia_tahun')->nullable();
-            $table->string('usia_bulan')->nullable();
-            $table->string('usia_hari')->nullable();
-            $table->text('deskripsi')->nullable();            
+            // $table->string('idpasien');
+            // $table->string('noantrian')->nullable();
+            // $table->string('nokwitansi')->nullable();
+            // $table->string('usia_tahun')->nullable();
+            // $table->string('usia_bulan')->nullable();
+            // $table->string('usia_hari')->nullable();
+            // $table->text('deskripsi')->nullable();            
         });
     }
 
