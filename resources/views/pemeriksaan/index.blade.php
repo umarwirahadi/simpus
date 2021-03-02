@@ -42,7 +42,7 @@
 
         <div class="info-box-content">
           <span class="info-box-text">POLI UMUM</span>
-          <span class="info-box-number">2</span>
+          <span class="info-box-number">dr. Indah Citra Handayani</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -55,16 +55,13 @@
       <div class="row">
         <div class="col-md-6">
           <h3 class="card-title">
-              <a href="{{route('pendaftaran.create')}}" class="btn btn-app bg-info"><i class="fas fa-phone-square-alt"></i> Panggil</a>
-              <a href="{{route('pendaftaran.create')}}" class="btn btn-app bg-red"><i class="fas fa-microphone"></i> Antrian</a>
+              <a href="{{route('pemeriksaan.proses')}}" class="btn btn-app bg-info"><i class="fas fa-phone-square-alt"></i> Panggil</a>
+              <a href="" class="btn btn-app bg-red"><i class="fas fa-microphone"></i> Antrian</a>
               <a href="#" class="btn btn-app bg-green"><i class="fas fa-file-excel"></i> Export</a>
           </h3>
         </div>        
         <div class="col-sm-12 col-md-6">
-          <div class="color-palette-set">
-            <div class="bg-indigo color-palette"><h4 class="text text-warning p-2">NAMA POLI : POLI GIGI</h4></div>
-            <div class="bg-indigo disabled color-palette"><h5 class="p-1" id="jam"></h5></div>
-          </div>
+          
         </div>
       </div>       
     </div>

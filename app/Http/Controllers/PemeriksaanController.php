@@ -90,4 +90,18 @@ class PemeriksaanController extends Controller
     {
         //
     }
+
+    public function proses()
+    {
+        $data=[
+            'menu'=>'Transaksi',
+            'judul'=>'Pemeriksaan Pasien',
+            'submenu'=>'Pemeriksaan',
+            'submenu2'=>'proses pemeriksaan pasien',
+            'isDataTable'=>false,
+            'isJS'=>'pemeriksaan.js',
+            'dataItem'=>null
+        ];
+        return view('pemeriksaan.proses',$data);
+    }
 }

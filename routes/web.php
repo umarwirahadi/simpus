@@ -20,9 +20,8 @@ Route::get('cari_wilayah','WilayahController@finddata')->name('cari.wilayah');
 // Route::post('wilayah/datatable','WilayahController@fetch')->name('wilayah.datatable');
 
 
-Route::get('/', function () {
-    return view('layouts.main');
-});
+Route::get('/', 'HomeController@index')->name('halutama');
+
 
 Route::resource('poli', 'PoliController');
 Route::resource('item', 'ItemController');
@@ -34,10 +33,10 @@ Route::resource('poli', 'PoliController');
 // billing
 Route::get('billing','BillingController@index');
 
-
-Route::get('/helper-kustom',function(){
-    return KustomHelper::getItem('Jenis-Kelamin');  
-});
+//cek item 
+// Route::get('/helper-kustom',function(){
+//     return KustomHelper::getItem('Jenis-Kelamin');  
+// });
 
 
 
@@ -48,3 +47,4 @@ Route::get('fetchpendaftaranbydate','PendaftaranController@fetchToday');
 
 // pemeriksaan
 Route::resource('pemeriksaan', 'PemeriksaanController');
+Route::get('prosespemeriksaan', 'PemeriksaanController@proses')->name('pemeriksaan.proses');

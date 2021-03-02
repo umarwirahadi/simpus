@@ -134,14 +134,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div>
           <div class="col-sm-6">
             
-            <div class="info-box bg-success">
-              <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
-              </div>
-              <!-- /.info-box-content -->
+            <div class="color-palette-set">              
+              <div class="bg-indigo disabled color-palette p-1" id="jam">00:00:00</div>
             </div>
             <!-- /.info-box -->
             
@@ -237,6 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script>
   $(document).ready(function(){
     moment.locale('id');
+    $("#jam").html(moment().format('LLLL.ss'));
     setInterval(()=>{
         $("#jam").html(moment().format('LLLL.ss'));
     },1000);
