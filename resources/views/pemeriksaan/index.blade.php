@@ -41,9 +41,10 @@
         <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-person-booth"></i></span>
 
         <div class="info-box-content">
-          <span class="info-box-text">POLI UMUM</span>
+          <span class="info-box-text">{!! KustomHelper::setLabelPoli(Cookie::get('id_poli')) !!} </span>
           <span class="info-box-number">dr. Indah Citra Handayani</span>
         </div>
+        <a class="btn btn-app bg-info" href="javascript:void(0)" data-toggle="modal" data-target="#form-setpoli"><i class="fas fa-dice-d6"></i> Ubah Poli</a>
         <!-- /.info-box-content -->
       </div>
       <!-- /.info-box -->
@@ -58,6 +59,7 @@
               <a href="{{route('pemeriksaan.proses')}}" class="btn btn-app bg-info"><i class="fas fa-phone-square-alt"></i> Panggil</a>
               <a href="" class="btn btn-app bg-red"><i class="fas fa-microphone"></i> Antrian</a>
               <a href="#" class="btn btn-app bg-green"><i class="fas fa-file-excel"></i> Export</a>
+              <a class="btn btn-app bg-info" href="javascript:void(0)" data-toggle="modal" data-target="#form-setpoli"><i class="fas fa-heart"></i> Ubah Poli</a>
           </h3>
         </div>        
         <div class="col-sm-12 col-md-6">
@@ -67,14 +69,14 @@
     </div>
     <div class="card-body">
       <div class="table table-responsive">
-        <table id="pendaftaran" class="table table-hover table-bordered">
+        <table id="data-pemeriksaan" class="table table-hover table-bordered">
           <thead>
           <tr>
             <th>No. Antri</th>
             <th>No. RM</th>
             <th>Nama Pasien</th>
             <th>Alamat</th>
-            <th>Status Periksa</th>
+            <th>Status Pemeriksaan</th>
             <th>Poli</th>
             <th>Aksi</th>
           </tr>
@@ -87,7 +89,7 @@
     </div>
     <!-- /.card-body -->
     <div class="card-footer">
-        form pemeriksaan pasien
+        form pemeriksaan pasien {{Cookie::get('id_poli')}}
     </div>
     <!-- /.card-footer-->
 </div>
@@ -97,4 +99,5 @@
 
 
 @include('pendaftaran.show')
+@include('pemeriksaan.setpoli')
   @endsection

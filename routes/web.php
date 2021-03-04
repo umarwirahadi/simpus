@@ -48,3 +48,6 @@ Route::get('fetchpendaftaranbydate','PendaftaranController@fetchToday');
 // pemeriksaan
 Route::resource('pemeriksaan', 'PemeriksaanController');
 Route::get('prosespemeriksaan', 'PemeriksaanController@proses')->name('pemeriksaan.proses');
+
+
+Route::post('setcookiespoli','PemeriksaanController@setpoli')->name('set.poli');

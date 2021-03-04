@@ -226,7 +226,6 @@ $(document).ready(function(){
         data: dataPasien,
         dataType: 'json',
         success: function (data) {
-          console.log(data);
           $("#nik2").val(data.data[0].nik);
           $("#no_rm").val(data.data[0].no_rm);
           $("#nama_lengkap2").val(data.data[0].nama_lengkap);

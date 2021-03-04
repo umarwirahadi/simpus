@@ -79,5 +79,18 @@ class Kustom{
               
         return $dataItem;
     }
+ 
+    public static function setLabelPoli($kode=''){
+        $item=DB::table('polis')->where('status',1)->where('kode',$kode)->first();
+        $dataItem="";
+        if(!empty($kode)){
+            $dataItem .='<div class="text text-primary" id="datanull">'.$item->poli.'</div>';
+            
+        }else{
+            $dataItem .='<div class="text text-danger" id="datanull">Poli belum di set</div>';
+        }
+              
+        return $dataItem;
+    }
 }
 ?>

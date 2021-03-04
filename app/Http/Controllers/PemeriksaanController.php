@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Pemeriksaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+
 
 class PemeriksaanController extends Controller
 {
@@ -98,10 +100,19 @@ class PemeriksaanController extends Controller
             'judul'=>'Pemeriksaan Pasien',
             'submenu'=>'Pemeriksaan',
             'submenu2'=>'proses pemeriksaan pasien',
-            'isDataTable'=>false,
+            'isDataTable'=>true,
             'isJS'=>'pemeriksaan.js',
             'dataItem'=>null
         ];
         return view('pemeriksaan.proses',$data);
+    }
+
+
+
+    public function setpoli(Request $request)
+    {        
+        $id_poli=$request->poli;        
+        $cookie= cookie('id_poli', $id_poli,86400*30);        
+        return response(['status'=>1,'message'=>'data perubahan poli berhasil dilakukan'])->cookie($cookie);        
     }
 }
