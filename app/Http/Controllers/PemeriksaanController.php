@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Pemeriksaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class PemeriksaanController extends Controller
@@ -22,7 +25,10 @@ class PemeriksaanController extends Controller
             'judul'=>'Pemeriksaan Pasien',
             'isDataTable'=>true,
             'isJS'=>'pemeriksaan.js',
-            'dataItem'=>null
+            'jumlah'=>DB::table('vpendaftaran')->where(['poli'=>Cookie::get('id_poli'),'tanggal'=>date('Y-m-d')])->count(),
+            'jumlahTunggu'=>DB::table('vpendaftaran')->where(['poli'=>Cookie::get('id_poli'),'tanggal'=>date('Y-m-d'),'status'=>1])->count(),
+            'jumlahDiperiksa'=>DB::table('vpendaftaran')->where(['poli'=>Cookie::get('id_poli'),'tanggal'=>date('Y-m-d'),'status'=>2])->count(),
+            'dataItem'=>DB::table('vpendaftaran')->where(['poli'=>Cookie::get('id_poli'),'tanggal'=>date('Y-m-d')])->get()
         ];
         return view('pemeriksaan.index',$data);
     }
@@ -45,7 +51,70 @@ class PemeriksaanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cekvalidasi=Validator::make($request->all(),
+            ['idpasien'=>['required'],'id_pendaftaran'=>['required'],'sistol'=>['required'],
+            'diastol'=>['required'],'tekanan_nadi'=>['required'],'respirasi'=>['required'],'suhu'=>['required'],'berat_badan'=>['required'],
+            'tinggi_badan'=>['required'],'keluhan_utama'=>['required'],'pemeriksaan_fisik'=>['required'],'anamnesa'=>['required'],
+            'terapi'=>['required'],'diagnosa'=>['required'],'keterangan'=>['required']]
+        );
+        if($cekvalidasi->fails()){           
+            return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
+        }else{
+            // cek jika pemeriksaan ada
+            $cekpemeriksaan=Pemeriksaan::where(['idpasien'=>$request->idpasien,'tanggal'=>date('Y-m-d'),'diagnosa'=>$request->diagnosa]);
+            if($cekpemeriksaan->count()==0){
+                $pemeriksaan=new Pemeriksaan;
+                $pemeriksaan->idpasien=$request->idpasien;
+                $pemeriksaan->id_pendaftaran=$request->id_pendaftaran;
+                $pemeriksaan->tanggal=date('Y-m-d');
+                $pemeriksaan->jam=date("H:i:s");
+                $pemeriksaan->kunjungan=$request->idpasien;
+                $pemeriksaan->kasus='kasus euy';
+                $pemeriksaan->sistol=$request->sistol;
+                $pemeriksaan->diastol=$request->diastol;
+                $pemeriksaan->tekanan_nadi=$request->tekanan_nadi;
+                $pemeriksaan->respirasi=$request->respirasi;
+                $pemeriksaan->suhu=$request->suhu;
+                $pemeriksaan->berat_badan=$request->berat_badan;
+                $pemeriksaan->tinggi_badan=$request->tinggi_badan;
+                $pemeriksaan->keluhan_utama=$request->keluhan_utama;
+                $pemeriksaan->pemeriksaan_fisik=$request->pemeriksaan_fisik;
+                $pemeriksaan->anamnesa=$request->anamnesa;
+                $pemeriksaan->terapi=$request->terapi;
+                $pemeriksaan->diagnosa=$request->diagnosa;
+                $pemeriksaan->keterangan=$request->keterangan;
+                $pemeriksaan->id_petugas='Umar Wirahadi';
+                $pemeriksaan->status=1;
+                $pemeriksaan->save();
+                return response()->json(['status'=>1,'message'=>'data pemeriksaan berhasil disimpan','data'=>$pemeriksaan],200);
+            }
+            else{
+                $pemeriksaan=new Pemeriksaan;
+                $pemeriksaan->idpasien=$request->idpasien;
+                $pemeriksaan->id_pendaftaran=$request->id_pendaftaran;
+                $pemeriksaan->tanggal=date('Y-m-d');
+                $pemeriksaan->jam=date("H:i:s");
+                $pemeriksaan->kunjungan=$request->idpasien;
+                $pemeriksaan->kasus=$request->idpasien;
+                $pemeriksaan->sistol=$request->sistol;
+                $pemeriksaan->diastol=$request->diastol;
+                $pemeriksaan->tekanan_nadi=$request->tekanan_nadi;
+                $pemeriksaan->respirasi=$request->respirasi;
+                $pemeriksaan->suhu=$request->suhu;
+                $pemeriksaan->berat_badan=$request->berat_badan;
+                $pemeriksaan->tinggi_badan=$request->tinggi_badan;
+                $pemeriksaan->keluhan_utama=$request->keluhan_utama;
+                $pemeriksaan->pemeriksaan_fisik=$request->pemeriksaan_fisik;
+                $pemeriksaan->anamnesa=$request->anamnesa;
+                $pemeriksaan->terapi=$request->terapi;
+                $pemeriksaan->diagnosa=$request->diagnosa;
+                $pemeriksaan->keterangan=$request->keterangan;
+                $pemeriksaan->id_petugas='Umar Wirahadi';
+                $pemeriksaan->status=1;     
+                $pemeriksaan->update();
+                return response()->json(['status'=>1,'message'=>'data pemeriksaan berhasil diubah','data'=>$pemeriksaan],200);
+            }                   
+        } 
     }
 
     /**
@@ -93,7 +162,7 @@ class PemeriksaanController extends Controller
         //
     }
 
-    public function proses()
+    public function proses(Request $request)
     {
         $data=[
             'menu'=>'Transaksi',
@@ -102,7 +171,13 @@ class PemeriksaanController extends Controller
             'submenu2'=>'proses pemeriksaan pasien',
             'isDataTable'=>true,
             'isJS'=>'pemeriksaan.js',
-            'dataItem'=>null
+            'dataItem'=>DB::table('vpendaftaran')->where(['id'=>$request->idpemeriksaan,'tanggal'=>date('Y-m-d')])->first(),
+            'dataRiwayatPeriksa'=>DB::table('pemeriksaans')->join('vpendaftaran',function($join){
+                $join->on('pemeriksaans.id_pendaftaran','=','vpendaftaran.no_pendaftaran');
+                $join->on('pemeriksaans.tanggal','=','vpendaftaran.tanggal');
+                })
+                ->select(['pemeriksaans.id','idpasien','id_pendaftaran','tanggal','diagnosa','usia_tahun','usia_bulan','usia_hari'])
+                ->where('pemeriksaans.idpasien',$request->idpasien)->get()
         ];
         return view('pemeriksaan.proses',$data);
     }
@@ -114,5 +189,10 @@ class PemeriksaanController extends Controller
         $id_poli=$request->poli;        
         $cookie= cookie('id_poli', $id_poli,86400*30);        
         return response(['status'=>1,'message'=>'data perubahan poli berhasil dilakukan'])->cookie($cookie);        
+    }
+
+    public function riwayatperiksa(Request $request)
+    {
+        # code...
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Pendaftaran;
+use App\Exports\PendaftaranExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -175,5 +177,10 @@ class PendaftaranController extends Controller
                         })
                         ->rawColumns(['aksi'])
                         ->toJson();
+    }
+
+    public function export()
+    {
+        return Excel::download(new PendaftaranExport,'pendaftaran_'.date('d-M-y').'.xlsx');
     }
 }

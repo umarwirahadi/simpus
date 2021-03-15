@@ -43,11 +43,12 @@ Route::get('billing','BillingController@index');
 // pendaftaran 
 Route::resource('pendaftaran', 'PendaftaranController');
 Route::get('fetchpendaftaranbydate','PendaftaranController@fetchToday');
+Route::get('pendaftaran-export','PendaftaranController@export')->name('pendaftaran.export');
 
 
 // pemeriksaan
 Route::resource('pemeriksaan', 'PemeriksaanController');
-Route::get('prosespemeriksaan', 'PemeriksaanController@proses')->name('pemeriksaan.proses');
+Route::post('prosespemeriksaan', 'PemeriksaanController@proses')->name('pemeriksaan.proses');
 
 
 Route::post('setcookiespoli','PemeriksaanController@setpoli')->name('set.poli');

@@ -106,8 +106,6 @@ $(document).ready(function(){
   $("#form-pendaftaran-pasien").on("submit", function (e) {
     e.preventDefault();
     var datapendaftaran = $(this).serialize();
-    // console.log(datapendaftaran);
-
     $.ajax({
       url: datasite + '/pendaftaran',
       type: 'POST',
@@ -149,7 +147,6 @@ $(document).ready(function(){
         }      
       }
     });
-
   });
 
   $("#form-pasien-baru-modal").on("submit", function (e) {

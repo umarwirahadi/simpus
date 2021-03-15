@@ -6,6 +6,53 @@ $(document).ready(function(){
  $("#data-pendataan").DataTable();
  $("#data-pemeriksaan").DataTable();
 
+// simpan data pemeriksaan
+$("#frmpemeriksaan").on("submit", function (e) {
+    e.preventDefault();
+    var datapendaftaran = $(this).serialize();
+    $.ajax({
+      url: datasite + '/pemeriksaan',
+      type: 'POST',
+      data: datapendaftaran,
+      dataType: 'json',
+      success: function (data) {
+        if (data.status === 1) {
+          Swal.fire({
+            title: 'Success',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          }).then((data2) => {
+            // window.location.href = datasite + '/pendaftaran';
+            console.log(data2);
+          })
+        } else {
+          Swal.fire({
+            title: 'error',
+            text: data.message,
+            icon: 'error'
+          })
+        }
+      },
+      error: function (a) {
+        if(a.status==422){
+          $.each(a.responseJSON.data, function (i, v) {
+            PNotify.error({
+              title: 'error',
+              text: v,
+            })
+          })          
+        }else{
+          PNotify.error({
+            title: 'error',
+            text: 'proses simpan data error',
+          })
+        }      
+      }
+    });
+  });
+
+
 $("#formsetpoli").on("submit",function(e){
     e.preventDefault();
     var dataform=$("#formsetpoli").serialize();
@@ -29,7 +76,7 @@ $("#formsetpoli").on("submit",function(e){
 
 setInterval(function(){
     var stat=1
-    $("#datanull").blink();    
+    $("#datanull").visi
 },200)
 
 

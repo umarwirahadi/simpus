@@ -11,7 +11,7 @@
         <div class="info-box-content">
           <span class="info-box-text">Pasien menunggu Antrian</span>
           <span class="info-box-number">
-            10
+            {{$jumlahTunggu}} dari {{$jumlah}}
           </span>
         </div>
         <!-- /.info-box-content -->
@@ -25,7 +25,7 @@
 
         <div class="info-box-content">
           <span class="info-box-text">Pasien diperiksa</span>
-          <span class="info-box-number">7</span>
+          <span class="info-box-number">{{$jumlahDiperiksa}}</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -58,8 +58,6 @@
           <h3 class="card-title">
               <a href="{{route('pemeriksaan.proses')}}" class="btn btn-app bg-info"><i class="fas fa-phone-square-alt"></i> Panggil</a>
               <a href="" class="btn btn-app bg-red"><i class="fas fa-microphone"></i> Antrian</a>
-              <a href="#" class="btn btn-app bg-green"><i class="fas fa-file-excel"></i> Export</a>
-              <a class="btn btn-app bg-info" href="javascript:void(0)" data-toggle="modal" data-target="#form-setpoli"><i class="fas fa-heart"></i> Ubah Poli</a>
           </h3>
         </div>        
         <div class="col-sm-12 col-md-6">
@@ -82,7 +80,34 @@
           </tr>
           </thead>
           <tbody>
-            
+            @foreach ($dataItem as $a)
+                <tr>
+                  <td>{{$a->noantrian}}</td>
+                  <td>{{$a->no_rm}}</td>
+                  <td>{{$a->nama_lengkap}}</td>
+                  <td>{{$a->alamat}}</td>
+                  <td>{!!$a->status=='1'?'<span class="text text-danger">menunggu</span>':'<span class="text text-primary">diperiksa</span>'!!}</td>
+                  <td>{{$a->nama_poli}}</td>
+                  <td>
+                    <div class="btn-group">
+                      <form action="{{route('pemeriksaan.proses')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="idpemeriksaan" value="{{$a->id}}">
+                        <input type="hidden" name="idpasien" value="{{$a->idpasien}}">
+                      <button type="submit"  class="btn btn-success btn-sm" title="periksa">
+                        <i class="fas fa-check-double"></i>
+                      </button>
+                    </form>
+                      <a href=""  class="btn btn-primary btn-sm" title="edit">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <a href=""  class="btn btn-danger btn-sm" title="hapus">
+                        <i class="fas fa-trash"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+            @endforeach            
           </tbody>        
         </table>     
         </div>
@@ -90,6 +115,7 @@
     <!-- /.card-body -->
     <div class="card-footer">
         form pemeriksaan pasien {{Cookie::get('id_poli')}}
+        {{-- {{$dataItem}} --}}
     </div>
     <!-- /.card-footer-->
 </div>
