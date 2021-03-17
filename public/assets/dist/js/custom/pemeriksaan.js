@@ -2,7 +2,18 @@ $(document).ready(function(){
     var datasite=$('body').attr('data-site');
     const token = $("meta[name='csrf-token']").attr("content");
 
- $("#data-riwayat").DataTable();
+ $("#data-riwayat").DataTable({  
+  "bPaginate": false,  
+  "bInfo": true,  
+  "bFilter": false,
+  "bAutoWidth": false,
+  "aoColumns" : [
+      { sWidth: '5px' },
+      { sWidth: '50px' },
+      { sWidth: '120px' },
+      { sWidth: '30px' }
+  ]  
+});
  $("#data-pendataan").DataTable();
  $("#data-pemeriksaan").DataTable();
 

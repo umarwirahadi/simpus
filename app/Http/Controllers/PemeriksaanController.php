@@ -176,7 +176,7 @@ class PemeriksaanController extends Controller
                 $join->on('pemeriksaans.id_pendaftaran','=','vpendaftaran.no_pendaftaran');
                 $join->on('pemeriksaans.tanggal','=','vpendaftaran.tanggal');
                 })
-                ->select(['pemeriksaans.id','idpasien','id_pendaftaran','tanggal','diagnosa','usia_tahun','usia_bulan','usia_hari'])
+                ->select(['pemeriksaans.id','pemeriksaans.idpasien','pemeriksaans.id_pendaftaran','pemeriksaans.tanggal','pemeriksaans.diagnosa','vpendaftaran.usia_tahun','vpendaftaran.usia_bulan','vpendaftaran.usia_hari'])
                 ->where('pemeriksaans.idpasien',$request->idpasien)->get()
         ];
         return view('pemeriksaan.proses',$data);

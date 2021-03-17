@@ -130,7 +130,7 @@
             </div>
               </div>
               <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-                {{$dataRiwayatPeriksa}}
+                {{-- {{$dataRiwayatPeriksa}} --}}
                 <div class="table responsive">
                   <table id="data-riwayat" class="table table-hover table-bordered">
                     <thead>
@@ -149,7 +149,7 @@
                           <tr>
                             <td>{{$no++}}</td>
                             <td>{{$riwayat->tanggal}}</td>
-                            <td>{{$riwayat->jam}}</td>
+                            <td>{{$riwayat->usia_tahun}}</td>
                             <td>{{$riwayat->diagnosa}}</td>
                           </tr>
                       @endforeach

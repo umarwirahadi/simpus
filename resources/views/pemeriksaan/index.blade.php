@@ -56,7 +56,7 @@
       <div class="row">
         <div class="col-md-6">
           <h3 class="card-title">
-              <a href="{{route('pemeriksaan.proses')}}" class="btn btn-app bg-info"><i class="fas fa-phone-square-alt"></i> Panggil</a>
+              <a href="" class="btn btn-app bg-info"><i class="fas fa-phone-square-alt"></i> Panggil</a>
               <a href="" class="btn btn-app bg-red"><i class="fas fa-microphone"></i> Antrian</a>
           </h3>
         </div>        
