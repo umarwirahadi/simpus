@@ -6,15 +6,29 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index()
     {
         $data=[
             'menu'=>'Home',
-            'submenu'=>'dashboard',
-            'judul'=>'Pemeriksaan Pasien',
+            'submenu'=>'',
+            'judul'=>'Home',
             'isDataTable'=>true,
-            'isJS'=>'pemeriksaan.js',
-            'dataItem'=>null
+            'isJS'=>'home.js',
         ];
         return view('home.index',$data);
     }

@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-12 col-sm-8">
         <div class="card card-primary card-outline card-outline-tabs card-info shadow">
-          <div class="card-header p-0 border-bottom-0">
+           <div class="card-header p-0 border-bottom-0">
             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">[ PEMERIKSAAN ]</a>
@@ -21,9 +21,10 @@
                 <div class="card-bodys">
                   <form action="" id="frmpemeriksaan" method="POST">
                     @csrf
+                    <input type="hidden" name="idpemeriksaan" value="{{$pemeriksaan->id??''}}">
                     <input type="hidden" value="{{$dataItem->idpasien}}" name="idpasien" id="idpasien">
                     <input type="hidden" value="{{$dataItem->noantrian2}}" name="noantrian2" id="noantrian2">
-                    <input type="hidden" value="{{$dataItem->no_pendaftaran}}" name="id_pendaftaran" id="id_pendaftaran">
+                    <input type="hidden" value="{{$dataItem->id}}" name="id_pendaftaran" id="id_pendaftaran">
                     <input type="hidden" value="{{$dataItem->no_rm}}" name="no_rm" id="no_rm">
                     <input type="hidden" value="{{$dataItem->no_rm_lama}}" name="no_rm_lama" id="no_rm_lama">
                     <div class="row">
@@ -31,41 +32,41 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="sistol">Sistol & diastol</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" id="sistol" name="sistol" placeholder="sistol" />
-                                    <input type="text" class="form-control form-control-sm" id="diastol" name="diastol" placeholder="diastol" />
+                                    <input type="text" class="form-control form-control-sm" id="sistol" name="sistol" placeholder="sistol"  value="{{$pemeriksaan->sistol??''}}" />
+                                    <input type="text" class="form-control form-control-sm" id="diastol" name="diastol" placeholder="diastol" value="{{$pemeriksaan->sistol??''}}" />
                                   </div>
                             </div>         
                         </div>                     
                         <div class="col-md-2">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="tekanan_nadi">Tekanan nadi</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="tekanan nadi" name="tekanan_nadi" id="tekanan_nadi" />
+                                <input type="text" class="form-control form-control-sm" placeholder="tekanan nadi" name="tekanan_nadi" id="tekanan_nadi" value="{{$pemeriksaan->sistol??''}}" />
                             </div>                                                    
                         </div>                       
                         <div class="col-md-3">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="respirasi">Respirasi</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="respirasi" name="respirasi" id="respirasi" />
+                                <input type="text" class="form-control form-control-sm" placeholder="respirasi" name="respirasi" id="respirasi" value="{{$pemeriksaan->sistol??''}}" />
                             </div>                                                    
                         </div>                       
                         <div class="col-md-2">                          
                             <div class="form-group">
                                 <label class="col-form-label" for="suhu">Suhu</label>
-                                <input type="text" class="form-control form-control-sm" placeholder="respirasi" name="suhu" id="suhu" />
+                                <input type="text" class="form-control form-control-sm" placeholder="respirasi" name="suhu" id="suhu" value="{{$pemeriksaan->sistol??''}}" />
                             </div>                                                    
                         </div>                       
                         <div class="col-md-1">                          
                           <div class="form-group">
                               <label class="col-form-label" for="berat_badan">BB</label>
                               <div class="input-group">
-                                  <input type="text" class="form-control form-control-sm" id="berat_badan" name="berat_badan" placeholder="kg" />
+                                  <input type="text" class="form-control form-control-sm" id="berat_badan" name="berat_badan" placeholder="kg" value="{{$pemeriksaan->sistol??''}}" />
                                 </div>
                           </div>         
                       </div> 
                       <div class="col-md-1">                          
                         <div class="form-group">
                             <label class="col-form-label" for="tinggi_badan">TB</label>
-                            <input type="text" class="form-control form-control-sm" placeholder="cm" name="tinggi_badan" id="tinggi_badan" />
+                            <input type="text" class="form-control form-control-sm" placeholder="cm" name="tinggi_badan" id="tinggi_badan" value="{{$pemeriksaan->sistol??''}}" />
                         </div>                                                    
                     </div> 
                     </div>               
@@ -74,7 +75,7 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="keluhan_utama">Keluhan utama</label>
                                 <div class="input-group">
-                                  <textarea  class="form-control form-control-sm" name="keluhan_utama" id="keluhan_utama" cols="30" rows="2" placeholder="silahkan isi keluhan utama"></textarea>
+                                  <textarea  class="form-control form-control-sm" name="keluhan_utama" id="keluhan_utama" cols="30" rows="2" placeholder="silahkan isi keluhan utama">{{$pemeriksaan->keluhan_utama??''}}</textarea>
                                   </div>
                             </div>         
                         </div>
@@ -82,7 +83,7 @@
                           <div class="form-group">
                               <label class="col-form-label" for="pemeriksaan_fisik">Pemeriksaan fisik</label>
                               <div class="input-group">
-                                <textarea  class="form-control form-control-sm" name="pemeriksaan_fisik" id="pemeriksaan_fisik" cols="30" rows="2" placeholder="silahkan isi pemeriksaan fisik"></textarea>
+                                <textarea  class="form-control form-control-sm" name="pemeriksaan_fisik" id="pemeriksaan_fisik" cols="30" rows="2" placeholder="silahkan isi pemeriksaan fisik">{{$pemeriksaan->pemeriksaan_fisik??''}}</textarea>
                                 </div>
                           </div>         
                       </div>
@@ -92,7 +93,7 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="anamnesa">Anamnesa</label>
                                 <div class="input-group">
-                                  <textarea  class="form-control form-control-sm" name="anamnesa" id="anamnesa" cols="30" rows="2" placeholder="silahkan masukan anamnesa pasien"></textarea>
+                                  <textarea  class="form-control form-control-sm" name="anamnesa" id="anamnesa" cols="30" rows="2" placeholder="silahkan masukan anamnesa pasien">{{$pemeriksaan->anamnesa??''}}</textarea>
                                   </div>
                             </div>         
                         </div>                                             
@@ -100,8 +101,8 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="terapi">Terapi</label>
                                 <div class="input-group">
-                                  <textarea  class="form-control form-control-sm" name="terapi" id="terapi" cols="30" rows="2"></textarea>
-                                  </div>
+                                  <textarea  class="form-control form-control-sm" name="terapi" id="terapi" cols="30" rows="2">{{$pemeriksaan->terapi??''}}</textarea>
+                                </div>
                             </div>         
                         </div>                                             
                     </div>
@@ -110,16 +111,16 @@
                             <div class="form-group">
                                 <label class="col-form-label" for="diagnosa">diagnosa</label>
                                 <div class="input-group">
-                                  <textarea  class="form-control form-control-sm" name="diagnosa" id="diagnosa" cols="30" rows="2" placeholder="silahkan masukan diganosa pasien"></textarea>
+                                  <textarea  class="form-control form-control-sm" name="diagnosa" id="diagnosa" cols="30" rows="2" placeholder="silahkan masukan diganosa pasien">{{$pemeriksaan->diagnosa??''}}</textarea>
                                   </div>
                             </div>         
                         </div>                                             
                         <div class="col-md-8">                          
                             <div class="form-group">
-                                <label class="col-form-label" for="keterangan">Resep dokter/keterangan</label>
+                                <label class="col-form-label" for="keterangan">Resep dokter</label>
                                 <div class="input-group">
-                                  <textarea  class="form-control form-control-sm" name="keterangan" id="keterangan" cols="30" rows="2"></textarea>
-                                  </div>
+                                  <textarea  class="form-control form-control-sm" name="keterangan" id="keterangan" cols="30" rows="2" placeholder="input resep dokter">{{$pemeriksaan->keterangan??''}}</textarea>
+                                </div>
                             </div>         
                         </div>                                             
                     </div>          
@@ -149,7 +150,7 @@
                           <tr>
                             <td>{{$no++}}</td>
                             <td>{{$riwayat->tanggal}}</td>
-                            <td>{{$riwayat->usia_tahun}}</td>
+                            <td>{{$riwayat->usia_tahun.', '.$riwayat->usia_bulan.', '.$riwayat->usia_hari}}</td>
                             <td>{{$riwayat->diagnosa}}</td>
                           </tr>
                       @endforeach

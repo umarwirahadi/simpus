@@ -1,5 +1,8 @@
 <?php
 
+
+Auth::routes();
+
 Route::resource('profile', 'ProfileController');
 Route::resource('pasien', 'PasienController');
 Route::get('pasien_server_side','PasienController@fetch')->name('data.pasien');
@@ -52,3 +55,5 @@ Route::post('prosespemeriksaan', 'PemeriksaanController@proses')->name('pemeriks
 
 
 Route::post('setcookiespoli','PemeriksaanController@setpoli')->name('set.poli');
+
+Route::get('/', 'HomeController@index')->name('home');

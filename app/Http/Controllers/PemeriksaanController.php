@@ -17,6 +17,13 @@ class PemeriksaanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     public function index()
     {
         $data=[
@@ -61,7 +68,7 @@ class PemeriksaanController extends Controller
             return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
         }else{
             // cek jika pemeriksaan ada
-            $cekpemeriksaan=Pemeriksaan::where(['idpasien'=>$request->idpasien,'tanggal'=>date('Y-m-d'),'diagnosa'=>$request->diagnosa]);
+            $cekpemeriksaan=Pemeriksaan::where(['idpasien'=>$request->idpasien,'tanggal'=>date('Y-m-d')]);
             if($cekpemeriksaan->count()==0){
                 $pemeriksaan=new Pemeriksaan;
                 $pemeriksaan->idpasien=$request->idpasien;
@@ -86,33 +93,34 @@ class PemeriksaanController extends Controller
                 $pemeriksaan->id_petugas='Umar Wirahadi';
                 $pemeriksaan->status=1;
                 $pemeriksaan->save();
-                return response()->json(['status'=>1,'message'=>'data pemeriksaan berhasil disimpan','data'=>$pemeriksaan],200);
+                return response()->json(['status'=>1,'message'=>'data pemeriksaan tidak ada','data'=>null],200);
             }
             else{
-                $pemeriksaan=new Pemeriksaan;
-                $pemeriksaan->idpasien=$request->idpasien;
-                $pemeriksaan->id_pendaftaran=$request->id_pendaftaran;
-                $pemeriksaan->tanggal=date('Y-m-d');
-                $pemeriksaan->jam=date("H:i:s");
-                $pemeriksaan->kunjungan=$request->idpasien;
-                $pemeriksaan->kasus=$request->idpasien;
-                $pemeriksaan->sistol=$request->sistol;
-                $pemeriksaan->diastol=$request->diastol;
-                $pemeriksaan->tekanan_nadi=$request->tekanan_nadi;
-                $pemeriksaan->respirasi=$request->respirasi;
-                $pemeriksaan->suhu=$request->suhu;
-                $pemeriksaan->berat_badan=$request->berat_badan;
-                $pemeriksaan->tinggi_badan=$request->tinggi_badan;
-                $pemeriksaan->keluhan_utama=$request->keluhan_utama;
-                $pemeriksaan->pemeriksaan_fisik=$request->pemeriksaan_fisik;
-                $pemeriksaan->anamnesa=$request->anamnesa;
-                $pemeriksaan->terapi=$request->terapi;
-                $pemeriksaan->diagnosa=$request->diagnosa;
-                $pemeriksaan->keterangan=$request->keterangan;
-                $pemeriksaan->id_petugas='Umar Wirahadi';
-                $pemeriksaan->status=1;     
-                $pemeriksaan->update();
-                return response()->json(['status'=>1,'message'=>'data pemeriksaan berhasil diubah','data'=>$pemeriksaan],200);
+                $isexist=$cekpemeriksaan->first();
+                $updatepemeriksaan=Pemeriksaan::find($isexist->id);    
+                $updatepemeriksaan->idpasien=$request->idpasien;
+                $updatepemeriksaan->id_pendaftaran=$request->id_pendaftaran;
+                $updatepemeriksaan->tanggal=date('Y-m-d');
+                $updatepemeriksaan->jam=date("H:i:s");
+                $updatepemeriksaan->kunjungan=$request->idpasien;
+                $updatepemeriksaan->kasus=$request->idpasien;
+                $updatepemeriksaan->sistol=$request->sistol;
+                $updatepemeriksaan->diastol=$request->diastol;
+                $updatepemeriksaan->tekanan_nadi=$request->tekanan_nadi;
+                $updatepemeriksaan->respirasi=$request->respirasi;
+                $updatepemeriksaan->suhu=$request->suhu;
+                $updatepemeriksaan->berat_badan=$request->berat_badan;
+                $updatepemeriksaan->tinggi_badan=$request->tinggi_badan;
+                $updatepemeriksaan->keluhan_utama=$request->keluhan_utama;
+                $updatepemeriksaan->pemeriksaan_fisik=$request->pemeriksaan_fisik;
+                $updatepemeriksaan->anamnesa=$request->anamnesa;
+                $updatepemeriksaan->terapi=$request->terapi;
+                $updatepemeriksaan->diagnosa=$request->diagnosa;
+                $updatepemeriksaan->keterangan=$request->keterangan;
+                $updatepemeriksaan->id_petugas='Umar Wirahadi update';
+                $updatepemeriksaan->status=1;     
+                $updatepemeriksaan->update();
+                return response()->json(['status'=>1,'message'=>'data pemeriksaan ada ','data'=>$updatepemeriksaan],200);
             }                   
         } 
     }
@@ -172,12 +180,15 @@ class PemeriksaanController extends Controller
             'isDataTable'=>true,
             'isJS'=>'pemeriksaan.js',
             'dataItem'=>DB::table('vpendaftaran')->where(['id'=>$request->idpemeriksaan,'tanggal'=>date('Y-m-d')])->first(),
+            'pemeriksaan'=>Pemeriksaan::where('id', $request->idpemeriksaan)->first(),
             'dataRiwayatPeriksa'=>DB::table('pemeriksaans')->join('vpendaftaran',function($join){
                 $join->on('pemeriksaans.id_pendaftaran','=','vpendaftaran.no_pendaftaran');
                 $join->on('pemeriksaans.tanggal','=','vpendaftaran.tanggal');
                 })
                 ->select(['pemeriksaans.id','pemeriksaans.idpasien','pemeriksaans.id_pendaftaran','pemeriksaans.tanggal','pemeriksaans.diagnosa','vpendaftaran.usia_tahun','vpendaftaran.usia_bulan','vpendaftaran.usia_hari'])
-                ->where('pemeriksaans.idpasien',$request->idpasien)->get()
+                ->where('pemeriksaans.idpasien',$request->idpasien)
+                ->orderBy('pemeriksaans.tanggal', 'desc')
+                ->get()
         ];
         return view('pemeriksaan.proses',$data);
     }

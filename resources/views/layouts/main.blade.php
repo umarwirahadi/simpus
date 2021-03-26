@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -12,31 +8,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/dist/css/adminlte.min.css')}}">
   
   {{-- jquery-ui --}}
-    <link rel="stylesheet" href="{{asset('assets/plugins/jquery-ui/jquery-ui.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/plugins/jquery-ui/jquery-ui.theme.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/plugins/jquery-ui/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/plugins/jquery-ui/jquery-ui.theme.min.css')}}">
 
   {{-- pNotify --}}
-  <link rel="stylesheet" href="{{asset('assets/plugins/pnotify2/dist/PNotifyBrightTheme.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/pnotify2/dist/PNotifyBrightTheme.css')}}">
   
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <link rel="stylesheet" href="{{asset('assets/plugins/select2/css/select2.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/plugins/sweetalert2/dist/sweetalert2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/sweetalert2/dist/sweetalert2.min.css')}}">
 
-  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/plugins/toastr/toastr.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/plugins/toastr/toastr.min.css')}}">
   
   @if ($iscss??'')
-  <link rel="stylesheet" href="{{asset('assets/dist/css/custom/'.$iscss)}}">
-{{-- <script src="{{asset('assets/dist/js/custom/'.$isJS)}}"></script> --}}
+  <link rel="stylesheet" href="{{asset('vendor/dist/css/custom/'.$iscss)}}">
   @endif
 
 {{-- @if($printJS??false)
@@ -69,8 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <img src="{{asset('uploads\images\avatar5.png')}}" alt="image" class="brand-image img-circle elevation-3">
-            u.wirahadi10@gmail.com
-            {{-- <img src="{{asset('uploads/images/Kota-Cimahi.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+            {{Auth::user()->name}}
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
@@ -96,11 +90,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
+            <form action="{{route('logout')}}" method="post" id="logout-form" style="display: none">
+              @csrf
+
+            </form>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit()">
               <div class="media">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
-                    Logout
+                    {{__('logout')}}
                     <span class="float-right text-sm text-danger"><i class="fas fa-sign-out-alt"></i></span>
                   </h3>
                 </div>
@@ -174,59 +172,54 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- jQuery -->
-<script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Bootstrap 4 -->
 
-{{-- pnotify --}}
-{{-- <script src="{{asset('assets/plugins/pnotify/pnotify.js')}}"></script>
-<script src="{{asset('assets/plugins/pnotify/pnotify.buttons.js')}}"></script>
-<script src="{{asset('assets/plugins/pnotify/pnotify.nonblock.js')}}"></script> --}}
-
-<script src="{{asset('assets/plugins/pnotify2/dist/iife/PNotify.js')}}"></script>
-<script src="{{asset('assets/plugins/pnotify2/dist/iife/PNotifyButtons.js')}}"></script>
+<script src="{{asset('vendor/plugins/pnotify2/dist/iife/PNotify.js')}}"></script>
+<script src="{{asset('vendor/plugins/pnotify2/dist/iife/PNotifyButtons.js')}}"></script>
 <script>
   // PNotify.defaultModules.set(PNotifyMobile, {});
   PNotify.defaults.styling = 'bootstrap4'; // Bootstrap version 4
 </script>
 
-<script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('assets/plugins/select2/js/select2.full.min.js')}}"></script>
-<script src="{{asset('assets/plugins/sweetalert2/dist/sweetalert2.min.js')}}"></script>
-<script src="{{asset('assets/plugins/moment-with-locales.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/sweetalert2/dist/sweetalert2.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/moment-with-locales.min.js')}}"></script>
 
 
 <!-- AdminLTE App -->
-<script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('vendor/dist/js/adminlte.min.js')}}"></script>
 
 <!-- AdminLTE for demo purposes -->
-{{-- <script src="{{('assets/dist/js/demo.js')}}"></script> --}}
+{{-- <script src="{{('vendor/dist/js/demo.js')}}"></script> --}}
 
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('assets/dist/js/demo.js')}}"></script>
+<script src="{{asset('vendor/dist/js/demo.js')}}"></script>
 
 
 {{-- datatables --}}
-<script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/plugins/jszip/jszip.min.js')}}"></script>
-<script src="{{asset('assets/plugins/pdfmake/pdfmake.min.js')}}"></script>
-<script src="{{asset('assets/plugins/pdfmake/vfs_fonts.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 @if ($isJS??'')
-<script src="{{asset('assets/dist/js/custom/'.$isJS)}}"></script>
+<script src="{{asset('vendor/dist/js/custom/'.$isJS)}}"></script>
 @endif
 
 @if ($printJS??false)
-<script src="{{asset('assets/plugins/print/print.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/print/print.min.js')}}"></script>
 @endif
-{{-- <script src="{{asset('assets/plugins/toastr/toastr.min.js')}}" type="text/javascript"></script> --}}
+{{-- <script src="{{asset('vendor/plugins/toastr/toastr.min.js')}}" type="text/javascript"></script> --}}
 
 <script>
   $(document).ready(function(){

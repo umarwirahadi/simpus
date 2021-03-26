@@ -12,6 +12,12 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {   
         $puskesmas=Profile::get()->first();
