@@ -109,10 +109,8 @@
                           <textarea name="kajian_anamnesa" id="kajian_anamnesa" class="form-control form-control-sm" cols="30" rows="3"></textarea>                          
                         </div>
                       </div>                      
-                  </div>
-                
+                  </div>                
                 </div>
-
         </div>
         <div class="modal-footer justify-content-right">
           <button type="submit" class="btn btn-primary">Simpan</button>

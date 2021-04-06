@@ -161,7 +161,7 @@ class PendaftaranController extends Controller
 
     public function kajianawal(Request $request)
     {        
-        return response()->json(['status'=>1,'message'=>'form kajian awal pasien','daftar'=>DB::table('vpendaftaran')->where(['id'=>$request->regID,'tanggal'=>date('Y-m-d')])->first()],200);        
+        return response()->json(['status'=>1,'message'=>'form kajian awal pasien','daftar'=>DB::table('vpendaftaran')->where(['id'=>$request->regID,'tanggal'=>date('Y-m-d')])->first(),'dataperiksa'=>DB::table('pemeriksaans')->where(['id_pendaftaran'=>$request->regID,'tanggal'=>date('Y-m-d')])->first()],200);        
     }
 
     public function proseskajian(Request $request)
@@ -192,9 +192,9 @@ class PendaftaranController extends Controller
                 $pemeriksaan->tinggi_badan=$request->kajian_tinggi_badan;
                 $pemeriksaan->keluhan_utama='-';
                 $pemeriksaan->pemeriksaan_fisik='-';
-                $pemeriksaan->anamnesa='-';
+                $pemeriksaan->diagnosa='-';
                 $pemeriksaan->terapi='-';
-                $pemeriksaan->diagnosa=$request->kajian_anamnesa;
+                $pemeriksaan->anamnesa=$request->kajian_anamnesa;
                 $pemeriksaan->keterangan='';
                 $pemeriksaan->id_petugas=\Auth::user()->id;
                 $pemeriksaan->status=1;
@@ -217,9 +217,9 @@ class PendaftaranController extends Controller
                 $updatepemeriksaan->berat_badan=$request->kajian_berat_badan;
                 $updatepemeriksaan->tinggi_badan=$request->kajian_tinggi_badan;
                 $updatepemeriksaan->keluhan_utama='-';
-                $updatepemeriksaan->anamnesa='-';
+                $updatepemeriksaan->anamnesa=$request->kajian_anamnesa;
                 $updatepemeriksaan->terapi='-';
-                $updatepemeriksaan->diagnosa=$request->kajian_anamnesa;
+                $updatepemeriksaan->diagnosa='-';
                 $updatepemeriksaan->keterangan='';
                 $updatepemeriksaan->id_petugas=\Auth::user()->id;
                 $updatepemeriksaan->status=1;

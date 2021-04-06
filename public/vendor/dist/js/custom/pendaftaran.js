@@ -362,8 +362,10 @@ $.ajax({
   data: {regID:regID,"_token":token},
   dataType: 'json',
   success: function (data) {
+    console.log(data);
     if(data.status===1){
       const dataPasien=data.daftar;
+      const dataPemeriksaan=data.dataperiksa;
       $("#kajian_id_pendaftaran").val(dataPasien.id);
       $("#kajian_idpasien").val(dataPasien.idpasien);
       $("#kajian_no_rm").val(dataPasien.no_rm);
@@ -372,8 +374,15 @@ $.ajax({
       $("#kajian_nama_lengkap").val(dataPasien.nama_lengkap);
       $("#kajian_tanggal_lahir").val(dataPasien.tanggal_lahir);
       $("#kajian_usia").val(`${dataPasien.usia_tahun} thn ${dataPasien.usia_bulan} bln ${dataPasien.usia_hari} hr`);
-      $("#form-kajianawal").modal('show');
-      console.log(data);
+      $("#kajian_sistol").val(dataPemeriksaan.sistol);
+      $("#kajian_diastol").val(dataPemeriksaan.diastol);
+      $("#kajian_berat_badan").val(dataPemeriksaan.berat_badan);
+      $("#kajian_tinggi_badan").val(dataPemeriksaan.tinggi_badan);
+      $("#kajian_suhu").val(dataPemeriksaan.suhu);
+      $("#kajian_tekanan_nadi").val(dataPemeriksaan.tekanan_nadi);
+      $("#kajian_respirasi").val(dataPemeriksaan.respirasi);
+      $("#kajian_anamnesa").val(dataPemeriksaan.anamnesa);
+      $("#form-kajianawal").modal('show');      
     }else{
       alert('tidak ada');
     }
