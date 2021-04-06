@@ -67,7 +67,7 @@ class PemeriksaanController extends Controller
         if($cekvalidasi->fails()){           
             return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
         }else{
-            // cek jika pemeriksaan ada
+            //cek jika pemeriksaan ada harus ditanyakan apakah pasien hanya boleh periksa 1 hari jika lebih pola harus diubah
             $cekpemeriksaan=Pemeriksaan::where(['idpasien'=>$request->idpasien,'tanggal'=>date('Y-m-d')]);
             if($cekpemeriksaan->count()==0){
                 $pemeriksaan=new Pemeriksaan;
@@ -108,7 +108,7 @@ class PemeriksaanController extends Controller
                 $updatepemeriksaan->diastol=$request->diastol;
                 $updatepemeriksaan->tekanan_nadi=$request->tekanan_nadi;
                 $updatepemeriksaan->respirasi=$request->respirasi;
-                $updatepemeriksaan->suhu=$request->suhu;
+                $updatepemgiteriksaan->suhu=$request->suhu;
                 $updatepemeriksaan->berat_badan=$request->berat_badan;
                 $updatepemeriksaan->tinggi_badan=$request->tinggi_badan;
                 $updatepemeriksaan->keluhan_utama=$request->keluhan_utama;
@@ -169,6 +169,8 @@ class PemeriksaanController extends Controller
     {
         //
     }
+
+ 
 
     public function proses(Request $request)
     {

@@ -47,6 +47,8 @@ Route::get('billing','BillingController@index');
 Route::resource('pendaftaran', 'PendaftaranController');
 Route::get('fetchpendaftaranbydate','PendaftaranController@fetchToday');
 Route::get('pendaftaran-export','PendaftaranController@export')->name('pendaftaran.export');
+Route::post('kajianawalpemeriksaan','PendaftaranController@kajianawal')->name('pendaftaran.kajianawal');
+Route::post('createkajianaawal','PendaftaranController@proseskajian')->name('pendaftaran.proseskajianawal');
 
 
 // pemeriksaan

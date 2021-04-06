@@ -195,24 +195,7 @@ $(document).ready(function(){
               title: 'error',
               text: 'proses simpan data error',
             })
-          } 
-          // if(a.status==422){
-          //   let temp = [];
-          //   $.each(a.responseJSON.errors, function (i, v) {
-          //     temp.push(v)
-          //   })
-          //   var bc = temp.toString();
-          //   var cb = bc.split(',')
-          //   $.each(cb, function (index, value) {
-          //     PNotify.error({
-          //       title: 'error',
-          //       text: value,
-          //     })
-          //   })
-          // }else{          
-          //     // window.location.href = datasite + '/pasien';
-          //     console.log(a);
-          //   }      
+          }             
         }
       });
 
@@ -330,7 +313,6 @@ $(document).ready(function(){
     },
     minLength: 5,
     select: function (event, ui) {      
-      // console.log(ui);
     $("#id_pasien").val(ui.item.value);
     $("#nik").val(ui.item.nik);
     $("#no_kk").val(ui.item.no_kk);
@@ -370,6 +352,86 @@ $(document).ready(function(){
       return false
     }
   });
+
+
+$("#pendaftaran").on("click",".data-kajian-awal",function(){
+let regID=$(this).attr("data-id");
+$.ajax({
+  url: `${datasite}/kajianawalpemeriksaan`,
+  type: 'POST',
+  data: {regID:regID,"_token":token},
+  dataType: 'json',
+  success: function (data) {
+    if(data.status===1){
+      const dataPasien=data.daftar;
+      $("#kajian_id_pendaftaran").val(dataPasien.id);
+      $("#kajian_idpasien").val(dataPasien.idpasien);
+      $("#kajian_no_rm").val(dataPasien.no_rm);
+      $("#kajian_nik").val(dataPasien.nik);
+      $("#kajian_noantrian2").val(dataPasien.noantrian2);
+      $("#kajian_nama_lengkap").val(dataPasien.nama_lengkap);
+      $("#kajian_tanggal_lahir").val(dataPasien.tanggal_lahir);
+      $("#kajian_usia").val(`${dataPasien.usia_tahun} thn ${dataPasien.usia_bulan} bln ${dataPasien.usia_hari} hr`);
+      $("#form-kajianawal").modal('show');
+      console.log(data);
+    }else{
+      alert('tidak ada');
+    }
+  },
+  error: function (a) {
+    if(a.status==422){
+      $.each(a.responseJSON.data, function (i, v) {
+        PNotify.error({
+          title: 'error',
+          text: v,
+        })
+      })          
+    }else{
+      PNotify.error({
+        title: 'error',
+        text: 'proses simpan data error',
+      })
+    }      
+  }
+});
+})
+
+$("#form-kajian-awal-pasien").on("submit",function(e){
+  e.preventDefault();
+  var dataKajianAwal = $(this).serialize();
+  $.ajax({
+    url: datasite + '/createkajianaawal',
+    type: 'POST',
+    data: dataKajianAwal,
+    dataType: 'json',
+    success: function (data) {
+      console.log(data);   
+        Swal.fire({
+          title: data.status===1?'Success':'error',
+          text: data.message,
+          icon: data.status===1?'success':'error',
+          confirmButtonText: 'Ok'
+        }).then(() => {
+          // $("#addnewpasien").modal('hide');
+        })         
+    },
+    error: function (a) {
+      if(a.status==422){
+        $.each(a.responseJSON.data, function (i, v) {
+          PNotify.error({
+            title: 'error',
+            text: v,
+          })
+        })          
+      }else{
+        PNotify.error({
+          title: 'error',
+          text: 'proses simpan data error',
+        })
+      }             
+    }
+  });
+})
 
 
   someJSONdata = [

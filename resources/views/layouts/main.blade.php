@@ -213,7 +213,7 @@
 <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('vendor/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 @if ($isJS??'')
-<script src="{{asset('vendor/dist/js/custom/'.$isJS)}}"></script>
+  <script src="{{asset('vendor/dist/js/custom/'.$isJS)}}"></script>
 @endif
 
 @if ($printJS??false)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pendaftaran;
+use App\Pemeriksaan;
 use App\Exports\PendaftaranExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -26,12 +27,12 @@ class PendaftaranController extends Controller
     
     public function index()
     {
-        $data=[
+        $data=[            
+            'isJS'=>'pendaftaran.js',
             'menu'=>'Transaksi',
             'submenu'=>'Pendaftaran',
             'judul'=>'Pendaftaran Pasien',
             'isDataTable'=>true,
-            'isJS'=>'pendaftaran.js',
             'dataItem'=>null
         ];
         return view('pendaftaran.index',$data);
@@ -158,6 +159,76 @@ class PendaftaranController extends Controller
         //
     }
 
+    public function kajianawal(Request $request)
+    {        
+        return response()->json(['status'=>1,'message'=>'form kajian awal pasien','daftar'=>DB::table('vpendaftaran')->where(['id'=>$request->regID,'tanggal'=>date('Y-m-d')])->first()],200);        
+    }
+
+    public function proseskajian(Request $request)
+    {
+        $cekvalidasi=Validator::make($request->all(),
+            ['kajian_idpasien'=>['required'],'kajian_id_pendaftaran'=>['required'],'kajian_sistol'=>['required'],'kajian_no_rm'=>['required'],
+            'kajian_diastol'=>['required'],'kajian_tekanan_nadi'=>['required'],'kajian_respirasi'=>['required'],'kajian_suhu'=>['required'],'kajian_berat_badan'=>['required'],
+            'kajian_tinggi_badan'=>['required'],'kajian_anamnesa'=>['required']]
+        );
+        if($cekvalidasi->fails()){           
+            return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
+        }else{
+            // cek jika pemeriksaan ada harus ditanyakan apakah pasien hanya boleh periksa 1 hari jika lebih pola harus diubah            
+            $cekpemeriksaan=Pemeriksaan::where(['idpasien'=>$request->kajian_idpasien,'tanggal'=>date('Y-m-d')]);
+            if($cekpemeriksaan->count()==0){
+                $pemeriksaan=new Pemeriksaan;
+                $pemeriksaan->idpasien=$request->kajian_idpasien;
+                $pemeriksaan->id_pendaftaran=$request->kajian_id_pendaftaran;
+                $pemeriksaan->tanggal=date('Y-m-d');
+                $pemeriksaan->jam=date("H:i:s");
+                $pemeriksaan->kasus='Kasus';
+                $pemeriksaan->sistol=$request->kajian_sistol;
+                $pemeriksaan->diastol=$request->kajian_diastol;
+                $pemeriksaan->tekanan_nadi=$request->kajian_tekanan_nadi;
+                $pemeriksaan->respirasi=$request->kajian_respirasi;
+                $pemeriksaan->suhu=$request->kajian_suhu;
+                $pemeriksaan->berat_badan=$request->kajian_berat_badan;
+                $pemeriksaan->tinggi_badan=$request->kajian_tinggi_badan;
+                $pemeriksaan->keluhan_utama='-';
+                $pemeriksaan->pemeriksaan_fisik='-';
+                $pemeriksaan->anamnesa='-';
+                $pemeriksaan->terapi='-';
+                $pemeriksaan->diagnosa=$request->kajian_anamnesa;
+                $pemeriksaan->keterangan='';
+                $pemeriksaan->id_petugas=\Auth::user()->id;
+                $pemeriksaan->status=1;
+                $pemeriksaan->save();
+                return response()->json(['status'=>1,'message'=>'data kajian awal berhasil disimpan','data'=>null],200);
+            }
+            else{
+                $isexist=$cekpemeriksaan->first();
+                $updatepemeriksaan=Pemeriksaan::find($isexist->id);    
+                $updatepemeriksaan->idpasien=$request->kajian_idpasien;
+                $updatepemeriksaan->id_pendaftaran=$request->kajian_id_pendaftaran;
+                $updatepemeriksaan->tanggal=date('Y-m-d');
+                $updatepemeriksaan->jam=date("H:i:s");
+                $updatepemeriksaan->kasus='Kasus';
+                $updatepemeriksaan->sistol=$request->kajian_sistol;
+                $updatepemeriksaan->diastol=$request->kajian_diastol;
+                $updatepemeriksaan->tekanan_nadi=$request->kajian_tekanan_nadi;
+                $updatepemeriksaan->respirasi=$request->kajian_respirasi;
+                $updatepemeriksaan->suhu=$request->kajian_suhu;
+                $updatepemeriksaan->berat_badan=$request->kajian_berat_badan;
+                $updatepemeriksaan->tinggi_badan=$request->kajian_tinggi_badan;
+                $updatepemeriksaan->keluhan_utama='-';
+                $updatepemeriksaan->anamnesa='-';
+                $updatepemeriksaan->terapi='-';
+                $updatepemeriksaan->diagnosa=$request->kajian_anamnesa;
+                $updatepemeriksaan->keterangan='';
+                $updatepemeriksaan->id_petugas=\Auth::user()->id;
+                $updatepemeriksaan->status=1;
+                $updatepemeriksaan->update();
+                return response()->json(['status'=>1,'message'=>'data pemeriksaan berhasil diubah ','data'=>$updatepemeriksaan],200);
+            }                   
+        } 
+    }
+
 
 
     public function fetchToday()
@@ -167,13 +238,14 @@ class PendaftaranController extends Controller
                         ->addIndexColumn()
                         ->addColumn('aksi', function($pasien){
                             $btn='<div class="btn-group">
-                            <a href="javascript:void(0)" data-id="'.$pasien->id.'" class="btn btn-xs btn-primary data-pendaftaran">Show</a>
-                            <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-success">Edit</a>
+                            <a href="javascript:void(0)" data-id="'.$pasien->id.'" class="btn btn-xs btn-success data-kajian-awal" title="kajianawal"><i class="fa fa-user-check"></i></a>
+                            <a href="javascript:void(0)" data-id="'.$pasien->id.'" class="btn btn-xs btn-primary data-pendaftaran" title="lihat pendaftaran"><i class="fa fa-eye"></i></a>
+                            <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-warning" title="edit pendaftaran"><i class="fa fa-edit"></i></a>
                             <div class="btn-group">
                             <button type="button" class="btn btn-xs btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
                             </button>
                             <div class="dropdown-menu" style="">
-                                <a href="javascript:void(0)" class="dropdown-item print-kib" href="#">cetak KIB</a>
+                                <a href="javascript:void(0)" class="dropdown-item print-kib" href="#">hapus pendaftaran</a>
                                 <a href="javascript:void(0)" class="dropdown-item hapuspasien" data-id="'.$pasien->id.'">Delete</a>
                             </div>
                             </div>
