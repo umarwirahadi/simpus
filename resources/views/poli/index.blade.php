@@ -6,6 +6,7 @@
         <div class="card-header">
             <h3 class="card-title">
                 <a href="{{route('poli.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
+                <a href="{{route('poli.create')}}" class="btn btn-app bg-red"><i class="fas fa-check"></i> Data Poli P-care</a>
             </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

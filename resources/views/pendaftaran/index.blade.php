@@ -7,7 +7,6 @@
   <div class="card card-outline card-danger" >
     <div class="card-header">
         <h3 class="card-title">
-          {{$isJS}}
             <a href="{{route('pendaftaran.create')}}" class="btn btn-app bg-blue"><i class="fas fa-address-card"></i> Daftar</a>
             <a href="{{route('pendaftaran.create')}}" class="btn btn-app bg-red"><i class="fas fa-microphone"></i> Antrian</a>
             <a href="{{route('pendaftaran.export')}}" class="btn btn-app bg-green"><i class="fas fa-file-excel"></i> Export</a>

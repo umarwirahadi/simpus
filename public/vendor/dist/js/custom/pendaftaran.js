@@ -153,14 +153,13 @@ $(document).ready(function(){
     e.preventDefault();
     var dataPasien = $(this).serialize();
     const idpas=$("#id_pasien").val();
-    if(idpas==null){
+    if(idpas===''){
       $.ajax({
         url: datasite + '/pasien',
         type: 'POST',
         data: dataPasien,
         dataType: 'json',
         success: function (data) {
-          console.log(data);
           $("#nik2").val(data.data[0].nik);
           $("#no_rm").val(data.data[0].no_rm);
           $("#nama_lengkap2").val(data.data[0].nama_lengkap);
@@ -362,10 +361,9 @@ $.ajax({
   data: {regID:regID,"_token":token},
   dataType: 'json',
   success: function (data) {
-    console.log(data);
     if(data.status===1){
       const dataPasien=data.daftar;
-      const dataPemeriksaan=data.dataperiksa;
+      const dataPemeriksaan=data.dataperiksa;      
       $("#kajian_id_pendaftaran").val(dataPasien.id);
       $("#kajian_idpasien").val(dataPasien.idpasien);
       $("#kajian_no_rm").val(dataPasien.no_rm);
@@ -374,17 +372,27 @@ $.ajax({
       $("#kajian_nama_lengkap").val(dataPasien.nama_lengkap);
       $("#kajian_tanggal_lahir").val(dataPasien.tanggal_lahir);
       $("#kajian_usia").val(`${dataPasien.usia_tahun} thn ${dataPasien.usia_bulan} bln ${dataPasien.usia_hari} hr`);
-      $("#kajian_sistol").val(dataPemeriksaan.sistol);
-      $("#kajian_diastol").val(dataPemeriksaan.diastol);
-      $("#kajian_berat_badan").val(dataPemeriksaan.berat_badan);
-      $("#kajian_tinggi_badan").val(dataPemeriksaan.tinggi_badan);
-      $("#kajian_suhu").val(dataPemeriksaan.suhu);
-      $("#kajian_tekanan_nadi").val(dataPemeriksaan.tekanan_nadi);
-      $("#kajian_respirasi").val(dataPemeriksaan.respirasi);
-      $("#kajian_anamnesa").val(dataPemeriksaan.anamnesa);
+      if(dataPemeriksaan!=null){
+        $("#kajian_sistol").val(dataPemeriksaan.sistol);
+        $("#kajian_diastol").val(dataPemeriksaan.diastol);
+        $("#kajian_berat_badan").val(dataPemeriksaan.berat_badan);
+        $("#kajian_tinggi_badan").val(dataPemeriksaan.tinggi_badan);
+        $("#kajian_suhu").val(dataPemeriksaan.suhu);
+        $("#kajian_tekanan_nadi").val(dataPemeriksaan.tekanan_nadi);
+        $("#kajian_respirasi").val(dataPemeriksaan.respirasi);
+        $("#kajian_anamnesa").val(dataPemeriksaan.anamnesa);
+
+      }
       $("#form-kajianawal").modal('show');      
     }else{
-      alert('tidak ada');
+      Swal.fire({
+        title: 'error',
+        text: 'Error while geting data',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      }).then(() => {
+        window.location.href='pendaftaran';
+      }) 
     }
   },
   error: function (a) {

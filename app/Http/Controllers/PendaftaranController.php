@@ -161,7 +161,9 @@ class PendaftaranController extends Controller
 
     public function kajianawal(Request $request)
     {        
-        return response()->json(['status'=>1,'message'=>'form kajian awal pasien','daftar'=>DB::table('vpendaftaran')->where(['id'=>$request->regID,'tanggal'=>date('Y-m-d')])->first(),'dataperiksa'=>DB::table('pemeriksaans')->where(['id_pendaftaran'=>$request->regID,'tanggal'=>date('Y-m-d')])->first()],200);        
+        return response()->json(['status'=>1,'message'=>'form kajian awal pasien',
+                                 'daftar'=>DB::table('vpendaftaran')->where(['id'=>$request->regID,'tanggal'=>date('Y-m-d')])->first(),
+                                 'dataperiksa'=>DB::table('pemeriksaans')->where(['id_pendaftaran'=>$request->regID,'tanggal'=>date('Y-m-d')])->first()],200);
     }
 
     public function proseskajian(Request $request)
@@ -175,6 +177,18 @@ class PendaftaranController extends Controller
             return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>$cekvalidasi->errors()],422);
         }else{
             // cek jika pemeriksaan ada harus ditanyakan apakah pasien hanya boleh periksa 1 hari jika lebih pola harus diubah            
+
+            // update status pendaftaran menjadi 2 (kajian awal pasien)
+            $updatePendaftaran= Pendaftaran::findOrFail($request->kajian_id_pendaftaran);
+            if($updatePendaftaran){
+                $updatePendaftaran->status=2;
+                $updatePendaftaran->update();
+                return response()->json(['status'=>1,'message'=>'status pendaftaran pasien berhasil diupdate','data'=>null],200);
+            }else{
+                return response()->json(['status'=>1,'message'=>'status pendaftaran pasien gagal diupdate','data'=>null],200);
+            }  
+
+
             $cekpemeriksaan=Pemeriksaan::where(['idpasien'=>$request->kajian_idpasien,'tanggal'=>date('Y-m-d')]);
             if($cekpemeriksaan->count()==0){
                 $pemeriksaan=new Pemeriksaan;
@@ -197,7 +211,7 @@ class PendaftaranController extends Controller
                 $pemeriksaan->anamnesa=$request->kajian_anamnesa;
                 $pemeriksaan->keterangan='';
                 $pemeriksaan->id_petugas=\Auth::user()->id;
-                $pemeriksaan->status=1;
+                $pemeriksaan->status=2;
                 $pemeriksaan->save();
                 return response()->json(['status'=>1,'message'=>'data kajian awal berhasil disimpan','data'=>null],200);
             }
@@ -222,7 +236,7 @@ class PendaftaranController extends Controller
                 $updatepemeriksaan->diagnosa='-';
                 $updatepemeriksaan->keterangan='';
                 $updatepemeriksaan->id_petugas=\Auth::user()->id;
-                $updatepemeriksaan->status=1;
+                $updatepemeriksaan->status=2;
                 $updatepemeriksaan->update();
                 return response()->json(['status'=>1,'message'=>'data pemeriksaan berhasil diubah ','data'=>$updatepemeriksaan],200);
             }                   

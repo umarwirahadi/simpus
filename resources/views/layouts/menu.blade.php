@@ -30,8 +30,8 @@
                   </li>
 
 
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
-                  <li><a href="#" class="dropdown-item">level 2</a></li>
+                  <li><a href="/settingpcare" class="dropdown-item">Setting Pcare</a></li>
+                  <li><a href="#" class="dropdown-item">Setting Disduk</a></li>
                 </ul>
               </li>
               <!-- End Level two -->

@@ -59,3 +59,6 @@ Route::post('prosespemeriksaan', 'PemeriksaanController@proses')->name('pemeriks
 Route::post('setcookiespoli','PemeriksaanController@setpoli')->name('set.poli');
 
 Route::get('/', 'HomeController@index')->name('home');
+
+
+Route::resource('settingpcare','PcaresettingController');

@@ -86,7 +86,17 @@
                   <td>{{$a->no_rm}}</td>
                   <td>{{$a->nama_lengkap}}</td>
                   <td>{{$a->alamat}}</td>
-                  <td>{!!$a->status=='1'?'<span class="text text-danger">menunggu</span>':'<span class="text text-primary">diperiksa</span>'!!}</td>
+                  <td>
+                    @if($a->status===1)
+                      <span class="text text-danger">terdaftar</span>
+                    @elseif($a->status===2)
+                      <span class="text text-primary">sudah kajian awal</span>
+                    @else
+                      <span class="text text-success">pemeriksaan dokter</span>
+                    @endif
+                  </td>
+                  {{-- <td>{!!$a->status=='1'?'<span class="text text-danger">menunggu</span>':'<span class="text text-primary">diperiksa</span>'!!}</td> --}}
+                  {{-- <td>{!!$a->status=='1'?'<span class="text text-danger">daftar</span>':status=='2'?'<span class="text text-primary">kajian awal</span>':'<span class="text text-primary">pemeriksaan dokter</span>'!!}</td> --}}
                   <td>{{$a->nama_poli}}</td>
                   <td>
                     <div class="btn-group">
