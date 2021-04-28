@@ -8,8 +8,10 @@ Route::resource('pasien', 'PasienController');
 Route::get('pasien_server_side','PasienController@fetch')->name('data.pasien');
 Route::get('cari_pasien','PasienController@finddata')->name('cari.pasien');
 Route::get('cari_pasienbynik','PasienController@finddatanik')->name('cari.pasienbynik');
+Route::post('caribpjs','PasienController@findatabpjs')->name('cari.pasienbpjs');
 
 
+Route::resource('faskes','ProviderbpjsController');
 Route::resource('wilayah', 'WilayahController');
 Route::get('wilayah_server_side','WilayahController@fetch')->name('data.wilayah');
 Route::get('cari_wilayah','WilayahController@finddata')->name('cari.wilayah');
@@ -27,6 +29,7 @@ Route::get('/', 'HomeController@index')->name('halutama');
 
 
 Route::resource('poli', 'PoliController');
+Route::post('get-poli-pcare','PoliController@getpoli')->name('get.poli.pcare');
 Route::resource('item', 'ItemController');
 Route::resource('rekening', 'RekeningController');
 Route::post('fetchitem','ItemController@fetch')->name('fetchitem');
@@ -62,3 +65,4 @@ Route::get('/', 'HomeController@index')->name('home');
 
 
 Route::resource('settingpcare','PcaresettingController');
+Route::resource('listpcare','PcareurlController');

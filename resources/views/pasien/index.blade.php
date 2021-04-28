@@ -7,6 +7,7 @@
       <div class="card-header">
         <h3 class="card-title">
             <a href="{{route('pasien.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
+            <a href="{{route('pasien.create')}}" class="btn btn-app bg-green"><i class="fas fa-file-excel"></i> Export</a>
         </h3>
         
           {{-- <h3 class="card-title">
@@ -36,18 +37,14 @@
                           <th>Aksi</th>
                         </tr>
                         </thead>
-                        <tbody>
-                                                 
-                        </tbody>
-              
+                        <tbody>                                                 
+                        </tbody>              
                       </table>
           </div>
       </div>
-      <!-- /.card-body -->
       <div class="card-footer">
           Data pasien
       </div>
-      <!-- /.card-footer-->
   </div>
 </div>
 

@@ -6,7 +6,7 @@
         <div class="card-header">
             <h3 class="card-title">
                 <a href="{{route('poli.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
-                <a href="{{route('poli.create')}}" class="btn btn-app bg-red"><i class="fas fa-check"></i> Data Poli P-care</a>
+                <button class="btn btn-app bg-red" id="get-poli"><i class="fas fa-check"></i> Poli P-care</button>
             </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -17,7 +17,7 @@
                 </button>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body">        
             <div class="table table-responsive">
                         <table id="data-poli" class="table table-bordered table-striped">
                             <thead>
@@ -25,16 +25,18 @@
                                     <th>No</th>
                                     <th>Kode</th>
                                     <th>Poli</th>
+                                    <th>Polisakit</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody>                                                     
                                 @foreach ($datapoli as $poli)
                                 <tr>
                                     <td>{{$poli->id}}</td>
-                                    <td>{{$poli->kode}}</td>
+                                    <td>{{$poli->kode_pcare}}</td>
                                     <td>{{$poli->poli}}</td>
+                                    <td>{{$poli->polisakit==='true'?'ya':'tidak'}}</td>
                                     <td>{{$poli->status==1?'Aktif':'Tidak aktif'}}</td>
                                     <td>
                                         <div class="btn-group">

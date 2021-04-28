@@ -13,13 +13,6 @@ use KustomHelper;
 class PasienController extends Controller
 {
 
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -39,11 +32,6 @@ class PasienController extends Controller
         return view('pasien.index',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $data=[
@@ -73,6 +61,7 @@ class PasienController extends Controller
             'digits'=>':attribute apanjang karakter harus 16 digit'
             ];
         $cekvalidasi=$request->validate([
+                                'nik'=>['required'],
                                 'nama_lengkap'=>['required'],
                                 'tanggal_lahir'=>['required'],
                                 'alamat'=>['required'],
@@ -96,31 +85,25 @@ class PasienController extends Controller
                 foreach ($kode as $kd) {
                     $temp_norm=($kd->no_rm);
                 }        
-                $jml_digit=intval($temp_norm);                
+                $jml_digit=intval($temp_norm)+1;                
 
                 switch (strlen($jml_digit)){
                 case 1:
-                    ++$jml_digit;
                     $temp_norm_fix=$kode_pkm."00000".$jml_digit;
                 break;
                 case 2:
-                    ++$jml_digit;
                     $temp_norm_fix=$kode_pkm."0000".$jml_digit;                
                 break;
                 case 3:
-                    ++$jml_digit;
                     $temp_norm_fix=$kode_pkm."000".$jml_digit;                
                 break;
                 case 4:
-                    ++$jml_digit;
                     $temp_norm_fix=$kode_pkm."00".$jml_digit;                
                 break;
                 case 5:
-                    ++$jml_digit;
                     $temp_norm_fix=$kode_pkm."0".$jml_digit;
                 break;
                 case 6:
-                    ++$jml_digit;
                     $temp_norm_fix=$kode_pkm.$jml_digit;                
                 break;
                 default:
@@ -161,36 +144,50 @@ class PasienController extends Controller
                 $simpanPasien->penanggung_jawab=$request->penanggung_jawab;
                 $simpanPasien->hubungan_dengan_penanggung_jawab=$request->hubungan_dengan_penanggung_jawab;
                 $simpanPasien->no_contact_darurat=$request->no_contact_darurat;
-                $simpanPasien->status_pasien='1'; //default status pasien is 1,if not pasiens not be shown 
+                $simpanPasien->status_pasien='1'; //default status pasien is 1,if not pasiens not be shown                 
                 $simpanPasien->wilayah_kerja=$request->wilayah_kerja;                
+                $tglMulaiAktif=date_create($request->tglMulaiAktif);
+                $simpanPasien->tglmulaiaktif=date_format($tglMulaiAktif,'Y-m-d');
+                $tglAkhirBerlaku=date_create($request->tglAkhirBerlaku);
+                $simpanPasien->tglakhirberlaku=date_format($tglAkhirBerlaku,'Y-m-d');
+                $simpanPasien->kodeproviderpeserta_bpjs=$request->kdProvider;                
+                $simpanPasien->namaproviderpeserta_bpjs=$request->nmProvider;                                
+                $simpanPasien->kodeprovidergigi_bpjs=$request->kdProviderGigi;                
+                $simpanPasien->namaprovidergigi_bpjs=$request->nmProviderGigi;                                
+                $simpanPasien->kodejeniskelas_bpjs=$request->kdKelas;                
+                $simpanPasien->namajeniskelas_bpjs=$request->namaKelas;                                
+                $simpanPasien->kodejenispeserta_bpjs=$request->kodeJenisPeserta;                
+                $simpanPasien->namajenispeserta_bpjs=$request->namaJenisPeserta;                                                
+                $simpanPasien->kode_asuransi_bpjs=$request->kodeAsuransiPeserta;                
+                $simpanPasien->nama_asuransi_bpjs=$request->namaAsuransiPeserta;                
+                $simpanPasien->no_asuransi_bpjs=$request->nomorAsuransiPeserta;                                
+                $simpanPasien->tunggakan_bpjs=$request->tunggakan_bpjs;
+                $simpanPasien->keterangan_aktif_bpjs=$request->ketAktif;
+                $simpanPasien->aktif_bpjs=$request->aktif;
+                $simpanPasien->peserta_prol=$request->pstprol;
+                $simpanPasien->peserta_prb=$request->pesprb;                
+                
                 $simpanPasien->save();
                 $vpasien=DB::table('vpasiens')
                         ->where('id','=',$simpanPasien->id)
                         ->limit(1)
                         ->get();
-
                 return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$vpasien],200);
             }else{
                 
                 return response()->json(['status'=>0,'message'=>'Data pasien sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
-            }
-
-    
+            }    
         }else{
             return response()->json(['status'=>0,'message'=>'Proses input data pasien tidak bisa dilanjutkan','data'=>null],200);
         }
     
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Pasien  $pasien
-     * @return \Illuminate\Http\Response
-     */
+  
     public function show($id)    
     {
-        $pasien=pasien::findOrFail($id);
+        // $pasien=pasien::findOrFail($id);
+        $pasien=DB::table('pasienfulls')->where('id',$id)->first();
         $data=[
             'menu'=>'data',
             'submenu'=>'pasien',
@@ -198,17 +195,13 @@ class PasienController extends Controller
             'aksi'=>'Data pasien',
             'isDataTable'=>false,
             'isJS'=>'pasien.js',
-            'data'=>$pasien
+            'pasien'=>$pasien
         ];
+        // dd($data);
         return view('pasien.show',$data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Pasien  $pasien
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Pasien $pasien)
     {
         $data=[
@@ -223,27 +216,9 @@ class PasienController extends Controller
         return view('pasien.edit',$data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pasien  $pasien
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request,$id)
-    {
-        // $pesan=[
-        //     'required'=>':attribute wajib diisi',
-        //     'digits'=>':attribute apanjang karakter harus 16 digit'
-        //     ];
-        // $cekvalidasi=$request->validate([
-        //                         'id_pasien'=>['required'],
-        //                         'nama_lengkap'=>['required'],
-        //                         'tanggal_lahir'=>['required'],
-        //                         'alamat'=>['required'],
-        //                         'rt'=>['required'],
-        //                         'rw'=>['required'],
-        // ],$pesan);
+    {       
         $cekvalidasi=Validator::make($request->all(),
                     ['id_pasien'=>['required'],
                      'nama_lengkap'=>['required'],
@@ -305,13 +280,7 @@ class PasienController extends Controller
         }
 
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Pasien  $pasien
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function destroy($id)
     {
         $pasien= Pasien::findOrFail($id);
@@ -330,18 +299,31 @@ class PasienController extends Controller
         return Datatables::of($pasien)
                         ->addIndexColumn()
                         ->addColumn('aksi', function($pasien){
-                            $btn='<div class="btn-group">
-                            <a href="pasien/'.$pasien->id.'" class="btn btn-xs btn-primary">View</a>
-                            <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-success">Edit</a>
-                            <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                        //     $btn='<div class="btn-group">
+                        //     <a href="pasien/'.$pasien->id.'" class="btn btn-xs btn-primary">View</a>
+                        //     <a href="pasien/'.$pasien->id.'/edit" class="btn btn-xs btn-success">Edit</a>
+                        //     <div class="btn-group">
+                        //     <button type="button" class="btn btn-xs btn-info dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                        //     </button>
+                        //     <div class="dropdown-menu" style="">
+                        //         <a href="javascript:void(0)" class="dropdown-item print-kib" href="#">cetak KIB</a>
+                        //         <a href="javascript:void(0)" class="dropdown-item hapuspasien" data-id="'.$pasien->id.'">Delete</a>
+                        //     </div>
+                        //     </div>
+                        // </div>';
+                        
+                            $btn='<div class="btn-group btn-sm">
+                            <a href="pasien/'.$pasien->id.'" class="btn btn-default">View</a>
+                            <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                              <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <div class="dropdown-menu" style="">
-                                <a href="javascript:void(0)" class="dropdown-item print-kib" href="#">cetak KIB</a>
-                                <a href="javascript:void(0)" class="dropdown-item hapuspasien" data-id="'.$pasien->id.'">Delete</a>
+                            <div class="dropdown-menu" role="menu" style="">
+                              <a class="dropdown-item" href="#">Edit</a>
+                              <a class="dropdown-item" href="#">Print KIB</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Delete</a>
                             </div>
-                            </div>
-                        </div>';
+                          </div>';
 
                             return $btn;
                         })
@@ -397,7 +379,16 @@ class PasienController extends Controller
                             }            
             return response()->json($temp);
         }
+    }
 
+    public function findatabpjs(Request $request)
+    {
+        $bpjs_number    =$request->nobpjs;
+        if($bpjs_number){
+            $tampung=KustomHelper::callAPI('GET','https://dvlp.bpjs-kesehatan.go.id:9081/pcare-rest-v3.0/peserta/'.$bpjs_number);
+            return response()->json($tampung);
+        }
+        return response()->json(['error']);        
     }
     
 }

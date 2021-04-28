@@ -276,219 +276,234 @@
             </div>
             <div class="card-body">
                 <div class="tab-content" id="custom-tabs-one-tabContent">
-                    <div class="tab-pane fade active show" id="custom-tabs-one-pasien" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">                        
-                    
-                        <table class="table table-striped">                     
-                              <tr>
-                                  <td style="width: 5px">1.</td>
-                                  <td>NIK</td>
-                                  <td style="width: 2px">:</td>
-                                  <td>{{$pasien->nik}}</td>
-                                  <td>No. KK</td>
-                                  <td style="width: 2px">:</td>
-                                  <td>{{$pasien->no_kk}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Status hubungan</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->status_hubungan}}</td>
-                                  <td>Nama lengkap</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->nama_lengkap}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>No. BPJS</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->no_bpjs}}</td>
-                                  <td>No. RM (lama)</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->no_rm_lama}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>No. Rekam Medis</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->no_rm}}</td>
-                                  <td>Jenis kelamin</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->jenis_kelamin}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Tempat lahir</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->tempat_lahir}}</td>
-                                  <td>Tanggal lahir</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->tanggal_lahir}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Usia saat ini</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->tahun}}</td>
-                                  <td>Agama</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->agama}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Gol. darah</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->gol_darah}}</td>
-                                  <td>No. HP</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->hp}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>No. Telp</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->telp}}</td>
-                                  <td>Email</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->email}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Warganegara</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->warganegara}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Alamat</td>
-                                  <td>:</td>
-                                  <td colspan="3">{{$pasien->alamat.' RT. '.$pasien->rt.' RW. '.$pasien->rw}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Kelurahan</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->kelurahan}}</td>
-                                  <td>Kecamatan</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->kecamatan}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Kota kab.</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->kab_kota}}</td>
-                                  <td>Provinsi</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->provinsi}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Kode POS</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->pos}}</td>
-                                  <td>Status pernikahan</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->status_marital}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Pendidikan terakhir</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->pendidikan_terakhir}}</td>
-                                  <td>Suku</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->suku}}</td>
-                              </tr> 
-                              {{-- <tr>
-                                  <td>1.</td>                                  
-                                  <td>Pekerjaan</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->pekerjaan}}</td>
-                              </tr>  --}}
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Nama ayah</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->nama_ayah}}</td>
-                                  <td>Nama ibu</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->nama_ibu}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Penanggung jawab</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->penanggung_jawab}}</td>
-                                  <td>hubungan Sebagai</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->hubungan_dengan_penanggung_jawab}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Nomor Contact</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->no_contact_darurat}}</td>
-                                  <td>Status pasien</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->status_pasien==1?'Aktif':'Tidak aktif'}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Wilayah kerja</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->wilayah_kerja=='1'?'Ya':'Tidak'}}</td>
-                                  <td>Tgl. mulai aktif BPJS</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->tglmulaiaktif}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Tanggal akhir berlaku BPJS</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->tglakhirberlaku}}</td>                                  
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Kode Faskes BPJS</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->kodeproviderpeserta_bpjs}}</td>
-                                  <td>Nama Faskes Utama BPJS</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->namaproviderpeserta_bpjs}}</td>                                  
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Kode faskes Gigi</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->kodeprovidergigi_bpjs}}</td>                                  
-                                  <td>Nama Faskes Gigi</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->namaprovidergigi_bpjs}}</td>
-                                  
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Kode Jenis kelas</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->kodejeniskelas_bpjs}}</td>
-                                  <td>Nama Jenis Kelas</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->namajeniskelas_bpjs}}</td>
-                              </tr> 
-                              <tr>
-                                  <td>1.</td>
-                                  <td>Kode Jenis Peserta</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->kodejenispeserta_bpjs}}</td>
-                                  <td>Jenis peserta</td>
-                                  <td>:</td>
-                                  <td>{{$pasien->namajenispeserta_bpjs}}</td>
-                              </tr> 
-                          </table>
-                          
-                    
+                    <div class="tab-pane fade active show" id="custom-tabs-one-pasien" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-home-tab">                        
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="nik">N.I.K</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="nik" name="nik" value="{{ $data->nik }}" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="no_kk">No. KK</label>
+                                        <input type="text" class="form-control" name="no_kk" id="no_kk" disabled
+                                            value="{{ $data->nik }}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="status_hubungan">Status hubungan</label>
+                                        <input type="text" class="form-control" id="nik" name="nik" value="{{ $data->status_hubungan }}" disabled />                                      
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="nama_lengkap">Nama lengkap</label>
+                                        <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" value="{{ $data->nama_lengkap }}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="no_bpjs">No. BPJS</label>
+                                        <input type="text" class="form-control" name="no_bpjs" id="no_bpjs" value="{{ $data->no_bpjs }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="no_rm_lama">No. RM lama</label>
+                                        <input type="text" class="form-control" name="no_rm_lama" id="no_rm_lama" value="{{ $data->no_rm_lama }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="tempat_lahir">Tempat lahir</label>
+                                        <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" value="{{ $data->tempat_lahir }}" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="tanggal_lahir">Tanggal lahir</label>
+                                        <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{ $data->tanggal_lahir }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="agama">Agama</label>
+                                        <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" value="{{ $data->agama }}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="jenis_kelamin">Jenis kelamin</label>
+                                        <input type="text" class="form-control" name="jenis_kelamin" value="{{ $data->jenis_kelamin=='L'?'Laki-laki':'Perempuan' }}" disabled />
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="gol_darah">Gol. darah</label>
+                                        <input type="text" class="form-control" name="gol_darah" value="{{ $data->gol_darah }}" disabled />                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="hp">No. Handphone</label>
+                                        <input type="text" class="form-control" name="hp" value="{{ $data->hp }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="telp">No. Telp</label>
+                                        <input type="text" class="form-control" name="telp" id="telp" value="{{ $data->telp }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="email">email</label>
+                                        <input type="text" class="form-control" name="email" value="{{ $data->email }}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">                                
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="alamat">Alamat/Jalan</label>
+                                        <input type="text" class="form-control" name="alamat" id="alamat" value="{{ $data->alamat }}" disabled />                                                                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="rt">RT</label>
+                                        <input type="text" class="form-control" name="rt" id="rt" value="{{ $data->rt }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="rw">RW</label>
+                                        <input type="text" class="form-control" name="rw" id="rw" value="{{ $data->rw }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="kelurahan">Kelurahan</label>
+                                        <input type="text" class="form-control" name="kelurahan" id="kelurahan" value="{{ $data->kelurahan }}" disabled />
+                                    </div>
+                                </div>
+                            </div>                           
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="kecamatan">Kecamatan</label>
+                                        <input type="text" class="form-control" name="kecamatan" id="kecamatan" value="{{ $data->kecamatan }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="kab_kota">Kota</label>
+                                        <input type="text" class="form-control" name="kab_kota" id="kab_kota" value="{{ $data->kab_kota }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="provinsi">Provinsi</label>
+                                        <input type="text" class="form-control" name="provinsi" id="provinsi" value="{{ $data->provinsi }}" disabled/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="pos">POS</label>
+                                        <input type="text" class="form-control" name="pos" id="pos" value="{{ $data->pos }}" disabled />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="status_marital">Status pernikahan</label>
+                                        <input type="text" class="form-control" name="status_marital" id="status_marital" value="{{ $data->status_marital }}" disabled />
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="pendidikan_terakhir">Pendidikan terakhir</label>
+                                        <input type="text" class="form-control" name="pendidikan_terakhir" id="pendidikan_terakhir" disabled
+                                            value="{{ $data->pendidikan_terakhir }}" />                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="suku">Suku/ras</label>
+                                        <input type="text" class="form-control" name="suku" id="suku" disabled
+                                            value="{{ $data->suku }}" />                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="pekerjaan">Pekerjaan</label>
+                                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" disabled
+                                            value="{{ $data->pekerjaan }}" />                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="nama_ayah">Nama ayah</label>
+                                        <input type="text" class="form-control" name="nama_ayah" id="nama_ayah" disabled
+                                            value="{{ $data->nama_ayah }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="nama_ibu">Nama ibu</label>
+                                        <input type="text" class="form-control" name="nama_ibu" id="nama_ibu" disabled
+                                            value="{{ $data->nama_ibu }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="penanggung_jawab">Penanggung jawab</label>
+                                        <input type="text" class="form-control" name="penanggung_jawab" disabled
+                                            id="penanggung_jawab" value="{{ $data->penanggung_jawab }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label"
+                                            for="hubungan_dengan_penanggung_jawab">Hubungan</label>
+                                        <input type="text" class="form-control" name="hubungan_dengan_penanggung_jawab" disabled
+                                            id="hubungan_dengan_penanggung_jawab"
+                                            value="{{ $data->hubungan_dengan_penanggung_jawab }}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="no_contact_darurat">Contact/hp</label>
+                                        <input type="text" class="form-control" name="no_contact_darurat"
+                                            id="no_contact_darurat" value="{{ $data->no_contact_darurat }}" disabled />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="status_pasienaktif">Status</label>
+                                        <input type="text" class="form-control" name="status_pasienaktif" id="status_pasienaktif" disabled
+                                            value="{{ $data->status_pasien==1?'Aktif':'tidak aktif' }}" />
+                                        
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card-footer">
-                                <a href="{{route('pasien.edit',[$pasien->id])}}" class="btn btn-sm btn-success">Edit</a>                            
+                                <a href="{{route('pasien.edit',[$data->id])}}" class="btn btn-sm btn-success">Edit</a>                            
                                 <button type="button" class="btn btn-sm btn-warning" name="kembali" onclick="window.location.href='/pasien'">Kembali</button>
                             </div>
                     </div>

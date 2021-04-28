@@ -13,6 +13,7 @@
                 <li><a href="/rekening" class="dropdown-item">- Rekening </a></li>
                 <li><a href="/item" class="dropdown-item">- Item </a></li>
                 <li><a href="/rekening" class="dropdown-item">- SDM </a></li>
+                <li><a href="/faskes" class="dropdown-item">- Faskes </a></li>
                 <li class="dropdown-divider"></li>
                 <li><a href="/rekening" class="dropdown-item">- P-Care </a></li>
                 <li><a href="/rekening" class="dropdown-item">- Disduk </a></li>
@@ -32,30 +33,6 @@
 
                   <li><a href="/settingpcare" class="dropdown-item">Setting Pcare</a></li>
                   <li><a href="#" class="dropdown-item">Setting Disduk</a></li>
-                </ul>
-              </li>
-              <!-- End Level two -->
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Transaksi</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                <li><a href="/pendaftaran" class="dropdown-item">- Pendaftaran</a></li>
-                <li><a href="{{route('pemeriksaan.index')}}" class="dropdown-item">- Pemeriksaan </a></li>
-                <li><a href="/billing" class="dropdown-item">- Billing </a></li>
-                <li class="dropdown-divider"></li>
-                <li><a href="" class="dropdown-item">- P-Care </a></li>
-                <li><a href="" class="dropdown-item">- Disduk </a></li>
-                <li class="dropdown-divider"></li>
-
-              <!-- Level two dropdown-->
-              <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pendataan</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li><a href="#" class="dropdown-item">PISPK</a></li>
-                  <li><a href="#" class="dropdown-item">PHBS</a></li>
-                  <li><a href="#" class="dropdown-item">KIA</a></li>
-                  <li><a href="#" class="dropdown-item">Penyakit</a></li>
                 </ul>
               </li>
               <!-- End Level two -->
@@ -118,6 +95,30 @@
               <!-- End Level two -->
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Transaksi</a>
+            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                <li><a href="/pendaftaran" class="dropdown-item">- Pendaftaran</a></li>
+                <li><a href="{{route('pemeriksaan.index')}}" class="dropdown-item">- Pemeriksaan </a></li>
+                <li><a href="/billing" class="dropdown-item">- Billing </a></li>
+                <li class="dropdown-divider"></li>
+                <li><a href="" class="dropdown-item">- P-Care </a></li>
+                <li><a href="" class="dropdown-item">- Disduk </a></li>
+                <li class="dropdown-divider"></li>
+
+              <!-- Level two dropdown-->
+              <li class="dropdown-submenu dropdown-hover">
+                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pendataan</a>
+                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                  <li><a href="#" class="dropdown-item">PISPK</a></li>
+                  <li><a href="#" class="dropdown-item">PHBS</a></li>
+                  <li><a href="#" class="dropdown-item">KIA</a></li>
+                  <li><a href="#" class="dropdown-item">Penyakit</a></li>
+                </ul>
+              </li>
+              <!-- End Level two -->
+            </ul>
+          </li>          
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

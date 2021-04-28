@@ -1,14 +1,16 @@
+
 $(document).ready(function () {
   var datasite = $('body').attr('data-site');
   const token = $("meta[name='csrf-token']").attr("content");
 
-  $('#status_hubungan').select2({ theme: 'bootstrap4' }); $('#jenis_kelamin').select2({ theme: 'bootstrap4' }); $('#agama').select2({
-    theme: 'bootstrap4'
-  }); $('#gol_darah').select2({ theme: 'bootstrap4' }); $('#status_marital').select2({ theme: 'bootstrap4' }); $('#pendidikan_terakhir').select2({
-    theme: 'bootstrap4'
-  }); $('#suku').select2({ theme: 'bootstrap4' }); $('#pekerjaan').select2({ theme: 'bootstrap4' }); $('#status_pasien').select2({
-    theme: 'bootstrap4'
-  }); $('#status').select2({ theme: 'bootstrap4' }); $('#kategori').select2({ theme: 'bootstrap4' });
+  // $('#status_hubungan').select2({ theme: 'bootstrap4' }); $('#jenis_kelamin').select2({ theme: 'bootstrap4' }); $('#agama').select2({
+  //   theme: 'bootstrap4'
+  // });
+  // $('#gol_darah').select2({ theme: 'bootstrap4' }); $('#status_marital').select2({ theme: 'bootstrap4' }); $('#pendidikan_terakhir').select2({
+  //   theme: 'bootstrap4'
+  // }); $('#suku').select2({ theme: 'bootstrap4' }); $('#pekerjaan').select2({ theme: 'bootstrap4' }); $('#status_pasien').select2({
+  //   theme: 'bootstrap4'
+  // }); $('#status').select2({ theme: 'bootstrap4' }); $('#kategori').select2({ theme: 'bootstrap4' });
 
 
 
@@ -132,7 +134,6 @@ $("#data-pasien").DataTable({
     var dataPasien = $(this).serialize();
     var url = $(this).attr('data-url');
     console.log(url);
-
     $.ajax({
       url: url,
       type: 'PUT',
@@ -216,5 +217,73 @@ $("#data-pasien").DataTable({
   });
 
 
+  function convertdate(val) {
+    var str = val;
+    var tgl = str.substr(0,2);
+    var bln = str.substr(3,2);
+    var tahun = str.substr(6,4);
+    var tgl_lahir=tahun.concat("-",bln,"-",tgl);
+    return tgl_lahir;
+  }
+
+$("#find-bpjs").on("click",function(){
+    const find_id=$('#no_bpjs').val();
+    $.ajax({
+    url:datasite+'/caribpjs',
+    type:'POST',
+    data:{nobpjs:find_id,_token: token},
+    dataType:'json',
+    success:function(result){
+    console.log(result);
+    if(result.metaData.code==200){
+      Swal.fire({
+        title: 'pasien BPJS ditemukan',
+        text: "pilih yes untuk mengisi data",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      })
+      .then((result1) => {
+        if (result1.isConfirmed) {
+        const {...data}=result.response;        
+        console.log(data);
+        $("#nama_lengkap").val(data.nama)
+        $("#hp").val(data.noHP)
+        $(`#status_hubungan option[value=${data.hubunganKeluarga}]`).attr('selected','selected');
+        $("#nik").val(data.noKTP)
+        $(`#jenis_kelamin option[value=${data.sex}]`).attr('selected','selected');
+        var tgllahir = convertdate(data.tglLahir);
+        $("#tanggal_lahir").val(tgllahir);
+        $("#tglMulaiAktif").val(data.tglMulaiAktif);
+        $("#tglAkhirBerlaku").val(data.tglAkhirBerlaku);
+        $("#kdProvider").val(data.kdProviderPst.kdProvider);        
+        $("#nmProvider").val(data.kdProviderPst.nmProvider);        
+        $("#kdProviderGigi").val(data.kdProviderGigi.kdProvider);        
+        $("#nmProviderGigi").val(data.kdProviderGigi.nmProvider);        
+        $("#kdKelas").val(data.jnsKelas.kode);
+        $("#namaKelas").val(data.jnsKelas.nama);
+        $("#kodeJenisPeserta").val(data.jnsPeserta.kode);
+        $("#namaJenisPeserta").val(data.jnsPeserta.nama);
+        $("#kodeAsuransiPeserta").val(data.asuransi.kdAsuransi);
+        $("#namaAsuransiPeserta").val(data.asuransi.nmAsuransi);
+        $("#nomorAsuransiPeserta").val(data.asuransi.noAsuransi);
+        $("#nomorAsuransiPeserta").val(data.asuransi.noAsuransi);
+        $("#pstprol").val(data.pstProl);
+        $("#pstprb").val(data.pstPrb);
+        $("#ketAktif").val(data.ketAktif);
+        $("#aktif").val(data.aktif);
+        
+        }
+      })
+    }else{
+      Swal.fire({title: result.metaData.message,
+      text: "pengambilan data ke pcare gagal dilakukan, pastikan ID benar atau silahkan refresh halaman ..!",
+      icon: 'error'});
+    }
+    }
+    })
+})
 
 })

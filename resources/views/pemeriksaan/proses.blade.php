@@ -34,7 +34,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-sm" id="sistol" name="sistol" placeholder="sistol"  value="{{$pemeriksaan->sistol??''}}" />
                                     <input type="text" class="form-control form-control-sm" id="diastol" name="diastol" placeholder="diastol" value="{{$pemeriksaan->sistol??''}}" />
-                                  </div>
+                                </div>
                             </div>         
                         </div>                     
                         <div class="col-md-2">                          

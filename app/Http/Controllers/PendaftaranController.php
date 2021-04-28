@@ -49,7 +49,7 @@ class PendaftaranController extends Controller
             'menu'=>'Transaksi',
             'submenu'=>'Pendaftaran',
             'submenu2'=>'tambah',
-            'aksi'=>'Formulir pendaftaran pasien',
+            'aksi'=>'Pendaftaran pasien',
             'judul'=>'Pendaftaran Pasien',
             'isDataTable'=>true,
             'isJS'=>'pendaftaran.js',

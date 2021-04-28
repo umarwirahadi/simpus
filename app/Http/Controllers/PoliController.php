@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Poli;
+use KustomHelper;
 
 class PoliController extends Controller
 {
@@ -121,7 +122,7 @@ class PoliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $poli= Poli::findOrFail($id);
+        $poli= Poli::find($id);
         if($poli){
             $poli->kode             =$request->get('kode');
             $poli->poli             =$request->get('poli');
@@ -155,6 +156,22 @@ class PoliController extends Controller
             return response()->json(['status'=>1,'message'=>'data poli berhasil dihapus','data'=>null],200);
         }else{
             return redirect()->route('poli.index')->with('status', 'data Poli gagal dihapus');
+        }
+    }
+    
+    public function getpoli()
+    {
+        $data=KustomHelper::callAPI('GET','https://dvlp.bpjs-kesehatan.go.id:9081/pcare-rest-v3.0/poli/fktp/0/100');
+        if($data){
+            $listdata=[];
+            $hasil=$data['response']['list'];
+            
+            foreach ($hasil as $val) {
+                $listdataa=array($val['kdPoli'],$val['nmPoli'],$val['poliSakit']);
+            }
+            return response()->json($listdataa);
+        }else{
+            return response()->json(['status'=>0,'message'=>'fail','data'=>null]);        
         }
     }
 }

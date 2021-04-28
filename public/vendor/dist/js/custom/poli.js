@@ -1,6 +1,7 @@
-
 $(document).ready(function () {
 var datasite=$('body').attr('data-site');
+const token = $("meta[name='csrf-token']").attr("content");
+
   $('#data-poli').DataTable({
     "paging": true,
     "lengthChange": true,
@@ -89,5 +90,59 @@ var datasite=$('body').attr('data-site');
       }
     })
   })
+  
+  $("#get-poli").on("click",function(){
+    $.ajax({
+    url:datasite+'/get-poli-pcare',
+    type:'POST',
+    data:{_token: token},
+    dataType:'json',
+    success:function(result){
+    console.log(result);
+    if(result.metaData.code==200){
+      Swal.fire({
+        title: 'pasien BPJS ditemukan',
+        text: "pilih yes untuk mengisi data",
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      })
+      .then((result1) => {
+        if (result1.isConfirmed) {
+        const {...data}=result.response;        
+        console.log(data);
+        $("#nama_lengkap").val(data.nama)
+        $("#hp").val(data.noHP)
+        $(`#status_hubungan option[value=${data.hubunganKeluarga}]`).attr('selected','selected');
+        $("#nik").val(data.noKTP)
+        $(`#jenis_kelamin option[value=${data.sex}]`).attr('selected','selected');
+        var tgllahir = convertdate(data.tglLahir);
+        $("#tanggal_lahir").val(tgllahir);
+        $("#tglMulaiAktif").val(data.tglMulaiAktif);
+        $("#tglAkhirBerlaku").val(data.tglAkhirBerlaku);
+        $("#kdProvider").val(data.kdProviderPst.kdProvider);        
+        $("#nmProvider").val(data.kdProviderPst.nmProvider);        
+        $("#kdProviderGigi").val(data.kdProviderGigi.kdProvider);        
+        $("#nmProviderGigi").val(data.kdProviderGigi.nmProvider);        
+        $("#kdKelas").val(data.jnsKelas.kode);
+        $("#namaKelas").val(data.jnsKelas.nama);
+        $("#kodeJenisPeserta").val(data.jnsPeserta.kode);
+        $("#namaJenisPeserta").val(data.jnsPeserta.nama);
+        $("#kodeAsuransiPeserta").val(data.asuransi.kdAsuransi);
+        $("#namaAsuransiPeserta").val(data.asuransi.nmAsuransi);
+        $("#nomorAsuransiPeserta").val(data.asuransi.noAsuransi);
+        }
+      })
+    }else{
+      Swal.fire({title: result.metaData.message,
+      text: "pengambilan data ke pcare gagal dilakukan, pastikan ID benar atau silahkan refresh halaman ..!",
+      icon: 'error'});
+    }
+    }
+    })
+})
+  
 
 })

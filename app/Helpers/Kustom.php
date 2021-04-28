@@ -2,17 +2,7 @@
 namespace App\Helpers;
 use Illuminate\support\Facades\DB;
 class Kustom{
-    public  static $consID 	    = "";
-    public  static $secretKey 	= "2wJ43627A6";        
-    public  static $pcareUname   = "00930018.test";
-    public  static $pcarePWD 	= "Bpjs2021#";
-    public  static $kdAplikasi	= "095";
-
-    public function __construct()
-    {
-        $this->consID="3909";
-    }
-    
+   
     public static function setKodePkm(){
         $namapuskesmas=DB::table('profiles')->select('kode_puskesmas')->first();
         if($namapuskesmas){
@@ -74,15 +64,15 @@ class Kustom{
         $dataItem="";
         if(!empty($default)){
             foreach ($item as $key) {
-                if($key->kode===$default){
-                    $dataItem .="<option value='".$key->kode."' selected>".$key->poli."</option>";
+                if($key->kode_pcare===$default){
+                    $dataItem .="<option value='".$key->kode_pcare."' selected>".$key->poli."</option>";
                 }else{
-                    $dataItem .="<option value='".$key->kode."'>".$key->poli."</option>";
+                    $dataItem .="<option value='".$key->kode_pcare."'>".$key->poli."</option>";
                 }                
             }  
         }else{
             foreach($item as $key){
-                $dataItem .="<option value='".$key->kode."'>".$key->poli."</option>";            
+                $dataItem .="<option value='".$key->kode_pcare."'>".$key->poli."</option>";            
             }
         }
               
@@ -104,11 +94,14 @@ class Kustom{
 
     public static function bridgeData(){
 
-        $consumenID=self::$consID;
-        $secretKey=self::$secretKey;
-        $pcareUname=self::$pcareUname;
-        $pcarePWD=self::$pcarePWD;
-        $kdAplikasi=self::$kdAplikasi;
+         /* get data from db setting check data akun pcare for bridging*/
+         $result=DB::table('pcaresettings')->select('username_pcare','password_pcare','consumen_pcare','secretkey_pcare','aplicationcode_pcare')->where('status',1)->first();
+         /*setting data for each variable*/
+         $consumenID        =$result->consumen_pcare;
+         $secretKey         =$result->secretkey_pcare;
+         $pcareUname        =$result->username_pcare;
+         $pcarePWD          =$result->password_pcare;
+         $kdAplikasi        =$result->aplicationcode_pcare;
 
         date_default_timezone_set('UTC');
         $generate_timestamp = strval(time()-strtotime('1970-01-01 00:00:00'));
@@ -148,6 +141,81 @@ class Kustom{
     public static function readingdatamaster(){
         $item=DB::table('pcaresettings')->where('status',1)->first();
         return $item;
+    }
+
+    public static function callAPI($method='',$url='',$data=null){
+
+        $temp_message=[];
+
+        /* get data from db setting check data akun pcare for bridging*/
+        $result=DB::table('pcaresettings')->select('username_pcare','password_pcare','consumen_pcare','secretkey_pcare','aplicationcode_pcare')->where('status',1)->first();
+        /*setting data for each variable*/
+        $consumenID=$result->consumen_pcare;
+        $secretKey=$result->secretkey_pcare;
+        $pcareUname=$result->username_pcare;
+        $pcarePWD=$result->password_pcare;
+        $kdAplikasi=$result->aplicationcode_pcare;
+
+
+
+        date_default_timezone_set('UTC');
+        $generate_timestamp = strval(time()-strtotime('1970-01-01 00:00:00'));
+
+        $datacustID 		    = $consumenID.'&'.$generate_timestamp;		
+        $generate_signature     = hash_hmac('sha256', $datacustID, $secretKey, true);
+        $signature              = base64_encode($generate_signature);
+        $encodedAuthorization   = base64_encode($pcareUname.':'.$pcarePWD.':'.$kdAplikasi);       
+
+      
+
+        if($url==''){
+            $temp_message[]=array('message'=>'URL/End point kosong, silahkan diisi terlebih dahulu');
+        }
+
+        $url_pcare=$url;
+
+        $dataHEADER=array(
+            'X-cons-id: 3909',
+            'X-Timestamp: '.$generate_timestamp,
+            'X-Signature: '.$signature,
+            'X-Authorization: Basic '.$encodedAuthorization
+        );
+
+
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL,$url_pcare);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($ch,CURLOPT_ENCODING,'');
+        curl_setopt($ch,CURLOPT_MAXREDIRS,10);
+        curl_setopt($ch,CURLOPT_TIMEOUT,0);        
+        curl_setopt($ch,CURLOPT_FOLLOWLOCATION,true);        
+        curl_setopt($ch,CURLOPT_HTTP_VERSION,CURL_HTTP_VERSION_1_1);        
+
+
+        if($method==''){
+            $temp_message[]=array('message'=>'Method belum ditentukan silahkan tentukan method [GET,POST,PUT,DELETE]');
+        }
+
+        $method_pcare=$method;
+
+        if($method_pcare=='GET'){
+            curl_setopt($ch,CURLOPT_CUSTOMREQUEST,'GET');
+        }
+
+        if($method_pcare=='POST'){
+            curl_setopt($ch,CURLOPT_CUSTOMREQUEST,'POST');
+            curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+        }
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch,CURLOPT_HTTPHEADER,$dataHEADER);
+        $response = curl_exec($ch);
+        $data=json_decode($response,true);
+        // $data=json_encode($dataHEADER);
+        curl_close($ch);
+        return ($data);
+
+
     }
 }
 ?>

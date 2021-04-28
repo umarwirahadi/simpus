@@ -2,7 +2,7 @@ $(document).ready(function(){
   var datasite=$('body').attr('data-site');
   const token = $("meta[name='csrf-token']").attr("content");
 
-  $('#status_hubungan').select2(); $('#jenis_kelamin').select2(); $('#agama').select2(); $('#gol_darah').select2(); $('#status_marital').select2(); $('#pendidikan_terakhir').select2(); $('#suku').select2(); $('#pekerjaan').select2(); $('#status_pasien').select2(); $('#status').select2(); $('#kategori').select2();
+  // $('#status_hubungan').select2(); $('#jenis_kelamin').select2(); $('#agama').select2(); $('#gol_darah').select2(); $('#status_marital').select2(); $('#pendidikan_terakhir').select2(); $('#suku').select2(); $('#pekerjaan').select2(); $('#status_pasien').select2(); $('#status').select2(); $('#kategori').select2();
  
   $("#pendaftaran").DataTable({
     processing: true,
@@ -62,12 +62,12 @@ $(document).ready(function(){
     }
   });
 
-  $('#poli').select2({
-    theme: 'bootstrap4'
-  });
-  $('#cara_bayar').select2({
-    theme: 'bootstrap4'
-  });
+  // $('#poli').select2({
+  //   theme: 'bootstrap4'
+  // });
+  // $('#cara_bayar').select2({
+  //   theme: 'bootstrap4'
+  // });
 
 
 
@@ -261,8 +261,6 @@ $(document).ready(function(){
         $("#a6").html(data.data.nokwitansi==null?'belum':'sudah');
         $("#a7").html(data.data.nama_poli);
         $("#a8").html(data.data.deskripsi);
-        // $("#a4").html(data.data.status===1?'Aktif':'Tidak aktif');
-        // $("#a5").html(data.data.deskripsi);
         $("#form-pendaftaran").modal(); 
       }
     })
@@ -482,5 +480,9 @@ $("#form-kajian-awal-pasien").on("submit",function(e){
     maxWidth:800,	  })
  })
  
+ 
+ $("#find-bpjs2").on("click",function(){
+ 
+ })
 
 })

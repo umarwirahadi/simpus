@@ -43,9 +43,18 @@
                 <div class="row">
                     <div class="col-md-3 p-1">                          
                         <div class="form-group">
+                            <label class="col-form-label" for="nik">No. BPJS</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="No. BPJS" id="no_bpjs" name="no_bpjs">
+                                <span class="input-group-append">
+                                  <button type="button" class="btn btn-sm btn-info btn-flat" id="find-bpjs2" ><i class="fa fa-search"></i></button>
+                                </span>
+                              </div>
+                        </div> 
+                        {{-- <div class="form-group">
                             <label class="col-form-label" for="no_bpjs">No. BPJS</label>
                             <input type="text" class="form-control form-control-sm" placeholder="No BPJS" name="no_bpjs" id="no_bpjs" value="" />
-                        </div>                                                    
+                        </div>                                                     --}}
                     </div>                                                
                     <div class="col-md-2 p-1">                          
                         <div class="form-group">

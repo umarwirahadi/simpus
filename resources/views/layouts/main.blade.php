@@ -221,6 +221,7 @@
 @endif
 {{-- <script src="{{asset('vendor/plugins/toastr/toastr.min.js')}}" type="text/javascript"></script> --}}
 
+<script src="{{asset('vendor/dist/js/custom/simpus.js')}}"></script>
 <script>
   $(document).ready(function(){
     moment.locale('id');
