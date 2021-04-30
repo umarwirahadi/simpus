@@ -7,6 +7,8 @@ Route::resource('profile', 'ProfileController');
 Route::resource('pasien', 'PasienController');
 Route::get('pasien_server_side','PasienController@fetch')->name('data.pasien');
 Route::get('cari_pasien','PasienController@finddata')->name('cari.pasien');
+Route::post('cari_pasien_bpjs','PasienController@specifiedbyidbpjs')->name('cari.pasienbpjs');  
+
 Route::get('cari_pasienbynik','PasienController@finddatanik')->name('cari.pasienbynik');
 Route::post('caribpjs','PasienController@findatabpjs')->name('cari.pasienbpjs');
 

@@ -14,11 +14,7 @@ use DataTables;
 
 class PendaftaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
 
     public function __construct()
     {
@@ -38,11 +34,7 @@ class PendaftaranController extends Controller
         return view('pendaftaran.index',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $data=[
@@ -60,12 +52,6 @@ class PendaftaranController extends Controller
     }
     
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $cekvalidasi=Validator::make($request->all(),
@@ -82,16 +68,36 @@ class PendaftaranController extends Controller
                 $no_pendaftaran=$cekpendaftaran->count();
                 ++$no_pendaftaran;
             }                
-                $lastQueues=Pendaftaran::where(['poli'=>$request->poli,'tanggal'=>date('Y-m-d')])->max('noantrian');                
+                $lastQueues=Pendaftaran::where(['kode_poli'=>$request->kode_poli,'tanggal'=>date('Y-m-d')])->max('noantrian');                
                 if($lastQueues==0){
                     $tempLasQueueFix=1;   
                 }else{                          
                     $tempLasQueueFix=intval($lastQueues);                
                     ++$tempLasQueueFix;
                 }
+                
+                /*set pembayaran bpjs & umum*/
+                $paymethod="";
+                if(($request->tunggakan=='0') and (isset($request->no_bpjs2))){
+                    $paymethod="BPJS";
+                }else{
+                    $paymethod="UMUM";                                    
+                }
+                
+                if($request->statusbpjs=='AKTIF'){
+                    $paymethod="BPJS";
+                }else{
+                    $paymethod="UMUM";                                    
+                }
+                
+                
                 $simpanPendaftaran=new Pendaftaran;
                 $simpanPendaftaran->no_pendaftaran      =$no_pendaftaran;
                 $simpanPendaftaran->noantrian           =$tempLasQueueFix;
+                
+                $simpanPendaftaran->kdprovider           =$request->kdprovider;
+                $simpanPendaftaran->nmprovider          =$request->nmprovider;
+                
                 $simpanPendaftaran->tanggal             =date('Y-m-d');
                 $simpanPendaftaran->waktu               =date("H:i:s");
                 $simpanPendaftaran->idpasien            =$request->id_pasien2;
@@ -99,38 +105,30 @@ class PendaftaranController extends Controller
                 $simpanPendaftaran->usia_tahun          =$request->usia_tahun;
                 $simpanPendaftaran->usia_bulan          =$request->usia_bulan;
                 $simpanPendaftaran->usia_hari           =$request->usia_hari;
-                $simpanPendaftaran->poli                =$request->poli;
+                $simpanPendaftaran->kode_poli           =$request->kode_poli;
                 $simpanPendaftaran->cara_daftar         =$request->cara_daftar;
+                $simpanPendaftaran->no_kartu_bpjs       =$request->no_bpjs2;
                 $simpanPendaftaran->status              =1;
+                $simpanPendaftaran->keluhan             =$request->keluhan;
                 $simpanPendaftaran->deskripsi           =$request->deskripsi;
+                $simpanPendaftaran->cara_bayar           =$paymethod;                
                 $simpanPendaftaran->save();
                 return response()->json(['status'=>1,'message'=>'data pasien berhasil disimpan','data'=>$simpanPendaftaran],200);
             }               
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Pendaftaran  $pendaftaran
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Pendaftaran $pendaftaran)
     {
         if($pendaftaran){
             $vpendaftaran=DB::table('vpendaftaran')->where(['id'=>$pendaftaran->id])->first();
-            // return response()->json($vpendaftaran, 200);
-            return response()->json(['status'=>1,'message'=>'data pendaftaran berhasil diambil','data'=>$vpendaftaran],200);
+            return response()->json(['status'=>1,'message'=>'sukses','data'=>$vpendaftaran],200);
         }else{            
             return response()->json(['status'=>0,'message'=>'data pendaftaran gagal diambil','data'=>null],200);
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Pendaftaran  $pendaftaran
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function edit(Pendaftaran $pendaftaran)
     {
         //

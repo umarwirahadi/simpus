@@ -7,41 +7,36 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+                <div class="row bg-gray" >                        
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="col-form-label" for="cari_pasien">Pencarian pasien</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" placeholder="by [Nama,NIK,No RM]" id="cari_pasien" name="cari_pasien">
+                                <span class="input-group-append">
+                                  <button type="button" class="btn btn-info btn-flat btn-sm" id="find-bpjs" data-toggle="modal" data-target="#addnewpasien"><i class="fa fa-user-plus"></i> pasien baru</button>
+                                </span>
+                              </div>
+                        </div>                 
+                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group">
+                        <form  action="{{route('cari.pasienbpjs')}}" method="POST" id="form-pencarian-bpjs" >
+                            @csrf
+                            <label class="col-form-label" for="bpjsID">No. BPJS</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control form-control-sm" placeholder="No BPJS" id="bpjsID" name="bpjsID" value="" />
+                                <span class="input-group-append">
+                                  <button type="submit" class="btn btn-success btn-flat btn-sm" name="submit"><i class="fa fa-search"></i> Cari</button>
+                                </span>
+                              </div>
+                        </form>
+                        </div>                 
+                    </div> 
+                </div>
                 <form action="{{ route('pendaftaran.store') }}" method="POST" id="form-pendaftaran-pasien">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-form-label" for="cari_pasien">Pencarian pasien</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control form-control-sm" placeholder="by [Nama,NIK,No RM]" id="cari_pasien" name="cari_pasien">
-                                    <span class="input-group-append">
-                                      <button type="button" class="btn btn-info btn-flat btn-sm" id="find-bpjs" data-toggle="modal" data-target="#addnewpasien"><i class="fa fa-user-plus"></i> pasien baru</button>
-                                    </span>
-                                  </div>
-                            </div>                 
-                        </div> 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="col-form-label" for="cari_pasien">No. BPJS</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" placeholder="No BPJS" id="cari_bpjs" name="cari_bpjs">
-                                    <span class="input-group-append">
-                                      <button type="button" class="btn btn-info btn-flat btn-sm" id="find-bpjs" data-toggle="modal" data-target="#addnewpasien"><i class="fa fa-search"></i> pasien baru</button>
-                                    </span>
-                                  </div>
-                            </div>                 
-                        </div> 
-                    </div>
-                    <div class="row">
-                        {{-- <div class="col-sm-2">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label class="col-form-label" for="tanggal">Hari, tanggal</label>
-                                <input type="text" class="form-control form-control-sm" id="tanggal" name="tanggal"
-                                    value="{{ Carbon\Carbon::now()->isoFormat('dddd, D MMMM Y') }}" readonly>
-                            </div>
-                        </div> --}}
+                    @csrf                  
+                    <div class="row">                        
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="col-form-label" for="kode_poli">Poli</label>
@@ -87,7 +82,7 @@
                                                 <label for="nik2">NIK</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="nik2" value="" />
+                                                    id="nik2" value="" name="nik2"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -97,9 +92,10 @@
                                                 <input type="hidden" name="usia_tahun" id="usia_tahun" value="">
                                                 <input type="hidden" name="usia_bulan" id="usia_bulan" value="">
                                                 <input type="hidden" name="usia_hari" id="usia_hari" value="">
-                                                <input type="hidden" name="cara_daftar" id="cara_daftar" value="LANGSUNG">
-                                                <input type="text" class="form-control form-control-sm" name="no_rm"
-                                                    id="no_rm" value=""  />
+                                                <input type="hidden" name="kdprovider" id="kdprovider" value="">
+                                                <input type="hidden" name="nmprovider" id="nmprovider" value="">
+                                                <input type="hidden" name="cara_daftar" id="cara_daftar" value="LANGSUNG">                                                
+                                                <input type="text" class="form-control form-control-sm" name="no_rm" id="no_rm" value=""  />
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -107,7 +103,7 @@
                                                 <label for="nama_lengkap2">Nama pasien</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="nama_lengkap2" value=""  />
+                                                    id="nama_lengkap2" name="nama_lengkap2" value=""  />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -115,7 +111,7 @@
                                                 <label for="tanggal_lahir">Tgl. lahir</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="tanggal_lahir" value=""  />
+                                                    id="tanggal_lahir" name="tanggal_lahir" value=""  />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -123,17 +119,17 @@
                                                 <label for="jk">Jenis Kel</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="jk" value=""  />
+                                                    id="jk" name="jk" value=""  />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">                                   
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="usia">Usia sekarang</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="usia" value="" readonly />
+                                                    id="usia" name="usia" value="" readonly />
                                             </div>
                                         </div>                                      
                                         <div class="col-md-2">
@@ -141,7 +137,31 @@
                                                 <label for="hp2">No. HP</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="hp2" value=""  />
+                                                    id="hp2"  name="hp2" value=""  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="no_bpjs2">No. BPJS</label>
+                                                <input type="text"
+                                                    class="form-control form-control-sm"
+                                                    name="no_bpjs2" id="no_bpjs2" value="" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="statusbpjs">Status BPJS</label>
+                                                <input type="text"
+                                                    class="form-control form-control-sm"
+                                                    name="statusbpjs" id="statusbpjs" value="" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="tunggakan">Tunggakan</label>
+                                                <input type="text"
+                                                    class="form-control form-control-sm"
+                                                    name="tunggakan" id="tunggakan" value=""  readonly/>
                                             </div>
                                         </div>
                                     </div>
@@ -151,10 +171,9 @@
                                                 <label for="alamat2">Alamat</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="alamat2" value="" />
+                                                    id="alamat2" name="alamat2" value="" />
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="row">                                   
                                         <div class="col-md-6">
@@ -172,12 +191,7 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
-                                <!-- /.card-body -->
-
-                                <!-- /.card-footer-->
                             </div>
                             <!--/.direct-chat -->
                         </div>

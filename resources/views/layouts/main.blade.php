@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('vendor/plugins/toastr/toastr.min.css')}}">
+  <link rel="stylesheet" href="{{asset('vendor/dist/css/custom.css')}}">
   
   @if ($iscss??'')
   <link rel="stylesheet" href="{{asset('vendor/dist/css/custom/'.$iscss)}}">
@@ -41,6 +42,15 @@
   
 </head>
 <body class="hold-transition sidebar-collapse layout-top-nav" data-site="{{url('/')}}">
+  {{-- <div style="">
+    <img src="{{asset('img/loading.gif')}}" alt="loading" title="Simpus Kota Cimahi" >
+    </div> --}}
+    <div class="preloader hidden" id="main-load">
+      <div class="loading">
+        <img src="{{asset('img/Square_snake.gif')}}" width="100">
+        <p>silahkan tunggu</p>
+      </div>
+    </div>
 <div class="wrapper">
 
   <!-- Navbar -->

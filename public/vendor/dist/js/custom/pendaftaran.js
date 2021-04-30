@@ -97,11 +97,72 @@ $(document).ready(function(){
       $("#usia_bulan").val(ui.item.bulan);
       $("#usia_hari").val(ui.item.hari);
       $("#hp2").val(ui.item.hp);
+      $("#no_bpjs2").val(ui.item.no_bpjs);
       $("#alamat2").val(ui.item.alamat);
       $("#id_pasien2").val(ui.item.value);
       return false
     }
   });
+
+/* find by bpjs*/
+$("#form-pencarian-bpjs").on("submit",function(e){
+  e.preventDefault();
+  var formData=$(this).serialize();
+  $.ajax({
+  url:datasite+'/cari_pasien_bpjs',
+  type:'POST',
+  data:formData,
+  dataType:'json',
+  beforeSend:function(){
+    $("#main-load").removeClass('hidden');    
+  },
+  success:function(result){
+    /*place data here*/
+    console.log(result);  
+    
+    if(result.status==1){        
+      const {...formData}=result.data;    
+      $("#id_pasien2").val(formData[0].id);
+      $("#kdprovider").val(formData[0].kodeproviderpeserta_bpjs);
+      $("#nmprovider").val(formData[0].namaproviderpeserta_bpjs);    
+      $("#nik2").val(formData[0].nik);
+      $("#no_rm").val(formData[0].no_rm);
+      $("#nama_lengkap2").val(formData[0].nama_lengkap);
+      $("#tanggal_lahir").val(formData[0].tanggal_lahir);
+      $("#usia").val(formData[0].tahun+' thn '+formData[0].bulan+' bln '+formData[0].hari+' hr');
+      $("#jk").val(formData[0].jenis_kelamin==='L'?'Laki-laki':'Perempuan');
+      $("#usia_tahun").val(formData[0].tahun);
+      $("#usia_bulan").val(formData[0].bulan);
+      $("#usia_hari").val(formData[0].hari);
+      $("#statusbpjs").val(formData[0].keterangan_aktif_bpjs);    
+      $("#tunggakan").val(formData[0].tunggakan_bpjs?formData[0].tunggakan_bpjs:'-');    
+      $("#hp2").val(formData[0].hp);
+      $("#no_bpjs2").val(formData[0].no_bpjs);
+      $("#alamat2").val(formData[0].alamat);
+      Swal.fire({
+        title: 'sukses',
+        text: result.message,
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      }) 
+  }else{
+    Swal.fire({
+      title: 'error',
+      text: result.message,
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    }); 
+  }
+    // $("#id_pasien2").val(ui.item.value);
+  
+  },complete:function(){
+    $('#main-load').addClass('hidden');
+  }
+  })
+  
+  
+});
+
 
   $("#form-pendaftaran-pasien").on("submit", function (e) {
     e.preventDefault();
@@ -253,6 +314,7 @@ $(document).ready(function(){
       type:'GET',
       dataType:'json',
       success:function(data){
+        console.log(data);
         $("#a1").html(data.data.no_pendaftaran);
         $("#a3").html(data.data.noantrian2);
         $("#a4").html(data.data.no_rm);
@@ -481,8 +543,5 @@ $("#form-kajian-awal-pasien").on("submit",function(e){
  })
  
  
- $("#find-bpjs2").on("click",function(){
- 
- })
 
 })

@@ -335,12 +335,13 @@ class PasienController extends Controller
     public function finddata(Request $request)    
     {
         if($request->search){
-            $vpasien=DB::table('vpasiens')
+            $vpasien=DB::table('pasienfulls')
                         ->where('status_pasien','=',1)
                         ->where(function($query) use($request){
                             $query->where('nama_lengkap','like','%'.$request->search.'%')
                             ->orWhere('no_rm','like','%'.$request->search.'%')
-                            ->orWhere('nik','like','%'.$request->search.'%');
+                            ->orWhere('nik','like','%'.$request->search.'%')
+                            ->orWhere('no_bpjs','like','%'.$request->search.'%');
                         })
                         ->limit(15)
                         ->get();
@@ -349,9 +350,65 @@ class PasienController extends Controller
                 $temp[]=array('label'=>$value->no_rm.' / '.$value->nama_lengkap.' ('.$value->nik.') / Alamat : '.$value->alamat,'value'=>$value->id,'nik'=>$value->nik,
                               'no_rm'=>$value->no_rm,'no_rm_lama'=>$value->no_rm_lama,'nama_lengkap'=>$value->nama_lengkap,'jenis_kelamin'=>$value->jenis_kelamin,'tanggal_lahir'=>$value->tanggal_lahir,
                               'tahun'=>$value->tahun,'bulan'=>$value->bulan,'hari'=>$value->hari,'gol_darah'=>$value->gol_darah,'hp'=>$value->hp,'telp'=>$value->telp,'alamat'=>$value->alamat,
-                              'rt'=>$value->rt,'rw'=>$value->rw,'kelurahan'=>$value->kelurahan,'kecamatan'=>$value->kecamatan,'kab_kota'=>$value->kab_kota);
+                              'rt'=>$value->rt,'rw'=>$value->rw,'kelurahan'=>$value->kelurahan,'kecamatan'=>$value->kecamatan,'kab_kota'=>$value->kab_kota,'no_bpjs'=>$value->no_bpjs);
                             }            
             return response()->json($temp);
+        }
+    }
+    
+    public function specifiedbyidbpjs(Request $request)
+    {
+        if($request->ajax()){
+        
+            /*pasien bpjs wajib update dulu data dari pcarnya untuk memastikan data sesuai/tidak ada tunggakan*/
+            $tampung=KustomHelper::callAPI('GET','https://dvlp.bpjs-kesehatan.go.id:9081/pcare-rest-v3.0/peserta/'.$request->bpjsID);
+            if($tampung['metaData']['code']==200){
+                $dataBPJS=$tampung['response'];                            
+                $tglMulaiAktif                  =date_create($dataBPJS['tglMulaiAktif']);                
+                $tglAkhirBerlaku                =date_create($dataBPJS['tglAkhirBerlaku']);
+                /*find data*/
+                // $pasien=Pasien::where('no_bpjs','=',$request->bpjsID)->first();
+                
+                $checkrecord=DB::table('pasiens')->where('no_bpjs','=',$request->bpjsID)->get('id');
+                if($checkrecord->count()==1){                                
+                    $pasien=Pasien::where('no_bpjs','=',$request->bpjsID)->first();
+                    $pasien->tglmulaiaktif              =date_format($tglMulaiAktif,'Y-m-d');
+                    $pasien->tglakhirberlaku            =date_format($tglAkhirBerlaku,'Y-m-d');
+                    $pasien->kodeproviderpeserta_bpjs   =$dataBPJS['kdProviderPst']['kdProvider'];
+                    $pasien->namaproviderpeserta_bpjs   =$dataBPJS['kdProviderPst']['nmProvider'];
+                    $pasien->kodeprovidergigi_bpjs      =$dataBPJS['kdProviderGigi']['kdProvider'];
+                    $pasien->namaprovidergigi_bpjs      =$dataBPJS['kdProviderGigi']['nmProvider'];
+                    $pasien->kodejeniskelas_bpjs        =$dataBPJS['jnsKelas']['kode'];
+                    $pasien->namajeniskelas_bpjs        =$dataBPJS['jnsKelas']['nama'];
+                    $pasien->kodejenispeserta_bpjs      =$dataBPJS['jnsPeserta']['kode'];
+                    $pasien->namajenispeserta_bpjs      =$dataBPJS['jnsPeserta']['nama'];
+                    $pasien->aktif_bpjs                 =$dataBPJS['aktif'];
+                    $pasien->keterangan_aktif_bpjs      =$dataBPJS['ketAktif'];
+                    $pasien->tunggakan_bpjs             =$dataBPJS['tunggakan'];
+                    $pasien->kode_asuransi_bpjs         =$dataBPJS['asuransi']['kdAsuransi'];
+                    $pasien->nama_asuransi_bpjs         =$dataBPJS['asuransi']['nmAsuransi'];
+                    $pasien->no_asuransi_bpjs           =$dataBPJS['asuransi']['noAsuransi'];                             
+                    $pasien->save();
+                    if($pasien){
+                        $data_pasien=DB::table('pasienfulls')->select('id','nik','no_bpjs','no_rm','no_rm_lama','nama_lengkap','jenis_kelamin','tanggal_lahir','gol_darah','hp','alamat',
+                                                                  'rt','rw','kelurahan','kecamatan','nama_ibu','penanggung_jawab','hubungan_dengan_penanggung_jawab','no_contact_darurat',
+                                                                  'status_pasien','wilayah_kerja','tglmulaiaktif','tglakhirberlaku','kodeproviderpeserta_bpjs','namaproviderpeserta_bpjs',
+                                                                  'kodeprovidergigi_bpjs','namaprovidergigi_bpjs','kodejeniskelas_bpjs','namajeniskelas_bpjs','kodejenispeserta_bpjs','namajenispeserta_bpjs',
+                                                                  'aktif_bpjs','keterangan_aktif_bpjs','tunggakan_bpjs','tahun','bulan','hari','keterangan_aktif_bpjs','tunggakan_bpjs')
+                                                                  ->where('status_pasien','=',1)
+                                                                  ->Where('no_bpjs','=',$request->bpjsID)
+                                                                  ->limit(1)
+                                                                  ->get();                
+                        return response()->json(['status'=>1,'message'=>'data ditemukan','data'=>$data_pasien],200);
+                    }
+                }else{
+                    return response()->json(['status'=>0,'message'=>'pasien ini belum terdaftar di puskesmas, silahkan input pasien..!','data'=>$checkrecord],200);                
+                }
+            }else{
+                return response()->json(['status'=>0,'message'=>'data tidak ditemukan','data'=>$tampung],200);
+            }            
+        }else{
+            redirect('/pendaftaran/create');
         }
     }
 
