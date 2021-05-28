@@ -58,7 +58,7 @@
                             <div class="col-md-4">                          
                                 <div class="form-group">
                                     <label class="col-form-label" for="nama_lengkap">Nama lengkap</label>
-                                    <input type="text" class="form-control form-control-sm" placeholder="Nama lengkap" name="nama_lengkap" id="nama_lengkap" value="">
+                                    <input type="text" class="form-control form-control-sm text-uppercase" placeholder="Nama lengkap" name="nama_lengkap" id="nama_lengkap" value="">
                                 </div>                                                    
                             </div>                       
                         </div>

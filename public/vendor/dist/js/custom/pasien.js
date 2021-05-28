@@ -3,17 +3,6 @@ $(document).ready(function () {
   var datasite = $('body').attr('data-site');
   const token = $("meta[name='csrf-token']").attr("content");
 
-  // $('#status_hubungan').select2({ theme: 'bootstrap4' }); $('#jenis_kelamin').select2({ theme: 'bootstrap4' }); $('#agama').select2({
-  //   theme: 'bootstrap4'
-  // });
-  // $('#gol_darah').select2({ theme: 'bootstrap4' }); $('#status_marital').select2({ theme: 'bootstrap4' }); $('#pendidikan_terakhir').select2({
-  //   theme: 'bootstrap4'
-  // }); $('#suku').select2({ theme: 'bootstrap4' }); $('#pekerjaan').select2({ theme: 'bootstrap4' }); $('#status_pasien').select2({
-  //   theme: 'bootstrap4'
-  // }); $('#status').select2({ theme: 'bootstrap4' }); $('#kategori').select2({ theme: 'bootstrap4' });
-
-
-
   $("#cari_wilayah").autocomplete({
     source: function (req, res) {
       $.ajax({
@@ -47,7 +36,7 @@ $("#data-pasien").DataTable({
     serverSide: true,
     ajax: datasite + "/pasien_server_side",
     columns: [
-      { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+      { data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false, searchable: false },
       { data: 'nik', name: 'nik' },
       { data: 'no_rm', name: 'no_rm' },
       { data: 'nama_lengkap', name: 'nama_lengkap' },
@@ -80,7 +69,7 @@ $("#data-pasien").DataTable({
       "infoEmpty": "Data pasien tidak ditemukan",
       "infoFiltered": "(filtered from _MAX_ total records)"
     },
-    scrollY: 300,
+    scrollY: 500,
     scroller: {
       loadingIndicator: true
     }
@@ -105,7 +94,7 @@ $("#data-pasien").DataTable({
             confirmButtonText: 'Ok'
           }).then(() => {
             // window.location.href = datasite + '/pasien';
-          })         
+          })
       },
       error: function (a) {
         if(a.status==422){
@@ -121,10 +110,10 @@ $("#data-pasien").DataTable({
               text: value,
             })
           })
-        }else{          
+        }else{
             // window.location.href = datasite + '/pasien';
             console.log(a);
-          }      
+          }
       }
     });
   });
@@ -247,7 +236,7 @@ $("#find-bpjs").on("click",function(){
       })
       .then((result1) => {
         if (result1.isConfirmed) {
-        const {...data}=result.response;        
+        const {...data}=result.response;
         console.log(data);
         $("#nama_lengkap").val(data.nama)
         $("#hp").val(data.noHP)
@@ -258,10 +247,10 @@ $("#find-bpjs").on("click",function(){
         $("#tanggal_lahir").val(tgllahir);
         $("#tglMulaiAktif").val(data.tglMulaiAktif);
         $("#tglAkhirBerlaku").val(data.tglAkhirBerlaku);
-        $("#kdProvider").val(data.kdProviderPst.kdProvider);        
-        $("#nmProvider").val(data.kdProviderPst.nmProvider);        
-        $("#kdProviderGigi").val(data.kdProviderGigi.kdProvider);        
-        $("#nmProviderGigi").val(data.kdProviderGigi.nmProvider);        
+        $("#kdProvider").val(data.kdProviderPst.kdProvider);
+        $("#nmProvider").val(data.kdProviderPst.nmProvider);
+        $("#kdProviderGigi").val(data.kdProviderGigi.kdProvider);
+        $("#nmProviderGigi").val(data.kdProviderGigi.nmProvider);
         $("#kdKelas").val(data.jnsKelas.kode);
         $("#namaKelas").val(data.jnsKelas.nama);
         $("#kodeJenisPeserta").val(data.jnsPeserta.kode);
@@ -274,7 +263,7 @@ $("#find-bpjs").on("click",function(){
         $("#pstprb").val(data.pstPrb);
         $("#ketAktif").val(data.ketAktif);
         $("#aktif").val(data.aktif);
-        
+
         }
       })
     }else{

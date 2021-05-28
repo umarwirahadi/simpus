@@ -19,7 +19,7 @@ class ProfileController extends Controller
     }
 
     public function index()
-    {   
+    {
         $puskesmas=Profile::get()->first();
         $data=[
             'menu'=>'Data',
@@ -32,22 +32,7 @@ class ProfileController extends Controller
         return view('profile.index',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $pesan=[
@@ -71,10 +56,10 @@ class ProfileController extends Controller
                                 'nip_katu'=>['required'] ],$pesan);
 
         if($cekvalidasi){
-            $cekpkm=Profile::where(['kode_puskesmas'=>$request->kode_puskesmas]);
+            $cekpkm=Profile::where(['kode_puskesmas'=>$request->kode_puskesmas])->first();
             if($cekpkm->count()<1){
                 $simpanpkm=new Profile;
-                $simpanpkm->id_puskesmas='88888';
+                $simpanpkm->id_puskesmas=$request->id_puskesmas;
                 $simpanpkm->kode_puskesmas=$request->kode_puskesmas;
                 $simpanpkm->nama_puskesmas=$request->nama_puskesmas;
                 $simpanpkm->alamat=$request->alamat;
@@ -92,65 +77,36 @@ class ProfileController extends Controller
                 $simpanpkm->no_register=$request->no_register;
                 $simpanpkm->nip_kapus=$request->nip_kapus;
                 $simpanpkm->nip_katu=$request->nip_katu;
-
-                                
                 $simpanpkm->save();
-
                 return response()->json(['status'=>1,'message'=>'data Profile berhasil disimpan','data'=>$simpanpkm],200);
             }else{
-                
-                return response()->json(['status'=>0,'message'=>'Data profile sudah ada/ ada yang sama, silahkan periksa kembali','data'=>$cekpasien->get()],200);
+                $updatepkm=Profile::find($cekpkm->id);
+                $updatepkm->id_puskesmas=$request->id_puskesmas;
+                $updatepkm->kode_puskesmas=$request->kode_puskesmas;
+                $updatepkm->nama_puskesmas=$request->nama_puskesmas;
+                $updatepkm->alamat=$request->alamat;
+                $updatepkm->rt=$request->rt;
+                $updatepkm->rw=$request->rw;
+                $updatepkm->kelurahan=$request->kelurahan;
+                $updatepkm->kecamatan=$request->kecamatan;
+                $updatepkm->kota_kab=$request->kota_kab;
+                $updatepkm->provinsi=$request->provinsi;
+                $updatepkm->pos=$request->pos;
+                $updatepkm->telp=$request->telp;
+                $updatepkm->email=$request->email;
+                $updatepkm->no_ijin=$request->no_ijin;
+                $updatepkm->tanggal=$request->tanggal;
+                $updatepkm->no_register=$request->no_register;
+                $updatepkm->nip_kapus=$request->nip_kapus;
+                $updatepkm->nip_katu=$request->nip_katu;
+                $updatepkm->update();
+                return response()->json(['status'=>1,'message'=>'Data profile berhasil diupdate','data'=>$updatepkm],200);
             }
-
-    
         }else{
             return response()->json(['status'=>0,'message'=>'Proses input data profile tidak bisa dilanjutkan','data'=>null],200);
         }
-    
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profile $profile)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Profile $profile)
-    {
-        //
-    }
 }

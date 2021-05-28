@@ -7,6 +7,7 @@
       <div class="card-header">
           <h3 class="card-title">
               <a href="{{route('item.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
+              <a href="javascript:void(0)" class="btn btn-app bg-orange" id="get-item-data-pcare"><i class="fas fa-sync"></i> sinkronisasi data pcare</a>
           </h3>
           <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

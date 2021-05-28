@@ -98,8 +98,15 @@ $(document).ready(function(){
       $("#usia_hari").val(ui.item.hari);
       $("#hp2").val(ui.item.hp);
       $("#no_bpjs2").val(ui.item.no_bpjs);
-      $("#alamat2").val(ui.item.alamat);
+      $("#alamat2").val(`${ui.item.alamat} RT. ${ui.item.rt} RW. ${ui.item.rw} ${ui.item.kelurahan}`);
       $("#id_pasien2").val(ui.item.value);
+      $("#kdprovider").val(ui.item.kodeproviderpeserta_bpjs);
+      $("#nmprovider").val(ui.item.namaproviderpeserta_bpjs);      
+      $("#faskes").val(ui.item.namaproviderpeserta_bpjs);      
+      $("#tunggakan").val(ui.item.tunggakan);      
+      $("#statusbpjs").val(ui.item.keterangan_aktif_bpjs);      
+      $("#namajenispeserta_bpjs").val(ui.item.namajenispeserta_bpjs);      
+      $("#namajeniskelas_bpjs").val(ui.item.namajeniskelas_bpjs);      
       return false
     }
   });
@@ -117,9 +124,7 @@ $("#form-pencarian-bpjs").on("submit",function(e){
     $("#main-load").removeClass('hidden');    
   },
   success:function(result){
-    /*place data here*/
-    console.log(result);  
-    
+    /*place data here*/    
     if(result.status==1){        
       const {...formData}=result.data;    
       $("#id_pasien2").val(formData[0].id);
@@ -139,6 +144,7 @@ $("#form-pencarian-bpjs").on("submit",function(e){
       $("#hp2").val(formData[0].hp);
       $("#no_bpjs2").val(formData[0].no_bpjs);
       $("#alamat2").val(formData[0].alamat);
+      $("#faskes").val(formData[0].namaproviderpeserta_bpjs);
       Swal.fire({
         title: 'sukses',
         text: result.message,
@@ -152,15 +158,19 @@ $("#form-pencarian-bpjs").on("submit",function(e){
       icon: 'error',
       confirmButtonText: 'Ok'
     }); 
-  }
-    // $("#id_pasien2").val(ui.item.value);
-  
+  }   
   },complete:function(){
     $('#main-load').addClass('hidden');
+  },
+  error:function(){
+    Swal.fire({
+      title: 'error',
+      text: 'Server error',
+      icon: 'error',
+      confirmButtonText: 'Ok'
+    }); 
   }
   })
-  
-  
 });
 
 
@@ -180,9 +190,9 @@ $("#form-pencarian-bpjs").on("submit",function(e){
             icon: 'success',
             confirmButtonText: 'Ok'
           }).then((data2) => {
-            // window.location.href = datasite + '/pendaftaran';
-            console.log(data2);
-            $("#cetak-retribusi").modal();
+            window.location.href = datasite + '/pendaftaran';
+            // console.log(data2);
+            // $("#cetak-retribusi").modal();
           })
         } else {
           Swal.fire({
@@ -203,7 +213,56 @@ $("#form-pencarian-bpjs").on("submit",function(e){
         }else{
           PNotify.error({
             title: 'error',
-            text: 'proses simpan data error',
+            text: 'proses simpan data error kode error : '+a.status,
+          })
+        }      
+      }
+    });
+  });
+  
+  $("#form-edit-pendaftaran-pasien").on("submit", function (e) {
+    e.preventDefault();
+    var datapendaftaran = $(this).serialize();
+    var dataID=$("#idpendaftaran").val();
+    
+    $.ajax({
+      url: datasite + '/pendaftaran/'+dataID,
+      type: 'PUT',
+      data: datapendaftaran,
+      dataType: 'json',
+      success: function (data) {
+      console.log(data);
+        if (data.status === 1) {
+          Swal.fire({
+            title: 'Success',
+            text: data.message,
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          }).then((data2) => {
+            // window.location.href = datasite + '/pendaftaran';
+            console.log(data2);
+            // $("#cetak-retribusi").modal();
+          })
+        } else {
+          Swal.fire({
+            title: 'error',
+            text: data.message,
+            icon: 'error'
+          })
+        }
+      },
+      error: function (a) {
+        if(a.status==422){
+          $.each(a.responseJSON.data, function (i, v) {
+            PNotify.error({
+              title: 'error',
+              text: v,
+            })
+          })          
+        }else{
+          PNotify.error({
+            title: 'error',
+            text: 'proses simpan data error kode error : '+a.status,
           })
         }      
       }
@@ -216,23 +275,11 @@ $("#form-pencarian-bpjs").on("submit",function(e){
     const idpas=$("#id_pasien").val();
     if(idpas===''){
       $.ajax({
-        url: datasite + '/pasien',
+        url: datasite + '/pasien/'+dataID,
         type: 'POST',
         data: dataPasien,
         dataType: 'json',
         success: function (data) {
-          $("#nik2").val(data.data[0].nik);
-          $("#no_rm").val(data.data[0].no_rm);
-          $("#nama_lengkap2").val(data.data[0].nama_lengkap);
-          $("#tanggal_lahir").val(data.data[0].tanggal_lahir);
-          $("#usia").val(data.data[0].tahun+' tahun '+data.data[0].bulan+' bulan '+data.data[0].hari+' Hari');
-          $("#jk").val(data.data[0].jenis_kelamin);
-          $("#usia_tahun").val(data.data[0].tahun);
-          $("#usia_bulan").val(data.data[0].bulan);
-          $("#usia_hari").val(data.data[0].hari);
-          $("#hp2").val(data.data[0].hp);
-          $("#alamat2").val(data.data[0].alamat);
-          $("#id_pasien2").val(data.data[0].id);
             Swal.fire({
               title: data.status===1?'Success':'error',
               text: data.message,
@@ -241,7 +288,8 @@ $("#form-pencarian-bpjs").on("submit",function(e){
             }).then(() => {
               $("#addnewpasien").modal('hide');
             })         
-        },
+        }
+        ,
         error: function (a) {
           if(a.status==422){
             $.each(a.responseJSON.data, function (i, v) {
@@ -307,7 +355,7 @@ $("#form-pencarian-bpjs").on("submit",function(e){
    
   });
 
-  $("body").on("click",".data-pendaftaran",function(){
+  $("#pendaftaran").on("click",".view-pendaftaran",function(){
     var data_id=$(this).data('id');
     $.ajax({
       url:datasite+'/pendaftaran/'+data_id,
@@ -424,24 +472,29 @@ $.ajax({
     if(data.status===1){
       const dataPasien=data.daftar;
       const dataPemeriksaan=data.dataperiksa;      
+      console.log(dataPasien);
       $("#kajian_id_pendaftaran").val(dataPasien.id);
       $("#kajian_idpasien").val(dataPasien.idpasien);
       $("#kajian_no_rm").val(dataPasien.no_rm);
-      $("#kajian_nik").val(dataPasien.nik);
+      // $("#kajian_nik").val(dataPasien.nik);
       $("#kajian_noantrian2").val(dataPasien.noantrian2);
       $("#kajian_nama_lengkap").val(dataPasien.nama_lengkap);
       $("#kajian_tanggal_lahir").val(dataPasien.tanggal_lahir);
+      $("#no_bpjs2").val(dataPasien.no_kartu_bpjs);
+      $("#poli").val(dataPasien.nama_poli);
+      $("#jenis_kelamin").val(dataPasien.jenis_kelamin=='L'?'Laki-laki':'Perempuan');
       $("#kajian_usia").val(`${dataPasien.usia_tahun} thn ${dataPasien.usia_bulan} bln ${dataPasien.usia_hari} hr`);
+      $("#kajian_keluhan").val(dataPasien.keluhan);
+      $("#kajian_deskripsi").val(dataPasien.deskripsi);
       if(dataPemeriksaan!=null){
-        $("#kajian_sistol").val(dataPemeriksaan.sistol);
-        $("#kajian_diastol").val(dataPemeriksaan.diastol);
+        $("#kajian_sistole").val(dataPemeriksaan.sistole);
+        $("#kajian_diastole").val(dataPemeriksaan.diastole);
         $("#kajian_berat_badan").val(dataPemeriksaan.berat_badan);
         $("#kajian_tinggi_badan").val(dataPemeriksaan.tinggi_badan);
         $("#kajian_suhu").val(dataPemeriksaan.suhu);
         $("#kajian_tekanan_nadi").val(dataPemeriksaan.tekanan_nadi);
         $("#kajian_respirasi").val(dataPemeriksaan.respirasi);
-        $("#kajian_anamnesa").val(dataPemeriksaan.anamnesa);
-
+        
       }
       $("#form-kajianawal").modal('show');      
     }else{
@@ -471,7 +524,135 @@ $.ajax({
     }      
   }
 });
-})
+});
+
+$("#pendaftaran").on("click",".send-register-pcare",function(){
+  let regID=$(this).attr("data-id");  
+  $.ajax({
+    url: `${datasite}/sending-pcare`,
+    type: 'POST',
+    data: {regID:regID,"_token":token},
+    dataType: 'json',
+    success: function (result) {
+      if(result.status==1){
+        Swal.fire({
+          icon: 'success',
+          title: 'success',
+          text: result.message
+        })
+      }else{
+        Swal.fire({
+          icon: 'warning',
+          title: 'peringatan',
+          text: result.message
+        })
+      }
+    },
+    error: function (a) {
+      Swal.fire({
+        icon: 'error',
+        title: 'gagal',
+        text: 'terjadi kesalahan dalam pengiriman data'
+      });
+    }
+  });
+  });
+  
+$("#pendaftaran").on("click",".delete-register-pcare",function(){
+  Swal.fire({
+    title: 'Yakin akan dihapus ?',
+    text: "menghapus data pasien akan menghilangkan seluruh data pasien, berpotensi kehilangan data dan ketidak akuratan proses pelaporan",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let regID=$(this).attr("data-id");    
+      $.ajax({
+        url: `${datasite}/delete-pcare-daftar`,
+        type: 'POST',
+        data: {regID:regID,"_token":token},
+        dataType: 'json',
+        success: function (result) {
+          if(result.status==1){
+            Swal.fire({
+              icon: 'success',
+              title: 'success',
+              text: result.message
+            })
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'gagal',
+              text: result.message
+            })
+          }
+        },
+        error: function (a) {
+          Swal.fire({
+            icon: 'error',
+            title: 'gagal',
+            text: 'terjadi kesalahan dalam pengiriman data'
+          });
+        }
+      });
+    }
+  })    
+  });
+  
+
+  $("#pendaftaran").on("click",".delete-pendaftaran",function(){
+    Swal.fire({
+      title: 'Pendaftaran akan dihapus ?',
+      text: "dengan menekan tombol [yes] anda benar menghapus pendaftaran pasien ini, periksa kembali",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let regID=$(this).attr("data-id");    
+        $.ajax({
+          url: `${datasite}/pendaftaran/ ${regID}`,
+          type: 'DELETE',
+          data: {regID:regID,"_token":token},
+          dataType: 'json',
+          success: function (result) {
+            if(result.status==1){
+              Swal.fire({
+                icon: 'success',
+                title: 'success',
+                text: result.message
+              }).then(()=>{
+                window.location.href='/pendaftaran';
+              })
+            }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'gagal',
+                text: result.message
+              }).then(()=>{
+                window.location.href='/pendaftaran';
+              })
+            }
+          },
+          error: function (a) {
+            Swal.fire({
+              icon: 'error',
+              title: 'gagal',
+              text: 'terjadi kesalahan dalam pengiriman data'
+            }).then(()=>{
+              window.location.href='/pendaftaran';
+            })
+          }
+        });
+      }
+    })    
+    });
+    
 
 $("#form-kajian-awal-pasien").on("submit",function(e){
   e.preventDefault();
@@ -482,7 +663,6 @@ $("#form-kajian-awal-pasien").on("submit",function(e){
     data: dataKajianAwal,
     dataType: 'json',
     success: function (data) {
-      console.log(data);   
         Swal.fire({
           title: data.status===1?'Success':'error',
           text: data.message,
@@ -542,6 +722,36 @@ $("#form-kajian-awal-pasien").on("submit",function(e){
     maxWidth:800,	  })
  })
  
+ 
+ $("#cek-status-bpjs").on("click",function(){
+  const idBPJS=$('#no_bpjs2').val();
+  $.ajax({
+  url:datasite+'/cekstatusBPJS',
+  type:'POST',
+  data:{no_bpjs2:idBPJS,_token: token},
+  dataType:'json',
+  beforeSend:function(){
+    $("#main-load").removeClass('hidden');    
+  },
+  success:function(data){
+  console.log(data);
+    Swal.fire({
+      title: data.status===1?'Success':'error',
+      text: data.message,
+      icon: data.status===1?'success':'error',
+      confirmButtonText: 'Ok'
+    }).then(() => {
+      
+    })
+  },error:function(){
+    Swal.fire({title: 'Error',
+      text: "Proses cek status BPJS gagal dilakukan, silahkan refresh halaman untuk mencoba lagi, atau logout sistem untuk mulai dari awal..!",
+      icon: 'error'});
+  },complete:function(){
+    $('#main-load').addClass('hidden');
+  }
+  })
+})
  
 
 })

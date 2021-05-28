@@ -42,7 +42,8 @@
 
         <div class="info-box-content">
           <span class="info-box-text">{!! KustomHelper::setLabelPoli(Cookie::get('id_poli')) !!} </span>
-          <span class="info-box-number">dr. Indah Citra Handayani</span>
+          <span class="info-box-text">{!! KustomHelper::setLabeldokter(Cookie::get('id_dokter')) !!} </span>
+          {{-- <span class="info-box-number">dr. Indah Citra Handayani</span> --}}
         </div>
         <a class="btn btn-app bg-info" href="javascript:void(0)" data-toggle="modal" data-target="#form-setpoli"><i class="fas fa-dice-d6"></i> Ubah Poli</a>
         <!-- /.info-box-content -->
@@ -59,11 +60,11 @@
               <a href="" class="btn btn-app bg-info"><i class="fas fa-phone-square-alt"></i> Panggil</a>
               <a href="" class="btn btn-app bg-red"><i class="fas fa-microphone"></i> Antrian</a>
           </h3>
-        </div>        
-        <div class="col-sm-12 col-md-6">
-          
         </div>
-      </div>       
+        <div class="col-sm-12 col-md-6">
+
+        </div>
+      </div>
     </div>
     <div class="card-body">
       <div class="table table-responsive">
@@ -74,52 +75,15 @@
             <th>No. RM</th>
             <th>Nama Pasien</th>
             <th>Alamat</th>
-            <th>Status Pemeriksaan</th>
             <th>Poli</th>
+            <th>Status Periksa</th>
             <th>Aksi</th>
           </tr>
           </thead>
           <tbody>
-            @foreach ($dataItem as $a)
-                <tr>
-                  <td>{{$a->noantrian}}</td>
-                  <td>{{$a->no_rm}}</td>
-                  <td>{{$a->nama_lengkap}}</td>
-                  <td>{{$a->alamat}}</td>
-                  <td>
-                    @if($a->status===1)
-                      <span class="text text-danger">terdaftar</span>
-                    @elseif($a->status===2)
-                      <span class="text text-primary">sudah kajian awal</span>
-                    @else
-                      <span class="text text-success">pemeriksaan dokter</span>
-                    @endif
-                  </td>
-                  {{-- <td>{!!$a->status=='1'?'<span class="text text-danger">menunggu</span>':'<span class="text text-primary">diperiksa</span>'!!}</td> --}}
-                  {{-- <td>{!!$a->status=='1'?'<span class="text text-danger">daftar</span>':status=='2'?'<span class="text text-primary">kajian awal</span>':'<span class="text text-primary">pemeriksaan dokter</span>'!!}</td> --}}
-                  <td>{{$a->nama_poli}}</td>
-                  <td>
-                    <div class="btn-group">
-                      <form action="{{route('pemeriksaan.proses')}}" method="POST">
-                        @csrf
-                        <input type="hidden" name="idpemeriksaan" value="{{$a->id}}">
-                        <input type="hidden" name="idpasien" value="{{$a->idpasien}}">
-                      <button type="submit"  class="btn btn-success btn-sm" title="periksa">
-                        <i class="fas fa-check-double"></i>
-                      </button>
-                    </form>
-                      <a href=""  class="btn btn-primary btn-sm" title="edit">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                      <a href=""  class="btn btn-danger btn-sm" title="hapus">
-                        <i class="fas fa-trash"></i>
-                      </a>
-                    </div>
-                  </td>
-                </tr>
-            @endforeach            
-          </tbody>        
-        </table>     
+
+          </tbody>
+        </table>
         </div>
     </div>
     <!-- /.card-body -->
@@ -129,11 +93,12 @@
     </div>
     <!-- /.card-footer-->
 </div>
- 
+
 </div>
 
 
 
+@include('obat.add')
 @include('pendaftaran.show')
 @include('pemeriksaan.setpoli')
   @endsection

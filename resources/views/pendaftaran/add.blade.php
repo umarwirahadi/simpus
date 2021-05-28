@@ -129,7 +129,7 @@
                                                 <label for="usia">Usia sekarang</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    id="usia" name="usia" value="" readonly />
+                                                    id="usia" name="usia" value=""  />
                                             </div>
                                         </div>                                      
                                         <div class="col-md-2">
@@ -145,7 +145,7 @@
                                                 <label for="no_bpjs2">No. BPJS</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    name="no_bpjs2" id="no_bpjs2" value="" readonly />
+                                                    name="no_bpjs2" id="no_bpjs2" value=""  />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -153,7 +153,7 @@
                                                 <label for="statusbpjs">Status BPJS</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    name="statusbpjs" id="statusbpjs" value="" readonly />
+                                                    name="statusbpjs" id="statusbpjs" value=""  />
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -161,12 +161,36 @@
                                                 <label for="tunggakan">Tunggakan</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm"
-                                                    name="tunggakan" id="tunggakan" value=""  readonly/>
+                                                    name="tunggakan" id="tunggakan" value=""  />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="faskes">Faskes</label>
+                                                <input type="text"
+                                                    class="form-control form-control-sm"
+                                                    name="faskes" id="faskes" value=""  />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="namajenispeserta_bpjs">Jenis peserta</label>
+                                                <input type="text"
+                                                    class="form-control form-control-sm"
+                                                    id="namajenispeserta_bpjs" name="namajenispeserta_bpjs" value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="namajeniskelas_bpjs">Kelas peserta</label>
+                                                <input type="text"
+                                                    class="form-control form-control-sm"
+                                                    id="namajeniskelas_bpjs" name="namajeniskelas_bpjs" value="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="alamat2">Alamat</label>
                                                 <input type="text"
@@ -174,7 +198,7 @@
                                                     id="alamat2" name="alamat2" value="" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                          
                                     <div class="row">                                   
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -198,6 +222,7 @@
                     </div>
 
                     <div class="card-footer">
+                        <button type="button" class="btn btn-app bg-primary" name="cek-status-bpjs" id="cek-status-bpjs"><i class="fa fa-check"></i> Cek Status BPJS</button>
                         <button type="submit" class="btn btn-app bg-success"><i class="fa fa-user-nurse"></i> Daftar</button>
                         <button type="reset" class="btn btn-app bg-warning" name="ulang"><i class="fa fa-sync"></i> Ulang</button>
                         <button type="button" class="btn btn-app bg-blue" name="print" data-toggle="modal" data-target="#cetak-retribusi"><i class="fa fa-print"></i> Print</button>
@@ -205,7 +230,7 @@
                     </div>
                 </form>
             </div>
-            <div class="card-footer">
+            <div class="card-footer">                
                 Catatan : form pendaftaran kunjungan pasien, jika data pasien baru silahkan klik tombol, pasien baru
             </div>
 

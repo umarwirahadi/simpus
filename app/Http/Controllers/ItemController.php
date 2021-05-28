@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use Illuminate\Support\Facades\DB;
+use KustomHelper;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -149,6 +146,68 @@ class ItemController extends Controller
         }else{
             return redirect()->route('item.index')->with('status', 'data item gagal dihapus');
         }
+    }
+    
+    public function getdatapcare(Request $request)
+    {                                             
+    if($request->ajax()){
+        $temp_result=[];
+        $tampung=KustomHelper::callAPI('GET','https://dvlp.bpjs-kesehatan.go.id:9081/pcare-rest-v3.0/statuspulang/rawatInap/true');
+        if($tampung['metaData']['code']==200){            
+            $listdata=$tampung['response']['list'];
+            foreach ($listdata as $key) {
+                if(DB::table('items')->where('kode', $key['kdStatusPulang'])
+                                    ->where('item',$key['nmStatusPulang'])
+                                    ->where('kategori','status-pulang')
+                                    ->doesntExist()){
+                                        DB::table('items')->insert(['kode'=>$key['kdStatusPulang'],'item'=>$key['nmStatusPulang'],'kategori'=>'status-pulang','status'=>'1','created_at'=>date('y-m-d h:m:s')]);                                    
+                                    }                
+            }                        
+            // return response()->json(['status'=>1,'message'=>'data berhasil diambil dari P-Care','data'=>null],200); 
+            $temp_result[]=['status_pulang'=>1];
+        }else{
+            return response()->json(['status'=>0,'message'=>'data gagal diambil dari P-care','data'=>null],200);                
+        } 
+        
+        $tampung=KustomHelper::callAPI('GET','https://dvlp.bpjs-kesehatan.go.id:9081/pcare-rest-v3.0/spesialis');
+        if($tampung['metaData']['code']==200){            
+            $listdata=$tampung['response']['list'];
+            foreach ($listdata as $key) {
+                if(DB::table('items')->where('kode', $key['kdSpesialis'])
+                                    ->where('item',$key['nmSpesialis'])
+                                    ->where('kategori','spesialis')
+                                    ->doesntExist()){
+                                        DB::table('items')->insert(['kode'=>$key['kdSpesialis'],'item'=>$key['nmSpesialis'],'kategori'=>'spesialis','status'=>'1','created_at'=>date('y-m-d h:m:s')]);
+                                    }                
+            }                        
+            // return response()->json(['status'=>1,'message'=>'data berhasil diambil dari P-Care','data'=>null],200); 
+            $temp_result[]=['spesialis'=>1];
+        }else{
+            return response()->json(['status'=>0,'message'=>'data gagal diambil dari P-care','data'=>null],200);                
+        } 
+        
+        $tampung=KustomHelper::callAPI('GET','https://dvlp.bpjs-kesehatan.go.id:9081/pcare-rest-v3.0/kesadaran');
+        if($tampung['metaData']['code']==200){            
+            $listdata=$tampung['response']['list'];
+            foreach ($listdata as $key) {
+                if(DB::table('items')->where('kode', $key['kdSadar'])
+                                    ->where('item',$key['nmSadar'])
+                                    ->where('kategori','kesadaran')
+                                    ->doesntExist()){
+                                        DB::table('items')->insert(['kode'=>$key['kdSadar'],'item'=>$key['nmSadar'],'kategori'=>'kesadaran','status'=>'1','created_at'=>date('y-m-d h:m:s')]);
+                                    }                
+            }                        
+            // return response()->json(['status'=>1,'message'=>'data berhasil diambil dari P-Care','data'=>null],200); 
+            $temp_result[]=['kesadaran'=>1];
+        }else{
+            return response()->json(['status'=>0,'message'=>'data gagal diambil dari P-care','data'=>null],200);                
+        } 
+        
+        return response()->json(['status'=>1,'message'=>'data berhasil diambil dari P-care','data'=>$temp_result],200);                
+        
+    }else{
+        redirect('/item');
+    }
     }
 
  

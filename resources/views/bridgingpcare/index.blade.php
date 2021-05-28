@@ -6,6 +6,7 @@
   <div class="card card-outline card-danger" >
       <div class="card-header">
           <h3 class="card-title">
+              <a href="/" class="btn btn-app bg-primary" ><i class="fas fa-home"></i> Home</a>
               <a href="{{route('settingpcare.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
               <a href="/listpcare" class="btn btn-app bg-red"><i class="fas fa-plus"></i> End point</a>
           </h3>
@@ -46,10 +47,10 @@
                                 <td>{{$item->aplicationcode_pcare}}</td>
                                 <td>{{$item->description}}</td>
                                 <td>{{$item->status==1?'Aktif':'Tidak aktif'}}</td>
-                                <td>                                    
+                                <td>
                                     <div class="btn-group">
                                         <a href="{{route('settingpcare.edit',[$item->id])}}" class="btn btn-success btn-sm"><i class="fas fa-pen"
-                                            title="edit item"></i></a>  
+                                            title="edit item"></i></a>
                                         <a href="{{route('settingpcare.show',[$item->id])}}" class="btn btn-primary btn-sm detail" id="{{$item->id}}">
                                             <i class="fas fa-search"
                                             title="detail data"></i></a>
@@ -59,9 +60,9 @@
                                       </div>
                                 </td>
                             </tr>
-                            @endforeach                            
+                            @endforeach
                         </tbody>
-              
+
                       </table>
           </div>
       </div>

@@ -5,9 +5,11 @@
 
   <div class="card card-outline card-danger" >
       <div class="card-header">
-          <h3 class="card-title">
-              <a href="{{route('wilayah.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a>
-          </h3>
+        <h3 class="card-title">
+            <a href="/" class="btn btn-app bg-primary" ><i class="fas fa-home"></i> Home</a>
+            <a href="{{route('wilayah.create')}}" class="btn btn-app  bg-success"><i class="far fa-save"></i> Tambah</a>
+            <a href="exportwilayah" class="btn btn-app btn-sm bg-warning" ><i class="fa fa-file-excel"></i> Export</a>
+        </h3>
           <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                   <i class="fas fa-minus"></i>
@@ -28,12 +30,11 @@
                           <th>jenis</th>
                           <th>Kota/kab</th>
                           <th>Provinsi</th>
-                          <th>POS</th>                          
-                          <th>Opsi</th>                          
-                          <th>Opsi</th>                          
+                          <th>POS</th>
+                          <th>Aksi</th>
                         </tr>
                         </thead>
-              
+
                       </table>
           </div>
       </div>

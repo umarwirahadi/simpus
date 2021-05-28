@@ -9,16 +9,15 @@ const token = $("meta[name='csrf-token']").attr("content");
     "ordering": true,
     "info": true,
     "autoWidth": false,
-    "responsive": true  
+    "responsive": true
   });
-  
+
   $("#form-poli-update").on("submit",function(e){
     e.preventDefault();
     var url=$(this).attr('data-url');
     var dataPoli=$(this).serialize();
     $.ajax({
       url:url,
-      // method:'POST',
       type:'PUT',
       data:dataPoli,
       dataType:'json',
@@ -39,6 +38,22 @@ const token = $("meta[name='csrf-token']").attr("content");
             icon:'error'
           })
         }
+      },
+      error: function (a) {
+      console.log(a);
+        if(a.status==422){
+          $.each(a.responseJSON.data, function (i, v) {
+            PNotify.error({
+              title: 'error',
+              text: v,
+            })
+          })
+        }else{
+          PNotify.error({
+            title: 'error',
+            text: 'proses simpan data error kode error : '+a.status,
+          })
+        }
       }
     })
   })
@@ -46,7 +61,7 @@ const token = $("meta[name='csrf-token']").attr("content");
   $(".delete-data").on("click",function(){
     var dataID=$(this).attr('id');
     const token= $("meta[name='csrf-token']").attr("content");
-  
+
     Swal.fire({
       title: 'Yakin data akan dihapus ?',
       text: "pastikan anda benar ingin menghapus data ini",
@@ -90,7 +105,7 @@ const token = $("meta[name='csrf-token']").attr("content");
       }
     })
   })
-  
+
   $("#get-poli").on("click",function(){
     $.ajax({
     url:datasite+'/get-poli-pcare',
@@ -111,7 +126,7 @@ const token = $("meta[name='csrf-token']").attr("content");
       })
       .then((result1) => {
         if (result1.isConfirmed) {
-        const {...data}=result.response;        
+        const {...data}=result.response;
         console.log(data);
         $("#nama_lengkap").val(data.nama)
         $("#hp").val(data.noHP)
@@ -122,10 +137,10 @@ const token = $("meta[name='csrf-token']").attr("content");
         $("#tanggal_lahir").val(tgllahir);
         $("#tglMulaiAktif").val(data.tglMulaiAktif);
         $("#tglAkhirBerlaku").val(data.tglAkhirBerlaku);
-        $("#kdProvider").val(data.kdProviderPst.kdProvider);        
-        $("#nmProvider").val(data.kdProviderPst.nmProvider);        
-        $("#kdProviderGigi").val(data.kdProviderGigi.kdProvider);        
-        $("#nmProviderGigi").val(data.kdProviderGigi.nmProvider);        
+        $("#kdProvider").val(data.kdProviderPst.kdProvider);
+        $("#nmProvider").val(data.kdProviderPst.nmProvider);
+        $("#kdProviderGigi").val(data.kdProviderGigi.kdProvider);
+        $("#nmProviderGigi").val(data.kdProviderGigi.nmProvider);
         $("#kdKelas").val(data.jnsKelas.kode);
         $("#namaKelas").val(data.jnsKelas.nama);
         $("#kodeJenisPeserta").val(data.jnsPeserta.kode);
@@ -143,6 +158,6 @@ const token = $("meta[name='csrf-token']").attr("content");
     }
     })
 })
-  
+
 
 })

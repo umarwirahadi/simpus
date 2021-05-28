@@ -9,14 +9,14 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{asset('vendor/dist/css/adminlte.min.css')}}">
-  
+
   {{-- jquery-ui --}}
     <link rel="stylesheet" href="{{asset('vendor/plugins/jquery-ui/jquery-ui.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/plugins/jquery-ui/jquery-ui.theme.min.css')}}">
 
   {{-- pNotify --}}
   <link rel="stylesheet" href="{{asset('vendor/plugins/pnotify2/dist/PNotifyBrightTheme.css')}}">
-  
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{asset('vendor/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
@@ -30,21 +30,19 @@
   <link rel="stylesheet" href="{{asset('vendor/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('vendor/plugins/toastr/toastr.min.css')}}">
   <link rel="stylesheet" href="{{asset('vendor/dist/css/custom.css')}}">
-  
+
   @if ($iscss??'')
   <link rel="stylesheet" href="{{asset('vendor/dist/css/custom/'.$iscss)}}">
   @endif
 
 {{-- @if($printJS??false)
-  <link rel="stylesheet" href="{{asset('assets/plugins/print/print.min.css')}}">  
+  <link rel="stylesheet" href="{{asset('assets/plugins/print/print.min.css')}}">
 @endif --}}
 
-  
+
 </head>
 <body class="hold-transition sidebar-collapse layout-top-nav" data-site="{{url('/')}}">
-  {{-- <div style="">
-    <img src="{{asset('img/loading.gif')}}" alt="loading" title="Simpus Kota Cimahi" >
-    </div> --}}
+
     <div class="preloader hidden" id="main-load">
       <div class="loading">
         <img src="{{asset('img/Square_snake.gif')}}" width="100">
@@ -56,7 +54,7 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-      <a href="../../index3.html" class="navbar-brand">
+      <a href="/" class="navbar-brand">
         <img src="{{asset('uploads/images/Kota-Cimahi.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">SIMPUS</span>
       </a>
@@ -74,7 +72,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <img src="{{asset('uploads\images\avatar5.png')}}" alt="image" class="brand-image img-circle elevation-3">
-            {{Auth::user()->name}}
+            {{Auth::user()->name??'user error'}}
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <a href="#" class="dropdown-item">
@@ -129,7 +127,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/">{{$menu??'Home'}}</a></li>
+              <li class="breadcrumb-item"><a href="/">{{$menu??''}}</a></li>
               @if($submenu??'')
                 <li class="breadcrumb-item"><a href="javascript:void(0)">{{$submenu??''}}</a></li>
               @endif
@@ -141,12 +139,12 @@
             </ol>
           </div>
           <div class="col-sm-6">
-            
-            <div class="color-palette-set">              
+
+            <div class="color-palette-set">
               <div class="bg-indigo disabled color-palette p-1" id="jam">00:00:00</div>
             </div>
             <!-- /.info-box -->
-            
+
               {{-- @if(session('status'))
               <div class="alert alert-info alert-dismissible fade show">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -174,7 +172,7 @@
 
 
 
-  
+
 
 
   <footer class="main-footer">

@@ -99,6 +99,38 @@ $(document).ready(function () {
           )
         }
       })
+    });
+    
+    $("#get-item-data-pcare").on("click",function(){
+      $.ajax({
+        url:datasite+'/getallitempcare',  
+        type:'GET',
+        dataType:'json',
+        beforeSend:function(){
+          $("#main-load").removeClass('hidden');    
+        },
+        success:function(result){
+          /*place data here*/
+          console.log(result);            
+          if(result.status==1){               
+            Swal.fire({
+              title: 'sukses',
+              text: result.message,
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            }) 
+        }else{
+          Swal.fire({
+            title: 'error',
+            text: result.message,
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          }); 
+        }   
+        },complete:function(){
+          $('#main-load').addClass('hidden');
+        }
+        })
     })
   })
   
