@@ -88,7 +88,7 @@
     </div>
     <!-- /.card-body -->
     <div class="card-footer">
-        form pemeriksaan pasien {{Cookie::get('id_poli')}}
+        {{-- form pemeriksaan pasien {{Cookie::get('id_dokter')}} --}}
         {{-- {{$dataItem}} --}}
     </div>
     <!-- /.card-footer-->

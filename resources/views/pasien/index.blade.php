@@ -7,12 +7,12 @@
       <div class="card-header">
         <h3 class="card-title">
             <a href="{{route('pasien.create')}}" class="btn btn-app bg-blue"><i class="fas fa-save"></i> Tambah</a>
-            <a href="{{route('pasien.create')}}" class="btn btn-app bg-green"><i class="fas fa-file-excel"></i> Export</a>
+            <a href="{{route('pasien.export')}}" class="btn btn-app bg-green"><i class="fas fa-file-excel"></i> Export</a>
         </h3>
-        
+
           {{-- <h3 class="card-title">
               <a href="{{route('pasien.create')}}" class="btn btn-block btn-info btn-xs"><i class="far fa-save"></i> Tambah</a>
-              
+
           </h3> --}}
           <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -37,8 +37,8 @@
                           <th>Aksi</th>
                         </tr>
                         </thead>
-                        <tbody>                                                 
-                        </tbody>              
+                        <tbody>
+                        </tbody>
                       </table>
           </div>
       </div>
@@ -48,7 +48,7 @@
   </div>
 </div>
 
-{{-- load modal --}}
+@include('pasien.barcode')
 
 @endsection
 

@@ -7,7 +7,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <div class="row bg-gray" >                        
+                <div class="row bg-gray" >
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="col-form-label" for="cari_pasien">Pencarian pasien</label>
@@ -17,8 +17,8 @@
                                   <button type="button" class="btn btn-info btn-flat btn-sm" id="find-bpjs" data-toggle="modal" data-target="#addnewpasien"><i class="fa fa-user-plus"></i> pasien baru</button>
                                 </span>
                               </div>
-                        </div>                 
-                    </div> 
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                         <form  action="{{route('cari.pasienbpjs')}}" method="POST" id="form-pencarian-bpjs" >
@@ -31,12 +31,12 @@
                                 </span>
                               </div>
                         </form>
-                        </div>                 
-                    </div> 
+                        </div>
+                    </div>
                 </div>
                 <form action="{{ route('pendaftaran.store') }}" method="POST" id="form-pendaftaran-pasien">
-                    @csrf                  
-                    <div class="row">                        
+                    @csrf
+                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label class="col-form-label" for="kode_poli">Poli</label>
@@ -53,7 +53,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">                      
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="col-form-label" for="kunjsakit">Jenis kunjungan</label>
                                 <select class="form-control form-control-sm" name="kunjsakit" id="kunjsakit">
@@ -69,11 +69,11 @@
                                 </select>
                             </div>
                         </div>
-                    </div>                                   
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <!-- DIRECT CHAT SUCCESS -->
-                            <div class="card card-success card-outline direct-chat direct-chat-success shadow-sm">                               
+                            <div class="card card-success card-outline direct-chat direct-chat-success shadow-sm">
                                 <div class="card-body m-2" style="display: block;">
 
                                     <div class="row">
@@ -94,7 +94,7 @@
                                                 <input type="hidden" name="usia_hari" id="usia_hari" value="">
                                                 <input type="hidden" name="kdprovider" id="kdprovider" value="">
                                                 <input type="hidden" name="nmprovider" id="nmprovider" value="">
-                                                <input type="hidden" name="cara_daftar" id="cara_daftar" value="LANGSUNG">                                                
+                                                <input type="hidden" name="cara_daftar" id="cara_daftar" value="LANGSUNG">
                                                 <input type="text" class="form-control form-control-sm" name="no_rm" id="no_rm" value=""  />
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">                                   
+                                    <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="usia">Usia sekarang</label>
@@ -131,7 +131,7 @@
                                                     class="form-control form-control-sm"
                                                     id="usia" name="usia" value=""  />
                                             </div>
-                                        </div>                                      
+                                        </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label for="hp2">No. HP</label>
@@ -198,18 +198,18 @@
                                                     id="alamat2" name="alamat2" value="" />
                                             </div>
                                         </div>
-                                    </div>                          
-                                    <div class="row">                                   
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="col-form-label" for="keluhan">Keluhan</label>
+                                                <label class="col-form-label" for="keluhan">Keluhan awal</label>
                                                 <textarea name="keluhan" id="keluhan" cols="30" rows="2"
                                                     class="form-control form-control-sm"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="col-form-label" for="deskripsi">Keterangan</label>
+                                                <label class="col-form-label" for="deskripsi">Keterangan/Keperluan</label>
                                                 <textarea name="deskripsi" id="deskripsi" cols="30" rows="2"
                                                     class="form-control form-control-sm"></textarea>
                                             </div>
@@ -230,7 +230,7 @@
                     </div>
                 </form>
             </div>
-            <div class="card-footer">                
+            <div class="card-footer">
                 Catatan : form pendaftaran kunjungan pasien, jika data pasien baru silahkan klik tombol, pasien baru
             </div>
 

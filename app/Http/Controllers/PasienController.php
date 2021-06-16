@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use DataTables;
+use DNS1D;
 use KustomHelper;
-
+use PDF;
 
 class PasienController extends Controller
 {
@@ -29,6 +30,7 @@ class PasienController extends Controller
             'judul'=>'Data pasien',
             'isDataTable'=>true,
             'isJS'=>'pasien.js',
+            'printJS'=>true,
             'ismodal'=>'pasien.show',
             'dataItem'=>null
         ];
@@ -200,7 +202,6 @@ class PasienController extends Controller
             'isJS'=>'pasien.js',
             'pasien'=>$pasien
         ];
-        // dd($data);
         return view('pasien.show',$data);
     }
 
@@ -300,25 +301,91 @@ class PasienController extends Controller
         $pasien=DB::table('pasiens')->select('id','nik','no_rm','nama_lengkap','alamat','hp')->orderBy('id');
         return Datatables::of($pasien)
                         ->addIndexColumn()
-                        ->addColumn('aksi', function($pasien){
-                            $btn='<div class="btn-group btn-sm">
-                            <a href="pasien/'.$pasien->id.'" class="btn btn-default">View</a>
-                            <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
-                              <span class="sr-only">Toggle Dropdown</span>
+                        ->addColumn('aksi', function($data){
+                            $btn='<div class="btn-group">
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="dropdown" aria-expanded="false">
+                              <i class="fa fa-arrow-circle-down"></i>
                             </button>
-                            <div class="dropdown-menu" role="menu" style="">
-                              <a class="dropdown-item" href="#">Edit</a>
-                              <a class="dropdown-item" href="#">Print KIB</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Delete</a>
+                            <div class="dropdown-menu bg-gray" role="menu" style="">
+                              <a class="dropdown-item show-obat" href="pasien/'.$data->id.'" title="show obat"><i class="fa fa-user"></i> View</a>
+                              <a class="dropdown-item print-barcode-pasien" href="javascript:void(0)" data-id="'.$data->id.'" title="cetak barcode"><i class="fa fa-print"></i> Cetak barcode</a>
+                              <a class="dropdown-item cetak-kib" href="javascript:void(0)" data-id="'.$data->id.'" title="cetak KIB"  ><i class="fa fa-id-card"></i> Cetak KIB</a>
+                              <a class="dropdown-item delete-obat"  href="javascript:void(0)" data-id="'.$data->id.'"><i class="fa fa-times-circle"></i> Delete</a>
                             </div>
                           </div>';
-
                             return $btn;
                         })
                         ->rawColumns(['aksi'])
                         ->toJson();
     }
+
+    public function export()
+    {
+        $logs = DB::table('vpasiens')->select('id','nik','no_rm','no_rm_lama','nama_lengkap','jenis_kelamin','tanggal_lahir','tahun','bulan','hari','gol_darah','hp','telp','alamat','rt','rw','kelurahan','kecamatan','kab_kota','status_pasien')->orderBy('id')->cursor();
+        $filename = "data_pasien.csv";
+        return response()->streamDownload(function() use ($logs) {
+            $csv = fopen("php://output", "w+");
+
+            fputcsv($csv, ['no','id','nik','no_rm','no_rm_lama','nama_lengkap','jenis_kelamin','tanggal_lahir','tahun','bulan','hari','gol_darah','hp','telp','alamat','rt','rw','kelurahan','kecamatan','kab_kota','status_pasien']);
+            $no=1;
+            foreach ($logs as $log) {
+                fputcsv($csv, [
+                    $no,
+                    $log->id,
+                    $log->nik,
+                    $log->no_rm,
+                    $log->no_rm_lama,
+                    $log->nama_lengkap,
+                    $log->jenis_kelamin,
+                    $log->tanggal_lahir,
+                    $log->tahun,
+                    $log->bulan,
+                    $log->hari,
+                    $log->gol_darah,
+                    $log->hp,
+                    $log->telp,
+                    $log->alamat,
+                    $log->rt,
+                    $log->rw,
+                    $log->kelurahan,
+                    $log->kecamatan,
+                    $log->kab_kota,
+                    $log->status_pasien
+                ]);
+                $no++;
+            }
+
+            fclose($csv);
+        }, $filename, ["Content-type" => "text/csv"]);
+    }
+
+    public function barcode(Request $request)
+    {
+        if($request->ajax()){
+            $pasien=DB::table('pasienfulls')->where('id',$request->id_pasien)->first();
+            $barcode='<img src="data:image/png;base64,'.DNS1D::getBarcodePNG($pasien->no_rm,"C128",3,100,array(1,1,1),true).'" alt="barcode" style="width:100%"/>';
+            return response()->json(['status'=>1,'message'=>'data pasien','data'=>$pasien,'databarcode'=>$barcode],200);
+        }else{
+            return redirect('pasien.index');
+        }
+    }
+
+    public function printkib(Request $request)
+    {
+        if($request->ajax()){
+            $tampungPKM=KustomHelper::setProfilePKM();
+            $pasien=DB::table('pasienfulls')->where('id',$request->id_pasien)->first();
+            $barcode='<img src="data:image/png;base64,'.DNS1D::getBarcodePNG($pasien->no_rm,"C128",3,100,array(1,1,1),true).'" alt="barcode" style="width:100%"/>';
+            $logopkm='img/logo_puskesmas.png';
+            $pdf = PDF::loadview('pasien.cetakkib',['dataPasien'=>$pasien,'barcode'=>$barcode,'puskesmas'=>$tampungPKM,'logoo'=>$logopkm])->setPaper('a6', 'landscape');
+        	return $pdf->stream('KIB.pdf',array("Attachment" => false));
+        }else{
+            return redirect()->route('pasien.index');
+        }
+
+    }
+
+
 
 
     public function finddata(Request $request)

@@ -32,7 +32,7 @@
                     <input type="hidden" value="{{$dataItem->no_rm_lama??''}}" name="no_rm_lama" id="no_rm_lama">
                     <input type="hidden" value="{{Cookie::get('id_dokter')}}" name="id_dokter" id="id_dokter">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label" for="sistol">sistole / diastole</label>
                                 <div class="input-group">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="col-form-label" for="tekanan_nadi">Tekanan nadi</label>
                                 <input type="text" class="form-control form-control-sm" placeholder="tekanan nadi" name="tekanan_nadi" id="tekanan_nadi" value="{{$pemeriksaan->tekanan_nadi??''}}" />
@@ -53,13 +53,15 @@
                                 <input type="text" class="form-control form-control-sm" placeholder="respirasi" name="respirasi" id="respirasi" value="{{$pemeriksaan->respirasi??''}}" />
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label class="col-form-label" for="suhu">Suhu</label>
                                 <input type="text" class="form-control form-control-sm" placeholder="respirasi" name="suhu" id="suhu" value="{{$pemeriksaan->suhu??''}}" />
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                           <div class="form-group">
                               <label class="col-form-label" for="berat_badan">BB</label>
                               <div class="input-group">
@@ -67,32 +69,32 @@
                                 </div>
                           </div>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-2">
                         <div class="form-group">
                             <label class="col-form-label" for="tinggi_badan">TB</label>
                             <input type="text" class="form-control form-control-sm" placeholder="cm" name="tinggi_badan" id="tinggi_badan" value="{{$pemeriksaan->tinggi_badan??''}}" />
                         </div>
                     </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="pcare_kdsadar">Kesadaran</label>
+                                <div class="input-group">
+                                    <select class="form-control form-control-sm" name="pcare_kdsadar" id="pcare_kdsadar">
+                                    {!! KustomHelper::getItem('kesadaran') !!}
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label" for="keluhan_utama">Keluhan pasien</label>
+                                <label class="col-form-label" for="keluhan_utama">Keluhan awal</label>
                                 <div class="input-group">
                                   <textarea  class="form-control form-control-sm" name="keluhan_utama" id="keluhan_utama" cols="30" rows="2" placeholder="silahkan isi keluhan utama">{{$dataItem->keluhan??$pemeriksaan->keluhan_utama}}</textarea>
                                   </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                              <label class="col-form-label" for="pemeriksaan_fisik">Pemeriksaan fisik</label>
-                              <div class="input-group">
-                                <textarea  class="form-control form-control-sm" name="pemeriksaan_fisik" id="pemeriksaan_fisik" cols="30" rows="2" placeholder="silahkan isi pemeriksaan fisik">{{$pemeriksaan->pemeriksaan_fisik??''}}</textarea>
-                                </div>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label" for="anamnesa">Anamnesa</label>
@@ -101,22 +103,36 @@
                                   </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label" for="terapi">Terapi</label>
-                                <div class="input-group">
-                                  <textarea  class="form-control form-control-sm" name="terapi" id="terapi" cols="30" rows="2">{{$pemeriksaan->terapi??''}}</textarea>
-                                </div>
-                            </div>
-                        </div>
+
+
                     </div>
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="pemeriksaan_fisik">Pemeriksaan fisik</label>
+                                <div class="input-group">
+                                  <textarea  class="form-control form-control-sm" name="pemeriksaan_fisik" id="pemeriksaan_fisik" cols="30" rows="2" placeholder="silahkan isi pemeriksaan fisik">{{$pemeriksaan->pemeriksaan_fisik??''}}</textarea>
+                                  </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="col-form-label" for="diagnosa">diagnosa</label>
                                 <div class="input-group">
                                   <textarea  class="form-control form-control-sm" name="diagnosa" id="diagnosa" cols="30" rows="2" placeholder="silahkan masukan diganosa pasien">{{$pemeriksaan->diagnosa??''}}</textarea>
                                   </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="terapi">Terapi/Tindakan</label>
+                                <div class="input-group">
+                                  <textarea  class="form-control form-control-sm" name="terapi" id="terapi" cols="30" rows="2">{{$pemeriksaan->terapi??''}}</textarea>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -139,16 +155,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label" for="pcare_kdsadar">Kesadaran</label>
-                                <div class="input-group">
-                                    <select class="form-control form-control-sm" name="pcare_kdsadar" id="pcare_kdsadar">
-                                    {!! KustomHelper::getItem('kesadaran') !!}
-                                  </select>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <button type="submit" class="btn btn-app bg-success"><i class="fas fa-save"></i> Simpan</button>
                     <button type="button" class="btn btn-app bg-danger" onclick="window.location.href='{{'/pemeriksaan'}}'"><i class="fas fa-arrow-left"></i> Kembali</button>

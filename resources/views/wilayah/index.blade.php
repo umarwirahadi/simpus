@@ -8,7 +8,7 @@
         <h3 class="card-title">
             <a href="/" class="btn btn-app bg-primary" ><i class="fas fa-home"></i> Home</a>
             <a href="{{route('wilayah.create')}}" class="btn btn-app  bg-success"><i class="far fa-save"></i> Tambah</a>
-            <a href="exportwilayah" class="btn btn-app btn-sm bg-warning" ><i class="fa fa-file-excel"></i> Export</a>
+            <a href="exportwilayah" class="btn btn-app btn-sm bg-green" ><i class="fa fa-file-excel"></i> Export</a>
         </h3>
           <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -27,7 +27,7 @@
                           <th>No</th>
                           <th>Kelurahan</th>
                           <th>Kecamatan</th>
-                          <th>jenis</th>
+                          <th>Jenis</th>
                           <th>Kota/kab</th>
                           <th>Provinsi</th>
                           <th>POS</th>

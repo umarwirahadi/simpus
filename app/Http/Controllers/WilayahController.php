@@ -155,9 +155,9 @@ class WilayahController extends Controller
     {
         if($wilayah){
             $wilayah->delete();
-            return response()->json(['status'=>1,'message'=>'data poli berhasil dihapus','data'=>null],200);
+            return response()->json(['status'=>1,'message'=>'data wilayah berhasil dihapus','data'=>null],200);
         }else{
-            return redirect()->route('wilayah.index')->with('status', 'data Poli gagal dihapus');
+            return redirect()->route('wilayah.index')->with('status', 'data wilayah gagal dihapus');
         }
     }
 
@@ -168,17 +168,15 @@ class WilayahController extends Controller
         return Datatables::of($wilayah)
                         ->addIndexColumn()
                         ->addColumn('aksi', function($data){
-
-
                             $btn='<div class="btn-group">
-                            <a href="wilayah/'.$data->id.'/edit" class="btn btn-success btn-sm"><i class="fas fa-pen"
-                                title="edit item"></i></a>
-                            <a href="wilayah/'.$data->id.'" class="btn btn-primary btn-sm detail" id="{{$item->id}}">
-                                <i class="fas fa-search"
-                                title="detail data"></i></a>
-                            <button class="btn btn-danger btn-sm delete-date" data-id="'.$data->id.'">
-                                <i class="fas fa-trash-alt"
-                                title="Hapus"></i></button>
+                            <button type="button" class="btn btn-success btn-sm" data-toggle="dropdown" aria-expanded="false">
+                              <i class="fa fa-arrow-circle-down"></i>
+                            </button>
+                            <div class="dropdown-menu bg-gray" role="menu" style="">
+                              <a class="dropdown-item show-alamat" href="wilayah/'.$data->id.'"><i class="fa fa-eye"></i> View</a>
+                              <a class="dropdown-item edit-alamat" href="wilayah/'.$data->id.'/edit" data-id="'.$data->id.'" ><i class="fa fa-pencil-alt"></i> Edit</a>
+                              <a class="dropdown-item delete-alamat"  href="javascript:void(0)" data-id="'.$data->id.'" ><i class="fa fa-times-circle"></i> Delete</a>
+                            </div>
                           </div>';
                             return $btn;
                         })
@@ -208,7 +206,6 @@ class WilayahController extends Controller
 
     public function export()
     {
-        // $logs = Wilayah::orderByRaw('FIELD(kotakab,"CIMAHI")','ASC')->get();
         $logs = Wilayah::orderBy('id')->cursor();
         $filename = "data-wilayah.csv";
 

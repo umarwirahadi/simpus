@@ -273,6 +273,109 @@ $("#find-bpjs").on("click",function(){
     }
     }
     })
-})
+});
+
+
+$("#data-pasien").on("click",".print-barcode-pasien",function(){
+  var id_pasien=$(this).attr('data-id');
+  $.ajax({
+    url:datasite+'/barcode-pasien',
+    type:'GET',
+    data:{id_pasien:id_pasien,_token: token},
+    dataType:'json',
+    beforeSend:function(){
+      $("#main-load").removeClass('hidden');
+    },
+    success:function(data){
+    console.log(data.data);
+      $("#label_no_rm").html(data.data.no_rm);
+      $("#label_nama_lengkap").html(data.data.nama_lengkap);
+      $("#label_nik").html(data.data.nik+'/'+data.data.no_kk);
+      $("#label_bpjs").html(data.data.no_bpjs);
+      $("#label_id_pasien").val(data.data.id);
+      $("#barcode-id").empty();
+      $("#barcode-id").append(data.databarcode);
+      $("#form-show-barcode").modal('show');
+
+    },error:function(){
+      Swal.fire({title: 'Error',
+        text: "Proses cetak barcode pasien gagal",
+        icon: 'error'});
+    },complete:function(){
+      $('#main-load').addClass('hidden');
+    }
+    });
+});
+
+$("#print-label-data").on("click",function(){
+const id_pas=$("#label_id_pasien").val();
+
+var printContent = document.getElementById("printareaID");
+    var WinPrint = window.open('', '', 'width=900,height=300');
+    WinPrint.document.write(printContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+
+// $.ajax({
+//   url:datasite+'/barcode-pasien',
+//   type:'GET',
+//   data:{id_pasien:id_pas,_token: token},
+//   dataType:'json',
+//   beforeSend:function(){
+//     $("#main-load").removeClass('hidden');
+//   },
+//   success:function(data){
+//   const {data_pasien}=data.data;
+//   console.log(data_pasien);
+//   printJS({
+//     printable:[data.databarcode],
+//     // properties: ['agama','aktif_bpjs','alamat','bulan','email'],
+//     type: 'image'
+//   })
+
+//   },error:function(){
+//     Swal.fire({title: 'Error',
+//       text: "Proses cetak barcode pasien gagal",
+//       icon: 'error'});
+//   },complete:function(){
+//     $('#main-load').addClass('hidden');
+//   }
+//   });
+  // printJS({
+  //   printable:
+  // })
+});
+
+$("#data-pasien").on("click",".cetak-kib",function(){
+  var id_pasien=$(this).attr('data-id');
+
+  $.ajax({
+    url:datasite+'/cetak-kib-pasien',
+    type:'GET',
+    data:{id_pasien:id_pasien,_token: token},
+    dataType:'json',
+    beforeSend:function(){
+      $("#main-load").removeClass('hidden');
+    },
+    success:function(data){
+    console.log(data);
+    $("#barcode-id").empty();
+    $("#barcode-id").append(data.databarcode);
+
+
+    },
+    // error:function(){
+    //   Swal.fire({title: 'Error',
+    //     text: "Proses cetak KIB gagal",
+    //     icon: 'error'});
+
+    // },
+    complete:function(){
+      $('#main-load').addClass('hidden');
+    }
+    });
+  });
 
 })

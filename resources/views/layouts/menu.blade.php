@@ -7,13 +7,15 @@
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Master</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                <li><a href="/puskesmas" class="dropdown-item">- profile Puskesmas</a></li>
-                <li><a href="/item" class="dropdown-item">- item </a></li>
+                <li><a href="/puskesmas" class="dropdown-item">- Profile Puskesmas</a></li>
+                <li><a href="/item" class="dropdown-item">- Item </a></li>
                 <li><a href="/icd" class="dropdown-item">- ICD-10 </a></li>
-                {{-- <li class="dropdown-divider"></li> --}}
-                <li><a href="/wilayah" class="dropdown-item">- alamat </a></li>
-                <li><a href="/settingpcare" class="dropdown-item">- bridging BPJS </a></li>
-                <li><a href="/settingdisduk" class="dropdown-item">- bridging DISDUK </a></li>
+                <li><a href="/wilayah" class="dropdown-item">- Alamat </a></li>
+                <li class="dropdown-divider"></li>
+                <li><a href="/settingpcare" class="dropdown-item">- Bridging BPJS </a></li>
+                <li><a href="/settingdisduk" class="dropdown-item">- Bridging DISDUK </a></li>
+                <li class="dropdown-divider"></li>
+                <li><a href="/user" class="dropdown-item">- Pengguna Aplikasi </a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -88,15 +90,15 @@
                 <li class="dropdown-divider"></li>
 
               <!-- Level two dropdown-->
-              {{-- <li class="dropdown-submenu dropdown-hover">
-                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pendataan</a>
+              <li class="dropdown-submenu dropdown-hover">
+                <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Rekam medis</a>
                 <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li><a href="#" class="dropdown-item">PISPK</a></li>
-                  <li><a href="#" class="dropdown-item">PHBS</a></li>
+                  <li><a href="{{route('monitoring.berkasrm')}}" class="dropdown-item">Monitoring berkas</a></li>
+                  <li><a href="#" class="dropdown-item">Kelengkapan berkas</a></li>
                   <li><a href="#" class="dropdown-item">KIA</a></li>
                   <li><a href="#" class="dropdown-item">Penyakit</a></li>
                 </ul>
-              </li> --}}
+              </li>
               <!-- End Level two -->
             </ul>
           </li>

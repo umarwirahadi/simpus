@@ -14,11 +14,11 @@ $("#data-farmasi").DataTable({
     ajax: datasite + "/fetchfarmasi",
     columns: [
       { data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false, searchable: false },
-      { data: 'noantrian', name: 'noantrian' },
+      { data: 'noantrian2', name: 'noantrian2' },
       { data: 'no_rm', name: 'no_rm' },
       { data: 'nama_lengkap', name: 'nama_lengkap' },
       { data: 'alamat', name: 'alamat' },
-      { data: 'poli', name: 'poli' },
+      { data: 'nama_poli', name: 'nama_poli' },
       { data: 'status_pelayanan_farmasi', name: 'status_pelayanan_farmasi' },
       { data: 'aksi', name: 'aksi'}
     ],

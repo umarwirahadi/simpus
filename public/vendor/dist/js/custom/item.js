@@ -1,15 +1,9 @@
 $(document).ready(function () {
   var datasite=$('body').attr('data-site');
 
-    $('#data-item').DataTable({
-      "paging": true,
-      "lengthChange": true,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
+    const dataItem=$('#data-item').DataTable();
+    dataItem.destroy();
+
 
 
     $('#status').select2({
@@ -56,7 +50,7 @@ $(document).ready(function () {
     $("#data-item").on("click",".delete-data",function(){
       var dataID=$(this).attr('id');
       const token= $("meta[name='csrf-token']").attr("content");
-    
+
       Swal.fire({
         title: 'Yakin data akan dihapus ?',
         text: "pastikan anda benar ingin menghapus data ini",
@@ -91,7 +85,7 @@ $(document).ready(function () {
               }
             }
           })
-  
+
           Swal.fire(
             'terhapus',
             'data berhasil dihapus',
@@ -100,37 +94,36 @@ $(document).ready(function () {
         }
       })
     });
-    
+
     $("#get-item-data-pcare").on("click",function(){
       $.ajax({
-        url:datasite+'/getallitempcare',  
+        url:datasite+'/getallitempcare',
         type:'GET',
         dataType:'json',
         beforeSend:function(){
-          $("#main-load").removeClass('hidden');    
+          $("#main-load").removeClass('hidden');
         },
         success:function(result){
           /*place data here*/
-          console.log(result);            
-          if(result.status==1){               
+          console.log(result);
+          if(result.status==1){
             Swal.fire({
               title: 'sukses',
               text: result.message,
               icon: 'success',
               confirmButtonText: 'Ok'
-            }) 
+            })
         }else{
           Swal.fire({
             title: 'error',
             text: result.message,
             icon: 'error',
             confirmButtonText: 'Ok'
-          }); 
-        }   
+          });
+        }
         },complete:function(){
           $('#main-load').addClass('hidden');
         }
         })
     })
   })
-  

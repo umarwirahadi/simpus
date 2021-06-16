@@ -204,7 +204,7 @@ class PemeriksaanController extends Controller
             $id_poli=$request->poli;
             $id_dokter=$request->id_petugas;
             $cookie= cookie('id_poli', $id_poli,86400*30);
-            $cookie= cookie('id_dokter', $id_dokter,86400*30);
+            // $cookie= cookie('id_dokter', $id_dokter,86400*30);
             return response(['status'=>1,'message'=>'data perubahan poli dan dokter berhasil dilakukan'])->cookie($cookie);
         }else{
             return redirect('pemeriksaan');

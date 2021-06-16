@@ -3,18 +3,20 @@
 
 Auth::routes();
 
-
 Route::get('/', 'HomeController@index')->name('halutama');
+
+
 
 
 /*master*/
 
     /*Profile*/
-    Route::resource('puskesmas', 'ProfileController');
+        Route::resource('puskesmas', 'ProfileController')->middleware('role:admin');
 
     /*ICD 10*/
         Route::resource('icd','CodeicdController');
         Route::get('fetchicd10','CodeicdController@fetch');
+        Route::get('exporticd','CodeicdController@export')->name('icd.export');
 
     /*Faskes/provider*/
         Route::resource('faskes','ProviderbpjsController');
@@ -42,6 +44,9 @@ Route::get('/', 'HomeController@index')->name('halutama');
         Route::post('cari_pasien_bpjs','PasienController@specifiedbyidbpjs')->name('cari.pasienbpjs');
         Route::get('cari_pasienbynik','PasienController@finddatanik')->name('cari.pasienbynik');
         Route::post('caribpjs','PasienController@findatabpjs')->name('cari.pasienbpjs');
+        Route::get('barcode-pasien','PasienController@barcode')->name('pasien.barcode');
+        Route::get('cetak-kib-pasien','PasienController@printkib')->name('pasien.printkib');
+        Route::get('export-pasien','PasienController@export')->name('pasien.export');
 
 
     /*data tenaga medis*/
@@ -100,6 +105,11 @@ Route::get('/', 'HomeController@index')->name('halutama');
         Route::get('fetchpemeriksaan','PemeriksaanController@fetchToday');
         Route::post('setcookiespoli','PemeriksaanController@setpoli')->name('set.poli');
 
+    /*rekam medis*/
+        /*monitoring rekam medis*/
+            Route::get('monitoringberkas','MonitoringController@index')->name('monitoring.berkasrm');
+            Route::get('fetchmonitoringrekammedis','MonitoringController@fetch')->name('monitoring.fetchrm');
+            Route::get('cetak-kib','MonitoringController@printkib')->name('monitoring.printpopupkib');
 
 // Route::get('/', 'HomeController@index')->name('home');
 

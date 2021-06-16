@@ -126,4 +126,30 @@ class CodeicdController extends Controller
                         ->rawColumns(['aksi'])
                         ->toJson();
     }
+public function export()
+{
+    $logs = Codeicd::select('id_icd','chapter','section','descriptions')->orderBy('id')->cursor();
+        $filename = "data_ICD_10.csv";
+
+        return response()->streamDownload(function() use ($logs) {
+            $csv = fopen("php://output", "w+");
+
+            fputcsv($csv, ["NO","KODE ICD","CHAPTER", "SECTION", "DESCRIPTION"]);
+            $no=1;
+            foreach ($logs as $log) {
+                fputcsv($csv, [
+                    $no,
+                    $log->id_icd,
+                    $log->chapter,
+                    $log->section,
+                    $log->descriptions
+                ]);
+                $no++;
+            }
+
+            fclose($csv);
+        }, $filename, ["Content-type" => "text/csv"]);
+}
+
+
 }

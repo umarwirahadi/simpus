@@ -9,7 +9,7 @@
                 <button type="button" class="btn btn-app bg-success" data-toggle="modal" data-target="#form-data-obat">
                     <i class="fas fa-save"></i> Tambah
                   </button>
-                <a href="#" class="btn btn-app btn-sm bg-warning" >
+                <a href="{{route('icd.export')}}" class="btn btn-app btn-sm bg-success" >
                     <i class="fa fa-file-excel"></i> Export
                   </a>
             </h3>

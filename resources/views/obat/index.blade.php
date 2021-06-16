@@ -8,10 +8,10 @@
                 <a href="/" class="btn btn-app bg-primary" ><i class="fas fa-home"></i> Home</a>
                 <button type="button" class="btn btn-app bg-success" data-toggle="modal" data-target="#form-data-obat">
                     <i class="fas fa-save"></i> Tambah
-                  </button>  
+                  </button>
                 <a href="#" class="btn btn-app btn-sm bg-warning" >
                     <i class="fa fa-file-excel"></i> Export
-                  </a>  
+                  </a>
             </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -22,7 +22,7 @@
                 </button>
             </div>
         </div>
-        <div class="card-body">        
+        <div class="card-body">
             <div class="table table-responsive">
                         <table id="data-obat" class="table table-bordered table-striped">
                             <thead>
@@ -36,8 +36,8 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>                                                     
-                         
+                            <tbody>
+
                             </tbody>
                         </table>
             </div>
@@ -52,7 +52,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="modalMdTitle">
-                </h4>                
+                </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">

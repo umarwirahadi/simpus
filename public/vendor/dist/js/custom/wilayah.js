@@ -91,7 +91,7 @@ $(document).ready(function(){
         });
       });
 
-  $("#data-wilayah").on("click",".delete-date",function(){
+  $("#data-wilayah").on("click",".delete-alamat",function(){
     const idWilayah=$(this).attr('data-id');
     Swal.fire({
       title: 'Yakin data akan dihapus ?',
